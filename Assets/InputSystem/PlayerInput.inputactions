@@ -1,0 +1,52 @@
+{
+    "name": "PlayerInput",
+    "maps": [
+        {
+            "name": "Player_Controls",
+            "id": "dd659f3b-257d-4d4c-85ae-684645020ec3",
+            "actions": [
+                {
+                    "name": "Mouse",
+                    "type": "Value",
+                    "id": "27eb9ba8-7602-4b49-9599-03e4333c4610",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Gamepad",
+                    "type": "Value",
+                    "id": "bf1a5ebd-ef30-44f0-9ffb-2455aaf8c916",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "e56e2c14-6563-4d68-92b4-308d02c50839",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Gamepad",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1ea664f2-62a3-4e96-b20e-21c55c10eb96",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Mouse",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
