@@ -206,6 +206,7 @@ GameObject:
   m_Component:
   - component: {fileID: 525654733}
   - component: {fileID: 525654734}
+  - component: {fileID: 525654735}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -260,6 +261,18 @@ MonoBehaviour:
   m_DefaultActionMap: Player_Controls
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &525654735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 525654732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d759860e95f2b41838a88aaa442ab633, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &526503764
 GameObject:
   m_ObjectHideFlags: 3
@@ -513,6 +526,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 679444610}
+  - component: {fileID: 679444611}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -534,6 +548,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &679444611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 679444609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7805520501a0949cd95aa17fc42c868a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnPlayerRespawn:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPlayerDeath:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &971501983
 GameObject:
   m_ObjectHideFlags: 0
