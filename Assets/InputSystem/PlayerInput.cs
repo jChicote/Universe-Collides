@@ -43,12 +43,12 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""interactions"": ""Press(behavior=2)""
                 },
                 {
-                    ""name"": ""Shoot"",
+                    ""name"": ""PrimaryFire"",
                     ""type"": ""Button"",
                     ""id"": ""3b360df2-a516-4944-a396-28bda5e19d5b"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press(behavior=2)""
                 },
                 {
                     ""name"": ""Pause"",
@@ -73,6 +73,14 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""SecondaryFire"",
+                    ""type"": ""Button"",
+                    ""id"": ""f7163110-08fc-48fa-b3f6-0485c2b6a92a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=2)""
                 }
             ],
             ""bindings"": [
@@ -182,18 +190,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Shoot"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""3d107c89-b85f-4973-b78a-12915a56c1d9"",
-                    ""path"": ""<Gamepad>/leftShoulder"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Shoot"",
+                    ""action"": ""PrimaryFire"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -284,6 +281,17 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""action"": ""MouseRotation"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e84337cf-71bb-4ca9-9207-512fe089858f"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SecondaryFire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -349,10 +357,11 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         m_Fighter_Controls_StickRotation = m_Fighter_Controls.FindAction("StickRotation", throwIfNotFound: true);
         m_Fighter_Controls_Throttle = m_Fighter_Controls.FindAction("Throttle", throwIfNotFound: true);
         m_Fighter_Controls_Locking = m_Fighter_Controls.FindAction("Locking", throwIfNotFound: true);
-        m_Fighter_Controls_Shoot = m_Fighter_Controls.FindAction("Shoot", throwIfNotFound: true);
+        m_Fighter_Controls_PrimaryFire = m_Fighter_Controls.FindAction("PrimaryFire", throwIfNotFound: true);
         m_Fighter_Controls_Pause = m_Fighter_Controls.FindAction("Pause", throwIfNotFound: true);
         m_Fighter_Controls_Commands = m_Fighter_Controls.FindAction("Commands", throwIfNotFound: true);
         m_Fighter_Controls_MouseRotation = m_Fighter_Controls.FindAction("MouseRotation", throwIfNotFound: true);
+        m_Fighter_Controls_SecondaryFire = m_Fighter_Controls.FindAction("SecondaryFire", throwIfNotFound: true);
         // Turrent_Controls
         m_Turrent_Controls = asset.FindActionMap("Turrent_Controls", throwIfNotFound: true);
         m_Turrent_Controls_Newaction = m_Turrent_Controls.FindAction("New action", throwIfNotFound: true);
@@ -411,10 +420,11 @@ public class @PlayerInput : IInputActionCollection, IDisposable
     private readonly InputAction m_Fighter_Controls_StickRotation;
     private readonly InputAction m_Fighter_Controls_Throttle;
     private readonly InputAction m_Fighter_Controls_Locking;
-    private readonly InputAction m_Fighter_Controls_Shoot;
+    private readonly InputAction m_Fighter_Controls_PrimaryFire;
     private readonly InputAction m_Fighter_Controls_Pause;
     private readonly InputAction m_Fighter_Controls_Commands;
     private readonly InputAction m_Fighter_Controls_MouseRotation;
+    private readonly InputAction m_Fighter_Controls_SecondaryFire;
     public struct Fighter_ControlsActions
     {
         private @PlayerInput m_Wrapper;
@@ -422,10 +432,11 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         public InputAction @StickRotation => m_Wrapper.m_Fighter_Controls_StickRotation;
         public InputAction @Throttle => m_Wrapper.m_Fighter_Controls_Throttle;
         public InputAction @Locking => m_Wrapper.m_Fighter_Controls_Locking;
-        public InputAction @Shoot => m_Wrapper.m_Fighter_Controls_Shoot;
+        public InputAction @PrimaryFire => m_Wrapper.m_Fighter_Controls_PrimaryFire;
         public InputAction @Pause => m_Wrapper.m_Fighter_Controls_Pause;
         public InputAction @Commands => m_Wrapper.m_Fighter_Controls_Commands;
         public InputAction @MouseRotation => m_Wrapper.m_Fighter_Controls_MouseRotation;
+        public InputAction @SecondaryFire => m_Wrapper.m_Fighter_Controls_SecondaryFire;
         public InputActionMap Get() { return m_Wrapper.m_Fighter_Controls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -444,9 +455,9 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @Locking.started -= m_Wrapper.m_Fighter_ControlsActionsCallbackInterface.OnLocking;
                 @Locking.performed -= m_Wrapper.m_Fighter_ControlsActionsCallbackInterface.OnLocking;
                 @Locking.canceled -= m_Wrapper.m_Fighter_ControlsActionsCallbackInterface.OnLocking;
-                @Shoot.started -= m_Wrapper.m_Fighter_ControlsActionsCallbackInterface.OnShoot;
-                @Shoot.performed -= m_Wrapper.m_Fighter_ControlsActionsCallbackInterface.OnShoot;
-                @Shoot.canceled -= m_Wrapper.m_Fighter_ControlsActionsCallbackInterface.OnShoot;
+                @PrimaryFire.started -= m_Wrapper.m_Fighter_ControlsActionsCallbackInterface.OnPrimaryFire;
+                @PrimaryFire.performed -= m_Wrapper.m_Fighter_ControlsActionsCallbackInterface.OnPrimaryFire;
+                @PrimaryFire.canceled -= m_Wrapper.m_Fighter_ControlsActionsCallbackInterface.OnPrimaryFire;
                 @Pause.started -= m_Wrapper.m_Fighter_ControlsActionsCallbackInterface.OnPause;
                 @Pause.performed -= m_Wrapper.m_Fighter_ControlsActionsCallbackInterface.OnPause;
                 @Pause.canceled -= m_Wrapper.m_Fighter_ControlsActionsCallbackInterface.OnPause;
@@ -456,6 +467,9 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @MouseRotation.started -= m_Wrapper.m_Fighter_ControlsActionsCallbackInterface.OnMouseRotation;
                 @MouseRotation.performed -= m_Wrapper.m_Fighter_ControlsActionsCallbackInterface.OnMouseRotation;
                 @MouseRotation.canceled -= m_Wrapper.m_Fighter_ControlsActionsCallbackInterface.OnMouseRotation;
+                @SecondaryFire.started -= m_Wrapper.m_Fighter_ControlsActionsCallbackInterface.OnSecondaryFire;
+                @SecondaryFire.performed -= m_Wrapper.m_Fighter_ControlsActionsCallbackInterface.OnSecondaryFire;
+                @SecondaryFire.canceled -= m_Wrapper.m_Fighter_ControlsActionsCallbackInterface.OnSecondaryFire;
             }
             m_Wrapper.m_Fighter_ControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -469,9 +483,9 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @Locking.started += instance.OnLocking;
                 @Locking.performed += instance.OnLocking;
                 @Locking.canceled += instance.OnLocking;
-                @Shoot.started += instance.OnShoot;
-                @Shoot.performed += instance.OnShoot;
-                @Shoot.canceled += instance.OnShoot;
+                @PrimaryFire.started += instance.OnPrimaryFire;
+                @PrimaryFire.performed += instance.OnPrimaryFire;
+                @PrimaryFire.canceled += instance.OnPrimaryFire;
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
@@ -481,6 +495,9 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @MouseRotation.started += instance.OnMouseRotation;
                 @MouseRotation.performed += instance.OnMouseRotation;
                 @MouseRotation.canceled += instance.OnMouseRotation;
+                @SecondaryFire.started += instance.OnSecondaryFire;
+                @SecondaryFire.performed += instance.OnSecondaryFire;
+                @SecondaryFire.canceled += instance.OnSecondaryFire;
             }
         }
     }
@@ -556,10 +573,11 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         void OnStickRotation(InputAction.CallbackContext context);
         void OnThrottle(InputAction.CallbackContext context);
         void OnLocking(InputAction.CallbackContext context);
-        void OnShoot(InputAction.CallbackContext context);
+        void OnPrimaryFire(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnCommands(InputAction.CallbackContext context);
         void OnMouseRotation(InputAction.CallbackContext context);
+        void OnSecondaryFire(InputAction.CallbackContext context);
     }
     public interface ITurrent_ControlsActions
     {

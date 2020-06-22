@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class XWingWeaponSystem : BaseWeaponSystem
 {
@@ -24,14 +26,11 @@ public class XWingWeaponSystem : BaseWeaponSystem
         base.Init();
     }
 
-    public override void Shoot()
-    {
-        base.Shoot();
-        Debug.Log("is shooting");
+    private void OnPrimaryFire(InputValue value) {
+        Debug.Log("primary fire");
     }
 
-    public override string ToString()
-    {
-        return base.ToString();
+    private void OnSecondaryFire(InputValue value) {
+        Debug.Log("secondary fire");
     }
 }

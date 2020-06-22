@@ -7,26 +7,14 @@ using Cinemachine;
 
 public class XWingState : PlayerState
 {
-    InputType inputType;
-    CinemachineTransposer cameraTransposer;
-    CinemachineComposer cameraComposer;
-    PlayerSettings playerSettings;
-    PlayerController playerController;
     XWingWeaponSystem weaponSystem;
     Rigidbody playerRB;
 
     VesselShipStats shipStats;
 
-    float inputX = 0;
-    float inputY = 0;
-    float yaw = 0;
-    float pitch = 0;
-    float roll = 0;
-
     Vector3 currentRotation = Vector3.zero;
     Vector3 currentVelocity;
     
-    bool isPaused = false;
     bool isLocking = false;
 
     public override void BeginState()
@@ -54,6 +42,10 @@ public class XWingState : PlayerState
     private void Movement() {
         currentVelocity = shipStats.speed * transform.forward * Time.fixedDeltaTime;
         transform.position += currentVelocity;
+    }
+
+    private void OnThrottle(InputValue value) {
+        Debug.Log("On Throttle");
     }
 
     ///TODO: Optimise control scheme to have matching universal outputs that is applied on rotation

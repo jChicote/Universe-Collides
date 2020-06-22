@@ -2,13 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class PlayerState : MonoBehaviour
-{
-    public abstract void BeginState();
-
-    public virtual void EndState() { }
-}
-
 public class PlayerStateManager : MonoBehaviour
 {
     PlayerState currentState;
