@@ -12,6 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498791e5830a54cc9b73b24277db195d, type: 3}
   m_Name: GameSettings
   m_EditorClassIdentifier: 
+  playerSettings: {fileID: 11400000, guid: 523fe6efda0d44505b9babe09169accf, type: 2}
   UIHudPrefab: {fileID: 0}
   playerPrefab: {fileID: 5601508052107788582, guid: 4bfd7f2325e3f498ca6087cdaddaf9e4,
     type: 3}
+  vesselStats:
+  - type: 0
+    yawRate: 15
+    pitchRate: 15
+    rollRate: 15
+    speed: 10

@@ -5,7 +5,6 @@ using UnityEngine;
 public class BaseWeaponSystem : MonoBehaviour
 {
     public GameManager gameManager;
-
     public VesselType vesselType;
 
     public virtual void Init() {

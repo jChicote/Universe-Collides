@@ -2,21 +2,61 @@
     "name": "PlayerInput",
     "maps": [
         {
-            "name": "Player_Controls",
+            "name": "Fighter_Controls",
             "id": "dd659f3b-257d-4d4c-85ae-684645020ec3",
             "actions": [
                 {
-                    "name": "Mouse",
+                    "name": "StickRotation",
                     "type": "Value",
-                    "id": "27eb9ba8-7602-4b49-9599-03e4333c4610",
+                    "id": "8b0e2bcd-2098-4d50-b28a-90883f43774b",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
                 },
                 {
-                    "name": "Gamepad",
+                    "name": "Throttle",
                     "type": "Value",
-                    "id": "bf1a5ebd-ef30-44f0-9ffb-2455aaf8c916",
+                    "id": "a3aafca2-67bc-40bc-8a54-82790fc51818",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Locking",
+                    "type": "Button",
+                    "id": "6d9f16b7-9983-4034-ac8d-209d8a51803d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=2)"
+                },
+                {
+                    "name": "Shoot",
+                    "type": "Button",
+                    "id": "3b360df2-a516-4944-a396-28bda5e19d5b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "590d656d-480a-4ba5-908c-c36c28fe327f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Commands",
+                    "type": "Button",
+                    "id": "f36f20d3-f49b-4a77-be02-af035c33388c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "MouseRotation",
+                    "type": "Value",
+                    "id": "63cb09aa-dffd-4dfd-a15f-1c1d41d0f827",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
@@ -25,23 +65,264 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "e56e2c14-6563-4d68-92b4-308d02c50839",
+                    "id": "5bdc5dde-3204-4017-a074-320e6bc9919f",
                     "path": "<Gamepad>/leftStick",
                     "interactions": "",
-                    "processors": "",
+                    "processors": "StickDeadzone(min=0.25)",
                     "groups": "",
-                    "action": "Gamepad",
+                    "action": "StickRotation",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "1ea664f2-62a3-4e96-b20e-21c55c10eb96",
+                    "id": "b91371fe-3d69-49c8-9364-ce2cba71110d",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "StickDeadzone(min=0.25)",
+                    "groups": "",
+                    "action": "Throttle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "WASD",
+                    "id": "16a495d5-ee00-4ef0-8df5-b920953411a7",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Throttle",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "1f464ea8-cd53-4878-96a3-845ddca88a13",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Throttle",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "68a3809e-0ffd-467a-88cc-af593854ba03",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Throttle",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "e7c766a2-c57a-46b7-9932-914d838aea04",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Throttle",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "7117322c-5394-445b-8822-7b616bbeb4fc",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Throttle",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "74ba4b88-c82e-4fa0-b579-3fc0041a38d2",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Locking",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c2e707ca-beba-45d7-baa6-931fdf0e1f9f",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Locking",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d48e8f7f-f14a-4995-bcad-077ec450a5eb",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3d107c89-b85f-4973-b78a-12915a56c1d9",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0a2e3775-350b-4f58-aaa4-952242ad9fc7",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7c479ca9-10d7-4f58-b611-e1f26f191946",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "GamePadCommand",
+                    "id": "4c18c34e-0040-45f8-babe-c695f4a0e8c6",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Commands",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "45b73834-a67c-45e3-adb7-89a88f25ccca",
+                    "path": "<Gamepad>/dpad/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Commands",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "cd8d4a46-b6b9-4f01-a516-db68bbd38cb8",
+                    "path": "<Gamepad>/dpad/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Commands",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "68433e5a-d9fd-4da4-b197-59a5086b47a3",
+                    "path": "<Gamepad>/dpad/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Commands",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "3bfe1081-02f9-48ce-bd80-9a429e822e42",
+                    "path": "<Gamepad>/dpad/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Commands",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "6805443b-ad2a-4207-9610-766bbbb32d5b",
                     "path": "<Mouse>/position",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Mouse",
+                    "action": "MouseRotation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Turrent_Controls",
+            "id": "9300bc6c-4686-4452-9152-32cc06d1f571",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "dfad2a4a-8f67-46c6-802d-a0aa9c7a10ef",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "de3dd14a-4304-4f4f-be35-854de97860be",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Starship_Controls",
+            "id": "c02b7a53-519b-436a-ae5f-b261269773f5",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "7d6fe1cf-3261-4bf8-a69e-b4e9098a4eda",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "0005b493-d4c7-419d-ac4a-6bdbec68c8fb",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
