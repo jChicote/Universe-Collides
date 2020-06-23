@@ -33,4 +33,5 @@ public class GameManager : MonoBehaviour
     {
         playerController = Instantiate(gameSettings.playerPrefab, transform.position, Quaternion.identity).GetComponent<PlayerController>(); //change to spawn position
     }
+
 }

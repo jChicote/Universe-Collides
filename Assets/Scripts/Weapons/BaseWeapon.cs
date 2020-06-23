@@ -2,20 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseWeapon : MonoBehaviour
+public abstract class BaseWeapon : MonoBehaviour
 {
-    public Transform firePoint;
+    public Transform[] firePoint;
     public WeaponStats stats;
+    public bool isShooting = true;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public abstract void Shoot();
+    public virtual IEnumerator Reload() {
+        isShooting = false;
+        float timeSinceFired = 0;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        while (timeSinceFired < stats.fireRate){
+            timeSinceFired += Time.deltaTime;
+            yield return null;
+        }
+
+        isShooting = true;
     }
 }

@@ -7,6 +7,7 @@ public class GameSettings : ScriptableObject
 {
     [Header ("Settings")]
     public PlayerSettings playerSettings;
+    public WeaponSettings weaponSettings;
 
     [Header ("Prefabs")]
     public GameObject UIHudPrefab;
@@ -24,7 +25,11 @@ public enum VesselType {
 public class VesselShipStats {
     public VesselType type;
     public float yawRate;
+    public float extraYaw;
     public float pitchRate;
+    public float extraPitch;
     public float rollRate;
+    public float extraRoll;
     public float speed;
+    public float throttleSpeed;
 }

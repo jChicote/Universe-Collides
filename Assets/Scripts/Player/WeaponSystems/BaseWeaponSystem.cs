@@ -11,6 +11,8 @@ public class BaseWeaponSystem : MonoBehaviour
         gameManager = GameManager.instance;
     }
 
+    public virtual void RunSystem() {}
+
     public virtual void Shoot() {}
 
 

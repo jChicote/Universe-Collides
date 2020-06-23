@@ -13,12 +13,17 @@ MonoBehaviour:
   m_Name: GameSettings
   m_EditorClassIdentifier: 
   playerSettings: {fileID: 11400000, guid: 523fe6efda0d44505b9babe09169accf, type: 2}
+  weaponSettings: {fileID: 11400000, guid: 989fdeef64c204a2f8536e291b54a416, type: 2}
   UIHudPrefab: {fileID: 0}
   playerPrefab: {fileID: 5601508052107788582, guid: 4bfd7f2325e3f498ca6087cdaddaf9e4,
     type: 3}
   vesselStats:
   - type: 0
     yawRate: 15
+    extraYaw: 20
     pitchRate: 15
+    extraPitch: 20
     rollRate: 15
+    extraRoll: 20
     speed: 10
+    throttleSpeed: 7

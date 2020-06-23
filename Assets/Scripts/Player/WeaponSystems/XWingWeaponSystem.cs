@@ -7,10 +7,11 @@ using UnityEngine.InputSystem;
 public class XWingWeaponSystem : BaseWeaponSystem
 {
     PlayerController playerController;
-
-    public Transform[] forwardGuns;
-    public Transform[] forwardLaunchers;
-
+    LaserCannon laserCannon;
+    VesselTransforms transforms;
+    bool canShootPrimary = false;
+    bool canShootSecondary = false;
+    
     void Awake() {
         playerController = this.GetComponent<PlayerController>();
         vesselType = VesselType.xWing;
@@ -19,6 +20,9 @@ public class XWingWeaponSystem : BaseWeaponSystem
     void Start() {
         Init();
         playerController.SetState<XWingState>(); //Sets the player controller to implement the appropriate state
+        transforms = this.GetComponent<VesselTransforms>();
+        laserCannon = this.gameObject.AddComponent<LaserCannon>();
+        laserCannon.firePoint = transforms.forwardGuns;
     }
 
     public override void Init()
@@ -26,11 +30,17 @@ public class XWingWeaponSystem : BaseWeaponSystem
         base.Init();
     }
 
+    public override void RunSystem() {
+        if (canShootPrimary) laserCannon.Shoot();
+    }
+
     private void OnPrimaryFire(InputValue value) {
-        Debug.Log("primary fire");
+        //Debug.Log("primary fire");
+        canShootPrimary = value.isPressed;
     }
 
     private void OnSecondaryFire(InputValue value) {
         Debug.Log("secondary fire");
+        canShootSecondary = value.isPressed;
     }
 }
