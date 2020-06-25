@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 265369e2272fa4e0fb0c3be32b3aa13a, type: 3}
+  m_Name: AudioSettings
+  m_EditorClassIdentifier: 
+  soundEffects:
+  - type: 0
+    soundClips:
+    - {fileID: 8300000, guid: 68e3383ead3d3441386b8bb7a060f702, type: 3}
+    - {fileID: 8300000, guid: 7c7343587199247e9ac568e0c53b985c, type: 3}
+    - {fileID: 8300000, guid: a92cb4394dcd34e9683b75177807d8de, type: 3}
+    volume: 1

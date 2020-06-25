@@ -12,4 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc92a50d12e174a089f21ce61e7b5b36, type: 3}
   m_Name: PlayerSettings
   m_EditorClassIdentifier: 
-  mouseSensitivity: 2
+  sensitivity: 2
+  cameraAttributes:
+  - type: 0
+    defaultXDamp: 3
+    defaultYDamp: 2
+    defaultZDamp: 1
+    focusedXDamp: 0
+    focusedYDamp: 0.1
+    focusedZDamp: 0.2
+    defaultPitchDamp: 3
+    defaultYawDamp: 0.6
+    defaultRollDamp: 0.3
+    focusedPitchDamp: 0.5
+    focusedYawDamp: 0
+    focusedRollDamp: 0
+    composerDefaultY: 0.7
+    composerModifiedY: 1
+    defaultZOffset: -6
+    defaultYOffset: 5
+    modifiedZOffset: -3
+    modifiedYOffset: 1
+    minFOV: 55
+    maxFOV: 80
+    defaultFOV: 60

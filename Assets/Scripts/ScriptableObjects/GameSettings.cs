@@ -8,8 +8,11 @@ public class GameSettings : ScriptableObject
     [Header ("Settings")]
     public PlayerSettings playerSettings;
     public WeaponSettings weaponSettings;
+    public AudioSettings audioSettings;
 
     [Header ("Prefabs")]
+    public GameObject sceneCamera;
+    public GameObject audioManagerPrefab;
     public GameObject UIHudPrefab;
     public GameObject playerPrefab; //later change to loaded model types that add the controller;
 

@@ -19,10 +19,9 @@ public class XWingWeaponSystem : BaseWeaponSystem
 
     void Start() {
         Init();
-        playerController.SetState<XWingState>(); //Sets the player controller to implement the appropriate state
         transforms = this.GetComponent<VesselTransforms>();
         laserCannon = this.gameObject.AddComponent<LaserCannon>();
-        laserCannon.firePoint = transforms.forwardGuns;
+        SetupWeapons();
     }
 
     public override void Init()
@@ -30,17 +29,35 @@ public class XWingWeaponSystem : BaseWeaponSystem
         base.Init();
     }
 
+    private void SetupWeapons() {
+        laserCannon.firePoint = transforms.forwardGuns;
+        laserCannon.audioSystem = playerController.audioSystem;
+    }
+
     public override void RunSystem() {
         if (canShootPrimary) laserCannon.Shoot();
     }
 
     private void OnPrimaryFire(InputValue value) {
-        //Debug.Log("primary fire");
         canShootPrimary = value.isPressed;
     }
 
     private void OnSecondaryFire(InputValue value) {
         Debug.Log("secondary fire");
         canShootSecondary = value.isPressed;
+    }
+
+    private void OnLocking(InputValue value) {
+        playerController.cameraController.isFocused = value.isPressed;
+        playerController.cameraController.ModifyCameraTracking();
+
+        StartCoroutine(playerController.cameraController.LockingCamera());
+    }
+
+    public void SetAimPosition(float speed)
+    {
+        Vector3 future = transform.position + transform.forward * speed * 3;
+        Debug.DrawLine(transform.position,future);
+        GameManager.Instance.gameplayHUD.aimSightUI.SetAimPosition(future);
     }
 }

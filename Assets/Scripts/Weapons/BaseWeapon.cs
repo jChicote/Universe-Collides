@@ -4,8 +4,9 @@ using UnityEngine;
 
 public abstract class BaseWeapon : MonoBehaviour
 {
-    public Transform[] firePoint;
-    public WeaponStats stats;
+    [HideInInspector] public Transform[] firePoint;
+    [HideInInspector] public WeaponStats stats;
+    [HideInInspector] public VesselAudioSystem audioSystem;
     public bool isShooting = true;
 
     public abstract void Shoot();

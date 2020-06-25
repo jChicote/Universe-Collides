@@ -14,7 +14,7 @@ public class MovementState : PlayerState
     PlayerController playerController;
     public override void BeginState()
     {
-        playerController = GameManager.instance.playerController;
+        playerController = GameManager.Instance.playerController;
     }
 
     void FixedUpdate(){

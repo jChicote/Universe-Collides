@@ -8,7 +8,7 @@ public class BaseWeaponSystem : MonoBehaviour
     public VesselType vesselType;
 
     public virtual void Init() {
-        gameManager = GameManager.instance;
+        gameManager = GameManager.Instance;
     }
 
     public virtual void RunSystem() {}

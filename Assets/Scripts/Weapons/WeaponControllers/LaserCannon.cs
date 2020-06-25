@@ -10,7 +10,7 @@ public class LaserCannon : BaseWeapon
     // Start is called before the first frame update
     void Start()
     {
-        WeaponSettings settings = GameManager.instance.gameSettings.weaponSettings;
+        WeaponSettings settings = GameManager.Instance.gameSettings.weaponSettings;
         stats = settings.weaponStats.Where(x => x.type == WeaponType.LaserCannon).First();
     }
 
@@ -23,6 +23,7 @@ public class LaserCannon : BaseWeapon
         bolt.speed = stats.speed;
         bolt.damage = stats.damage;
         bolt.lifeTime = stats.lifeTime;
+        audioSystem.PlaySoundEffect(SoundType.LaserCannon);
         StartCoroutine(Reload());
         
         index++;
