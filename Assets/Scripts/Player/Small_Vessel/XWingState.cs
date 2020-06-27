@@ -61,6 +61,8 @@ public class XWingState : PlayerState
     }
 
     private void OnThrottle(InputValue value) {
+        if(isPaused) return;
+
         if(value.Get<Vector2>().y == 0) {
             throttleInput = 0;
             thrust = 0;
@@ -81,6 +83,8 @@ public class XWingState : PlayerState
     }
 
     private void OnStickRotation(InputValue value) {
+        if(isPaused) return;
+
         inputX = value.Get<Vector2>().x * playerSettings.sensitivity;
         inputY = value.Get<Vector2>().y * playerSettings.sensitivity;
 
@@ -90,9 +94,13 @@ public class XWingState : PlayerState
     }
 
     private void OnMouseRotation(InputValue value) {
+        if(isPaused) return;
+
+        //Mouse inputs offers screen position instead.
         float screenInputX = value.Get<Vector2>().x;
         float screenInputY = value.Get<Vector2>().y;
 
+        //Scalued input value to center of screen
         inputX = (screenInputX - (Screen.width / 2)) / (Screen.width / 2) * playerSettings.sensitivity;
         inputY = (screenInputY - (Screen.height / 2)) / (Screen.height / 2) * playerSettings.sensitivity;
         
@@ -111,19 +119,16 @@ public class XWingState : PlayerState
         currentRotation = new Vector3(-1 * pitch, yaw, -1 * roll);
         transform.Rotate(currentRotation);
 
+        //Finds roll angle of local model
         modelLocalAngles =  playerController.modelTransform.localEulerAngles;
         modelAngle = (modelLocalAngles.z > 180) ? modelLocalAngles.z - 360 : modelLocalAngles.z;
 
+        //Applied roll rotation of model
         angleResult = modelAngle + (-1 * roll);
         if (angleResult > -30 && angleResult < 30 )
             playerController.modelTransform.Rotate(0, 0, -1 * roll);
         else {
             playerController.modelTransform.localEulerAngles = new Vector3(0, 0, modelAngle);
         }
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawSphere(transform.position + transform.forward * speed * 5, 0.5f);
     }
 }

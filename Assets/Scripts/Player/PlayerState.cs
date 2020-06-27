@@ -4,7 +4,12 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Cinemachine;
 
-public abstract class PlayerState : MonoBehaviour
+public interface IPausable {
+    void Pause();
+    void UnPause();
+}
+
+public abstract class PlayerState : MonoBehaviour, IPausable
 {
     [HideInInspector] public PlayerSettings playerSettings;
     [HideInInspector] public PlayerController playerController;
@@ -35,4 +40,14 @@ public abstract class PlayerState : MonoBehaviour
     public abstract void BeginState();
 
     public virtual void EndState() { }
+
+    public void Pause()
+    {
+        isPaused = true;
+    }
+
+    public void UnPause()
+    {
+        isPaused = false;
+    }
 }

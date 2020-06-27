@@ -24,11 +24,13 @@ public class CameraController : MonoBehaviour
     }
 
     public void ModifyFieldOfView(float valueY) {
+        //Returns to normal when no throttling is applied
         if(valueY == 0) {
             playerController.virtualCamera.m_Lens.FieldOfView = Mathf.Lerp(playerController.virtualCamera.m_Lens.FieldOfView, attributes.defaultFOV, 0.1f);
             return;
         }
         
+        //Increases or decreases camera FOV on throttle value
         if(valueY > 0){
             playerController.virtualCamera.m_Lens.FieldOfView = Mathf.Lerp(playerController.virtualCamera.m_Lens.FieldOfView, attributes.maxFOV, 0.1f);
         } else {
@@ -61,6 +63,7 @@ public class CameraController : MonoBehaviour
         float zOffset = 0;
         float yOffset = 0;
 
+        //Applies offset when camera is focused
         while(isFocused && Mathf.Round(zOffset) != attributes.modifiedZOffset) {
             zOffset = Mathf.SmoothStep(cameraTransposer.m_FollowOffset.z, attributes.modifiedZOffset, 0.2f);
             yOffset = Mathf.SmoothStep(cameraTransposer.m_FollowOffset.y, attributes.modifiedYOffset, 0.01f);
@@ -70,6 +73,7 @@ public class CameraController : MonoBehaviour
 
         if (isFocused) yield return null;
 
+        //Applied default when camera is NOT focused
         while(!isFocused && Mathf.Round(zOffset) != attributes.defaultZOffset) {
             zOffset = Mathf.SmoothStep(cameraTransposer.m_FollowOffset.z, attributes.defaultZOffset, 0.2f);
             yOffset = Mathf.SmoothStep(cameraTransposer.m_FollowOffset.y, attributes.defaultYOffset, 0.01f);

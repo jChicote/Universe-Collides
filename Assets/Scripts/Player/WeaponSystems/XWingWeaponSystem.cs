@@ -14,7 +14,6 @@ public class XWingWeaponSystem : BaseWeaponSystem
     
     void Awake() {
         playerController = this.GetComponent<PlayerController>();
-        vesselType = VesselType.xWing;
     }
 
     void Start() {

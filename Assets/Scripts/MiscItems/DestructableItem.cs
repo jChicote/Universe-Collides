@@ -6,6 +6,6 @@ public class DestructableItem : MonoBehaviour, IDamageReciever
 {
     public void OnRecievedDamage()
     {
-        Debug.Log("is being damaged");
+        Debug.Log("Is Recieving Damage");
     }
 }

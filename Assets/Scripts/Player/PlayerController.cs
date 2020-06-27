@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     void Start() {
         cameraController = this.gameObject.AddComponent<CameraController>();
         
+        //Sets the state based on selected type
         switch (vesselSelection) {
             case VesselType.xWing:
                 SetState<XWingState>();
@@ -31,6 +32,11 @@ public class PlayerController : MonoBehaviour
 
     public void SetState<T>() where T : PlayerState {
         playerState.AddState<T>();
+    }
+
+    public void OnPause(InputValue value) {
+        //Externally triggers pause funciton
+        GameManager.Instance.sessionData.TogglePause();
     }
 
 }

@@ -21,6 +21,8 @@ MonoBehaviour:
     type: 3}
   UIHudPrefab: {fileID: 2456526430375880183, guid: 260044937dac649caafeb44757e5f541,
     type: 3}
+  mainMenuPrefab: {fileID: 1172539618945808642, guid: afa1ab848539d4661aab3e0ded5bfc8a,
+    type: 3}
   playerPrefab: {fileID: 5601508052107788582, guid: 4bfd7f2325e3f498ca6087cdaddaf9e4,
     type: 3}
   vesselStats:
