@@ -2,24 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IDamageReciever { 
-    void OnRecievedDamage();
-}
-
 public abstract class BasicProjectile : MonoBehaviour, IPausable
 {
-    public string ownerID; 
+    public string shooterID; 
     public Rigidbody projectileRB;
+    public WeaponInfo info;
     public float speed;
-    public float damage;
+    public DamageInfo damageInfo;
     public float lifeTime;
+    public float tickToDestroy = 0;
     public bool isPaused = false;
 
-    public abstract void OnLaunch();
+    public virtual void OnLaunch() {}
 
     public virtual void OnTravel() { }
     
-    public virtual void OnDestroy() { }
+    public virtual void DestroyObject(float time) { }
 
     public void Pause()
     {

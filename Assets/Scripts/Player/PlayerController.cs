@@ -4,7 +4,11 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Cinemachine;
 
-public class PlayerController : MonoBehaviour
+public interface IEntity {
+    string GetObjectID();
+}
+
+public class PlayerController : EntityController
 {
     public VesselType vesselSelection;
     public Transform modelTransform;
@@ -38,5 +42,4 @@ public class PlayerController : MonoBehaviour
         //Externally triggers pause funciton
         GameManager.Instance.sessionData.TogglePause();
     }
-
 }

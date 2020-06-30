@@ -35,3 +35,38 @@ MonoBehaviour:
     extraRoll: 20
     speed: 10
     throttleSpeed: 7
+    components:
+    - type: 0
+      hits: 0
+      maxHits: 5
+      isDamaged: 0
+    - type: 1
+      hits: 0
+      maxHits: 5
+      isDamaged: 0
+    - type: 2
+      hits: 0
+      maxHits: 4
+      isDamaged: 0
+  - type: 1
+    yawRate: 15
+    extraYaw: 20
+    pitchRate: 15
+    extraPitch: 20
+    rollRate: 15
+    extraRoll: 20
+    speed: 10
+    throttleSpeed: 7
+    components:
+    - type: 0
+      hits: 0
+      maxHits: 5
+      isDamaged: 0
+    - type: 1
+      hits: 0
+      maxHits: 5
+      isDamaged: 0
+    - type: 2
+      hits: 0
+      maxHits: 4
+      isDamaged: 0

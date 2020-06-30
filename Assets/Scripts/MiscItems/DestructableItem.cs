@@ -2,9 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DestructableItem : MonoBehaviour, IDamageReciever
+public class DestructableItem : MonoBehaviour, IDamageReciever, IEntity
 {
-    public void OnRecievedDamage()
+
+    public string objectID = "DestructID_1";
+    public string GetObjectID()
+    {
+        return objectID;
+    }
+
+    public void OnRecievedDamage(DamageInfo damageInfo, string colliderName)
     {
         Debug.Log("Is Recieving Damage");
     }

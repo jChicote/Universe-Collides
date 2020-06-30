@@ -2,17 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using Cinemachine;
 
 public class XWingState : PlayerState
 {
-    XWingWeaponSystem weaponSystem;
-    Rigidbody playerRB;
-
     Vector3 modelLocalAngles;
     
-    float throttleInput;
     float modelAngle;
     float angleResult;
 
@@ -26,6 +20,10 @@ public class XWingState : PlayerState
 
         shipStats = GameManager.Instance.gameSettings.vesselStats.Where(x => x.type.Equals(weaponSystem.vesselType)).First();
         speed = shipStats.speed;
+
+        damageSystem = this.gameObject.AddComponent<FighterDamageManager>();
+        damageSystem.Init(this, weaponSystem);
+        damageSystem.components = shipStats.components;
     }
 
     void FixedUpdate()
@@ -37,76 +35,6 @@ public class XWingState : PlayerState
         Throttle();
         weaponSystem.RunSystem();
         weaponSystem.SetAimPosition(speed);
-    }
-
-    private void Movement() {
-        currentVelocity = speed * transform.forward * Time.fixedDeltaTime;
-        transform.position += currentVelocity;
-    }
-
-    private void Throttle(){
-        playerController.cameraController.ModifyFieldOfView(throttleInput);
-
-        if(thrust == 0 || playerController.cameraController.isFocused) {
-            speed = Mathf.Lerp(speed, shipStats.speed, 0.05f);
-            pitchStrength = Mathf.Lerp(pitchStrength, shipStats.pitchRate, 0.05f);
-            yawStrength = Mathf.Lerp(yawStrength, shipStats.pitchRate, 0.05f);
-            rollStrength = Mathf.Lerp(rollStrength, shipStats.pitchRate, 0.05f);
-        } else {
-            speed = Mathf.Lerp(speed, shipStats.speed + thrust, 0.05f);
-            pitchStrength = Mathf.Lerp(pitchStrength, shipStats.pitchRate + pitchSteer, 0.05f);
-            yawStrength = Mathf.Lerp(yawStrength, shipStats.pitchRate + yawSteer, 0.05f);
-            rollStrength = Mathf.Lerp(rollStrength, shipStats.pitchRate + rollSteer, 0.05f);
-        }
-    }
-
-    private void OnThrottle(InputValue value) {
-        if(isPaused) return;
-
-        if(value.Get<Vector2>().y == 0) {
-            throttleInput = 0;
-            thrust = 0;
-            pitchSteer = 0;
-            yawSteer = 0;
-            rollSteer = 0;
-            return;
-        }
-
-        throttleInput = value.Get<Vector2>().y;
-        thrust = shipStats.throttleSpeed * throttleInput;
-
-        if(throttleInput < 0) {
-            pitchSteer = shipStats.pitchRate * (-1 * throttleInput);
-            yawSteer = shipStats.extraYaw * (-1 * throttleInput);
-            rollSteer = shipStats.extraRoll * (-1 * throttleInput);
-        }
-    }
-
-    private void OnStickRotation(InputValue value) {
-        if(isPaused) return;
-
-        inputX = value.Get<Vector2>().x * playerSettings.sensitivity;
-        inputY = value.Get<Vector2>().y * playerSettings.sensitivity;
-
-        pitch = pitchStrength * inputY * Time.fixedDeltaTime;
-        yaw = yawStrength * inputX * Time.fixedDeltaTime;
-        roll = rollStrength * inputX * Time.fixedDeltaTime;
-    }
-
-    private void OnMouseRotation(InputValue value) {
-        if(isPaused) return;
-
-        //Mouse inputs offers screen position instead.
-        float screenInputX = value.Get<Vector2>().x;
-        float screenInputY = value.Get<Vector2>().y;
-
-        //Scalued input value to center of screen
-        inputX = (screenInputX - (Screen.width / 2)) / (Screen.width / 2) * playerSettings.sensitivity;
-        inputY = (screenInputY - (Screen.height / 2)) / (Screen.height / 2) * playerSettings.sensitivity;
-        
-        pitch = pitchStrength * inputY * Time.fixedDeltaTime;
-        yaw = yawStrength * inputX * Time.fixedDeltaTime;
-        roll = rollStrength * inputX * Time.fixedDeltaTime;
     }
 
     private void ApplyRotation() {

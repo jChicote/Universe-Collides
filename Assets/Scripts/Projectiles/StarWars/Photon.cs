@@ -1,21 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
-public class LaserBolt : BasicProjectile
+public class Photon : BasicProjectile
 {
+    public Transform target;
+    
+    Vector3 trackingDir;
+    Quaternion trackingRot;
+    bool isTracking = false;
+
     void Awake() {
+        speed = info.speed;
+        damageInfo = info.damageInfo;
+        lifeTime = info.lifeTime;
         projectileRB = this.GetComponent<Rigidbody>();
     }
 
     void Start() {
-        speed = info.speed;
-        damageInfo = info.damageInfo;
-        lifeTime = info.lifeTime;
+        if(target != null) {
+            Invoke("BeginTracking", 2f);
+        }
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         if(isPaused) {
             projectileRB.velocity = Vector3.zero;
@@ -23,17 +31,20 @@ public class LaserBolt : BasicProjectile
         }
 
         if(tickToDestroy > lifeTime) DestroyObject(0);
+        if(isTracking) TrackTarget();
 
         projectileRB.velocity += transform.forward * speed;
         tickToDestroy += Time.fixedDeltaTime;
     }
 
-    void SpawnImpact(ContactPoint contactData) {
-        Vector3 impactAngle = contactData.normal;
-        Quaternion impactRot = Quaternion.FromToRotation(Vector3.up, impactAngle);
-        WeaponSettings weaponSettings = GameManager.Instance.gameSettings.weaponSettings;
-        GameObject effect = weaponSettings.impactEffects.Where(x => x.type == ImpactType.SparkImpact).First().effect;
-        Instantiate(effect, contactData.point, impactRot);
+    void BeginTracking() {
+        isTracking = true;
+    }
+
+    void TrackTarget() {
+        trackingDir = target.transform.position - transform.position;
+        trackingRot = Quaternion.LookRotation(trackingDir);
+        transform.rotation = Quaternion.Slerp(transform.rotation, trackingRot, Time.fixedDeltaTime);
     }
 
     public override void DestroyObject(float time)
@@ -43,21 +54,12 @@ public class LaserBolt : BasicProjectile
 
     private void OnCollisionEnter(Collision collisionInfo)
     {
-        string objectID = collisionInfo.gameObject.GetComponent<IEntity>().GetObjectID();
-        if(objectID == shooterID) return;
-
         if (collisionInfo.gameObject.GetComponent<IDamageReciever>() == null) {
-            SpawnImpact(collisionInfo.GetContact(0));
             DestroyObject(0);
             return;
         }
 
-        //Debug.Log(collisionInfo.collider.name);
-
-        SpawnImpact(collisionInfo.GetContact(0));
-
         IDamageReciever victim = collisionInfo.gameObject.GetComponent<IDamageReciever>();
         victim.OnRecievedDamage(damageInfo, collisionInfo.collider.name);
-        DestroyObject(0);
     }
 }

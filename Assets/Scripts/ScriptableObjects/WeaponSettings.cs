@@ -6,21 +6,53 @@ using UnityEngine;
 public class WeaponSettings : ScriptableObject
 {
     [Header("Weapon Stats")]
-    public WeaponStats[] weaponStats; 
+    public WeaponInfo[] weaponStats; 
+
+    [Header("Particle Effects")]
+    public List<ImpactEffect> impactEffects;
 }
 
 [System.Serializable]
-public class WeaponStats {
+public class WeaponInfo {
     public WeaponType type;
     public GameObject prefab;
     public float lifeTime;
     public float fireRate;
     public float speed;
-    public float damage;
+    public DamageInfo damageInfo;
+
+}
+
+[System.Serializable]
+public class DamageInfo {
+    public int normalDMG;
+    public int critDMG;
+}
+
+[System.Serializable]
+public class ImpactEffect {
+    public ImpactType type;
+    public GameObject[] effectsArray;
+
+    [HideInInspector]
+    public GameObject effect {
+        get {
+            int size = effectsArray.Length;
+            if (size == 1) return effectsArray[0];
+
+            int randomIndex = Random.Range(0, size);
+            return effectsArray[randomIndex];
+        }
+    }
+}
+
+public enum ImpactType {
+    SparkImpact
 }
 
 public enum WeaponType {
-    LaserCannon,
+    LaserBolt,
+    Photon,
     Blaster,
     Phaser,
     Torpedo,

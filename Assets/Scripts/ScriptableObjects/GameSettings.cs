@@ -22,7 +22,8 @@ public class GameSettings : ScriptableObject
 }
 
 public enum VesselType {
-    xWing
+    xWing,
+    Test
 }
 
 [System.Serializable]
@@ -36,4 +37,5 @@ public class VesselShipStats {
     public float extraRoll;
     public float speed;
     public float throttleSpeed;
+    public ShipComponent[] components;
 }
