@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyStateManager : MonoBehaviour
 {
-    BaseState currentState;
+    public BaseState currentState;
 
     public void AddState<T>() where T : BaseState
     {

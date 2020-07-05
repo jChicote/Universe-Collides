@@ -11,8 +11,9 @@ public class DestructableItem : MonoBehaviour, IDamageReciever, IEntity
         return objectID;
     }
 
-    public void OnRecievedDamage(DamageInfo damageInfo, string colliderName)
+    public void OnRecievedDamage(float damage, string id)
     {
-        Debug.Log("Is Recieving Damage");
+        Debug.Log(damage);
+        Debug.Log(id);
     }
 }

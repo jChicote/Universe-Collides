@@ -9,12 +9,6 @@ public class LaserBolt : BasicProjectile
         projectileRB = this.GetComponent<Rigidbody>();
     }
 
-    void Start() {
-        speed = info.speed;
-        damageInfo = info.damageInfo;
-        lifeTime = info.lifeTime;
-    }
-
     private void FixedUpdate()
     {
         if(isPaused) {
@@ -33,7 +27,7 @@ public class LaserBolt : BasicProjectile
         Quaternion impactRot = Quaternion.FromToRotation(Vector3.up, impactAngle);
         WeaponSettings weaponSettings = GameManager.Instance.gameSettings.weaponSettings;
         GameObject effect = weaponSettings.impactEffects.Where(x => x.type == ImpactType.SparkImpact).First().effect;
-        Instantiate(effect, contactData.point, impactRot);
+        Destroy(Instantiate(effect, contactData.point, impactRot), 5);
     }
 
     public override void DestroyObject(float time)
@@ -43,6 +37,7 @@ public class LaserBolt : BasicProjectile
 
     private void OnCollisionEnter(Collision collisionInfo)
     {
+
         string objectID = collisionInfo.gameObject.GetComponent<IEntity>().GetObjectID();
         if(objectID == shooterID) return;
 
@@ -52,12 +47,10 @@ public class LaserBolt : BasicProjectile
             return;
         }
 
-        //Debug.Log(collisionInfo.collider.name);
-
         SpawnImpact(collisionInfo.GetContact(0));
 
         IDamageReciever victim = collisionInfo.gameObject.GetComponent<IDamageReciever>();
-        victim.OnRecievedDamage(damageInfo, collisionInfo.collider.name);
+        victim.OnRecievedDamage(damage, shooterID);
         DestroyObject(0);
     }
 }

@@ -17,7 +17,6 @@ public class PhotonLauncher : BaseWeapon
 
         Quaternion rotation = Quaternion.Euler(firePoint[transformIndex].eulerAngles);
         Photon photon = Instantiate(info.prefab, firePoint[transformIndex].position, rotation).GetComponent<Photon>();
-        photon.info = info;
         
         StartCoroutine(Reload());
 

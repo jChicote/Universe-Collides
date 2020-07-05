@@ -11,9 +11,6 @@ public class Photon : BasicProjectile
     bool isTracking = false;
 
     void Awake() {
-        speed = info.speed;
-        damageInfo = info.damageInfo;
-        lifeTime = info.lifeTime;
         projectileRB = this.GetComponent<Rigidbody>();
     }
 
@@ -60,6 +57,6 @@ public class Photon : BasicProjectile
         }
 
         IDamageReciever victim = collisionInfo.gameObject.GetComponent<IDamageReciever>();
-        victim.OnRecievedDamage(damageInfo, collisionInfo.collider.name);
+        victim.OnRecievedDamage(damage, shooterID);
     }
 }

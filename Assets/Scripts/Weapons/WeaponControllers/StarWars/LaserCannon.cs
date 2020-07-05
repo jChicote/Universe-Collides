@@ -11,13 +11,20 @@ public class LaserCannon : BaseWeapon
         info = settings.weaponStats.Where(x => x.type == WeaponType.LaserBolt).First();
     }
 
+    public override void Init(StatHandler statHandler) {
+        this.statHandler = statHandler;
+    }
+
     public override void Shoot()
     {
         if(!isShooting) return;
 
         Quaternion rotation = Quaternion.Euler(firePoint[transformIndex].eulerAngles);
         LaserBolt bolt = Instantiate(info.prefab, firePoint[transformIndex].position, rotation).GetComponent<LaserBolt>();
-        bolt.info = info;
+        //bolt.info = info;
+        bolt.speed = info.speed;
+        bolt.damage = (info.damage + statHandler.DamageBuff) * statHandler.CriticalDamage;
+        bolt.lifeTime = info.lifeTime;
         bolt.shooterID = shooterID;
         audioSystem.PlaySoundEffect(SoundType.LaserCannon);
         StartCoroutine(Reload());

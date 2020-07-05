@@ -16,8 +16,12 @@ public class ShipComponent
     }
 }
 
+
+
 public enum ShipComponentType {
     Engine,
     PrimaryWeapon,
-    SecondaryWeapon
+    SecondaryWeapon,
+    Default
+    
 }

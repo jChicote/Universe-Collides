@@ -27,14 +27,17 @@ MonoBehaviour:
     type: 3}
   vesselStats:
   - type: 0
+    maxProximityDist: 150
+    evasionDist: 20
+    stableAngleLimit: 0
     yawRate: 15
     extraYaw: 20
     pitchRate: 15
     extraPitch: 20
     rollRate: 15
     extraRoll: 20
-    speed: 10
-    throttleSpeed: 7
+    speed: 13
+    throttleSpeed: 10
     components:
     - type: 0
       hits: 0
@@ -49,13 +52,41 @@ MonoBehaviour:
       maxHits: 4
       isDamaged: 0
   - type: 1
+    maxProximityDist: 130
+    evasionDist: 20
+    stableAngleLimit: 0
     yawRate: 15
     extraYaw: 20
     pitchRate: 15
     extraPitch: 20
     rollRate: 15
     extraRoll: 20
-    speed: 10
+    speed: 15
+    throttleSpeed: 7
+    components:
+    - type: 0
+      hits: 0
+      maxHits: 5
+      isDamaged: 0
+    - type: 1
+      hits: 0
+      maxHits: 5
+      isDamaged: 0
+    - type: 2
+      hits: 0
+      maxHits: 4
+      isDamaged: 0
+  - type: 2
+    maxProximityDist: 0
+    evasionDist: 0
+    stableAngleLimit: 0
+    yawRate: 15
+    extraYaw: 20
+    pitchRate: 15
+    extraPitch: 20
+    rollRate: 20
+    extraRoll: 25
+    speed: 20
     throttleSpeed: 7
     components:
     - type: 0

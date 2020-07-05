@@ -22,6 +22,8 @@ public abstract class BaseState : MonoBehaviour, IPausable
 
     public abstract void BeginState();
 
+    public virtual void RunState(){}
+
     public virtual void EndState() { }
 
     public void Pause()

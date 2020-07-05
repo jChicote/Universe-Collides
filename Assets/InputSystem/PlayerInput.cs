@@ -81,6 +81,22 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press(behavior=2)""
+                },
+                {
+                    ""name"": ""Test_Damage"",
+                    ""type"": ""Button"",
+                    ""id"": ""e7f9b41c-3c91-4c27-a2e3-fab760fb0f4f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""Test_Death"",
+                    ""type"": ""Button"",
+                    ""id"": ""d0499cdd-4108-45fa-ad3e-d38350422fc8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
                 }
             ],
             ""bindings"": [
@@ -303,6 +319,28 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""action"": ""SecondaryFire"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""51ba5eef-2a8b-42ad-8c22-16b11e89ada6"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Test_Damage"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dd24f3e1-6422-4348-9a6b-2ff8d4e99898"",
+                    ""path"": ""<Keyboard>/o"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Test_Death"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -373,6 +411,8 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         m_Fighter_Controls_Commands = m_Fighter_Controls.FindAction("Commands", throwIfNotFound: true);
         m_Fighter_Controls_MouseRotation = m_Fighter_Controls.FindAction("MouseRotation", throwIfNotFound: true);
         m_Fighter_Controls_SecondaryFire = m_Fighter_Controls.FindAction("SecondaryFire", throwIfNotFound: true);
+        m_Fighter_Controls_Test_Damage = m_Fighter_Controls.FindAction("Test_Damage", throwIfNotFound: true);
+        m_Fighter_Controls_Test_Death = m_Fighter_Controls.FindAction("Test_Death", throwIfNotFound: true);
         // Turrent_Controls
         m_Turrent_Controls = asset.FindActionMap("Turrent_Controls", throwIfNotFound: true);
         m_Turrent_Controls_Newaction = m_Turrent_Controls.FindAction("New action", throwIfNotFound: true);
@@ -436,6 +476,8 @@ public class @PlayerInput : IInputActionCollection, IDisposable
     private readonly InputAction m_Fighter_Controls_Commands;
     private readonly InputAction m_Fighter_Controls_MouseRotation;
     private readonly InputAction m_Fighter_Controls_SecondaryFire;
+    private readonly InputAction m_Fighter_Controls_Test_Damage;
+    private readonly InputAction m_Fighter_Controls_Test_Death;
     public struct Fighter_ControlsActions
     {
         private @PlayerInput m_Wrapper;
@@ -448,6 +490,8 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         public InputAction @Commands => m_Wrapper.m_Fighter_Controls_Commands;
         public InputAction @MouseRotation => m_Wrapper.m_Fighter_Controls_MouseRotation;
         public InputAction @SecondaryFire => m_Wrapper.m_Fighter_Controls_SecondaryFire;
+        public InputAction @Test_Damage => m_Wrapper.m_Fighter_Controls_Test_Damage;
+        public InputAction @Test_Death => m_Wrapper.m_Fighter_Controls_Test_Death;
         public InputActionMap Get() { return m_Wrapper.m_Fighter_Controls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -481,6 +525,12 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @SecondaryFire.started -= m_Wrapper.m_Fighter_ControlsActionsCallbackInterface.OnSecondaryFire;
                 @SecondaryFire.performed -= m_Wrapper.m_Fighter_ControlsActionsCallbackInterface.OnSecondaryFire;
                 @SecondaryFire.canceled -= m_Wrapper.m_Fighter_ControlsActionsCallbackInterface.OnSecondaryFire;
+                @Test_Damage.started -= m_Wrapper.m_Fighter_ControlsActionsCallbackInterface.OnTest_Damage;
+                @Test_Damage.performed -= m_Wrapper.m_Fighter_ControlsActionsCallbackInterface.OnTest_Damage;
+                @Test_Damage.canceled -= m_Wrapper.m_Fighter_ControlsActionsCallbackInterface.OnTest_Damage;
+                @Test_Death.started -= m_Wrapper.m_Fighter_ControlsActionsCallbackInterface.OnTest_Death;
+                @Test_Death.performed -= m_Wrapper.m_Fighter_ControlsActionsCallbackInterface.OnTest_Death;
+                @Test_Death.canceled -= m_Wrapper.m_Fighter_ControlsActionsCallbackInterface.OnTest_Death;
             }
             m_Wrapper.m_Fighter_ControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -509,6 +559,12 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @SecondaryFire.started += instance.OnSecondaryFire;
                 @SecondaryFire.performed += instance.OnSecondaryFire;
                 @SecondaryFire.canceled += instance.OnSecondaryFire;
+                @Test_Damage.started += instance.OnTest_Damage;
+                @Test_Damage.performed += instance.OnTest_Damage;
+                @Test_Damage.canceled += instance.OnTest_Damage;
+                @Test_Death.started += instance.OnTest_Death;
+                @Test_Death.performed += instance.OnTest_Death;
+                @Test_Death.canceled += instance.OnTest_Death;
             }
         }
     }
@@ -589,6 +645,8 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         void OnCommands(InputAction.CallbackContext context);
         void OnMouseRotation(InputAction.CallbackContext context);
         void OnSecondaryFire(InputAction.CallbackContext context);
+        void OnTest_Damage(InputAction.CallbackContext context);
+        void OnTest_Death(InputAction.CallbackContext context);
     }
     public interface ITurrent_ControlsActions
     {

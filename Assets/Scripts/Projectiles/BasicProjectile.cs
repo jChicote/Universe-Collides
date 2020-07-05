@@ -6,9 +6,8 @@ public abstract class BasicProjectile : MonoBehaviour, IPausable
 {
     public string shooterID; 
     public Rigidbody projectileRB;
-    public WeaponInfo info;
     public float speed;
-    public DamageInfo damageInfo;
+    public float damage;
     public float lifeTime;
     public float tickToDestroy = 0;
     public bool isPaused = false;

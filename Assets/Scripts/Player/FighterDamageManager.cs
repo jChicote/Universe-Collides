@@ -15,48 +15,9 @@ public class FighterDamageManager : DamageManager
         Debug.Log("is Dead");
     }
 
-    public override void OnRecievedDamage(DamageInfo damageInfo, string colliderName)
+    public override void OnRecievedDamage(float damage, string id)
     {
-        float averageDamage = damageInfo.normalDMG * (1 + 0.1f * (damageInfo.critDMG - 1));
-        //Debug.Log("is Damaging");
-        DamageComponent(colliderName);
-    }
-
-    private void DamageComponent(string colliderName) {
-
-        ShipComponent component = null;
-
-        for(int i = 0; i < components.Length; i++){
-            if(components[i].type.ToString().Equals(colliderName)) {
-                component = components[i];
-            }   
-        }
-
-        if(component == null) return;
-        component.hits++;
-        if(component.hits > component.maxHits) DisableComponent(component);
-
-        //Debug.Log(component.hits);
-        //Debug.Log(component.isDamaged);
-        //Debug.Log("Is engine damaged? : " + currentState.isEngineDamaged);
-    }
-
-    private void DisableComponent(ShipComponent component) {
-        component.isDamaged = true;
-        shipState.isEngineDamaged = true;
-        StartCoroutine(RepairComponent(component, 3f));
-    }
-
-    private IEnumerator RepairComponent(ShipComponent component, float tickLength) {
-        float timeUntilRepaired = tickLength;
-
-        while(timeUntilRepaired > 0) {
-            timeUntilRepaired -= Time.deltaTime;
-            yield return null;
-        }
-
-        component.hits = 0;
-        component.isDamaged = false;
-        shipState.isEngineDamaged = false;
+        Debug.Log(damage);
+        Debug.Log(id);
     }
 }

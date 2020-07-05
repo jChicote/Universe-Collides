@@ -19,14 +19,7 @@ public class WeaponInfo {
     public float lifeTime;
     public float fireRate;
     public float speed;
-    public DamageInfo damageInfo;
-
-}
-
-[System.Serializable]
-public class DamageInfo {
-    public int normalDMG;
-    public int critDMG;
+    public float damage;
 }
 
 [System.Serializable]

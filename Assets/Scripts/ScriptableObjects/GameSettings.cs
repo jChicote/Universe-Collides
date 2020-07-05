@@ -23,12 +23,26 @@ public class GameSettings : ScriptableObject
 
 public enum VesselType {
     xWing,
+    TieFighter,
     Test
 }
 
 [System.Serializable]
 public class VesselShipStats {
     public VesselType type;
+
+    [Header("Sensor Stats")]
+    public float maxProximityDist;
+    public float evasionDist;
+    public float pursuitDistance {
+        get {
+            float dist = maxProximityDist * 0.8f;
+            return dist;
+        }
+    }
+    public float stableAngleLimit;
+
+    [Header("Vessel Movement Stats")]
     public float yawRate;
     public float extraYaw;
     public float pitchRate;

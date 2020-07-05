@@ -26,6 +26,7 @@ public class XWingWeaponSystem : BaseWeaponSystem
     }
 
     public override void Init() {
+        laserCannon.Init(playerController.statHandler);
         laserCannon.firePoint = transforms.forwardGuns;
         laserCannon.audioSystem = playerController.audioSystem;
     }
@@ -42,7 +43,6 @@ public class XWingWeaponSystem : BaseWeaponSystem
     }
 
     //METHODS BELOW ARE CALLED FROM INPUT SYSTEM
-
     private void OnPrimaryFire(InputValue value) {
         canShootPrimary = value.isPressed;
     }
