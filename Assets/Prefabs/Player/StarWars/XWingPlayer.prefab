@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3910818820283065528}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RU_FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5917105098062368547}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LU_FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,7 +69,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5283594964560323730}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LB_Firepoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,7 +99,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2195498140896673065}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RB_FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,7 +129,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7704362173404972688}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Launcher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173,7 +173,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5601508051502691942}
   - component: {fileID: 5601508051502691943}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CM vcam1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -242,7 +242,7 @@ GameObject:
   - component: {fileID: 5601508052107072690}
   - component: {fileID: 5601508052107072701}
   - component: {fileID: 5601508052107072700}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -338,7 +338,7 @@ GameObject:
   - component: {fileID: 5020438621919313778}
   - component: {fileID: 5601508052107788581}
   - component: {fileID: 5601508052107788580}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: XWingPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -412,8 +412,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f35384c5d4ebd4a738089fdb751f0907, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectID: 
   gameManager: {fileID: 0}
   vesselType: 0
+  canShootPrimary: 0
+  canShootSecondary: 0
 --- !u!114 &5601508052107788581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -430,10 +433,41 @@ MonoBehaviour:
   vesselSelection: 0
   modelTransform: {fileID: 8906494851320653828}
   virtualCamera: {fileID: 5601508051502691943}
+  statHandler:
+    currentStats:
+      type: 0
+      health: 0
+      maxHealth: 0
+      healthRegen: 0
+      healthRegenRate: 0
+      fireRate: 0
+      statModifier:
+        fireRateModif: 0
+        healthRegenModif: 0
+        damageModif: 0
+      damageInfo:
+        critDMG: 0
+        critChance: 0
+    defaultStats:
+      type: 0
+      health: 0
+      maxHealth: 0
+      healthRegen: 0
+      healthRegenRate: 0
+      fireRate: 0
+      statModifier:
+        fireRateModif: 0
+        healthRegenModif: 0
+        damageModif: 0
+      damageInfo:
+        critDMG: 0
+        critChance: 0
+    OnHealthChanged:
+      m_PersistentCalls:
+        m_Calls: []
   playerState: {fileID: 0}
   audioSystem: {fileID: 0}
   cameraController: {fileID: 0}
-  damageManager: {fileID: 0}
 --- !u!114 &5601508052107788580
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -474,7 +508,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8906494851320653828}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Local_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -558,10 +592,40 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8252254730479808417, guid: 1f7e7583914df4473a61548fbd1f511d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -7750755105807995292, guid: 1f7e7583914df4473a61548fbd1f511d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -6573788571964224637, guid: 1f7e7583914df4473a61548fbd1f511d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 1f7e7583914df4473a61548fbd1f511d,
         type: 3}
       propertyPath: m_Name
       value: X-Wing_X-65_Model
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1f7e7583914df4473a61548fbd1f511d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2557224668082277408, guid: 1f7e7583914df4473a61548fbd1f511d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7380404194360812919, guid: 1f7e7583914df4473a61548fbd1f511d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f7e7583914df4473a61548fbd1f511d, type: 3}

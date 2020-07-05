@@ -21,7 +21,7 @@ public class EnemyController : EntityController
     }
 
     void Start() {
-        SetState<EnemyWander>();
+        SetState<EnemyPursuit>();
     }
 
     public void SetState<T>() where T : BaseState {

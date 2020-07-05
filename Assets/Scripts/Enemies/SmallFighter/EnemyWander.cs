@@ -6,8 +6,6 @@ using UnityEngine;
 public class EnemyWander : EnemyState
 {
 
-    //float modelAngle;
-    //float angleResult;
     float wanderAngle;
 
     Vector3 forwardVel;
@@ -15,7 +13,6 @@ public class EnemyWander : EnemyState
     
     Quaternion targetRot;
 
-    bool isTravelling = true;
     bool isReturning = false;
 
     public override void BeginState()
@@ -40,8 +37,6 @@ public class EnemyWander : EnemyState
         if(isReturning) {
             Wander();
         }
-
-        //ApplyRoll();
     }
 
     private void Movement() {

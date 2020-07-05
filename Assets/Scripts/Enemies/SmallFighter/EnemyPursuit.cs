@@ -24,7 +24,7 @@ public class EnemyPursuit : EnemyState
         if(GameManager.Instance.playerController == null) return;
         
         targetDistance = Vector3.Distance(transform.position, GameManager.Instance.playerController.transform.position);
-        //if(targetDistance > shipStats.maxProximityDist) controller.SetState<EnemyWander>();
+        if(targetDistance > shipStats.maxProximityDist) controller.SetState<EnemyWander>();
         if(targetDistance < 10) controller.SetState<EnemyEvasion>();
 
         Movement();
