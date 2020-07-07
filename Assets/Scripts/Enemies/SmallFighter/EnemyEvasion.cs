@@ -15,9 +15,8 @@ public class EnemyEvasion : EnemyState
         controller = this.GetComponent<EnemyController>();
         shipStats = GameManager.Instance.gameSettings.vesselStats.Where(x => x.type.Equals(controller.vesselSelection)).First();
 
-        damageSystem = this.gameObject.GetComponent<FighterDamageManager>();
-        damageSystem.Init(this, null);
-        damageSystem.components = shipStats.components;
+        damageSystem = new FighterDamageManager();
+        damageSystem.Init(this, weaponSystem, controller.statHandler);
     }
 
     public override void RunState() {

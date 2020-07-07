@@ -1,27 +1,47 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EnemyController : EntityController 
 {
-    public VesselType vesselSelection;
-    public Transform modelTransform;
     public AvoidanceSystem avoidanceSystem;
+    //public BaseWeaponSystem weaponSystem;
 
     [HideInInspector] public EnemyStateManager enemyState = null;
-    [HideInInspector] public VesselAudioSystem audioSystem;
-    [HideInInspector] public DamageManager damageSystem;
 
     void Awake() {
-        if (enemyState == null) enemyState = this.gameObject.AddComponent<EnemyStateManager>();
-        damageSystem = this.gameObject.AddComponent<FighterDamageManager>();
+        if (enemyState == null) 
+            enemyState = this.gameObject.AddComponent<EnemyStateManager>();
         avoidanceSystem = this.gameObject.AddComponent<AvoidanceSystem>();
-        //audioSystem = this.gameObject.AddComponent<VesselAudioSystem>();
-        //damageManager = this.gameObject.AddComponent<DamageManager>();
+        audioSystem = this.gameObject.AddComponent<VesselAudioSystem>();
+
+        GameSettings gameSettings = GameManager.Instance.gameSettings;
+        VesselShipStats vesselStats = gameSettings.vesselStats.Where(x => x.type == vesselSelection).First();
+        BaseStats enemyStats = vesselStats.baseShipStats;
+        statHandler = new StatHandler(enemyStats);
     }
 
     void Start() {
+        SetWeaponSystems();
         SetState<EnemyPursuit>();
+
+        Debug.Log("Enemy Health: " + statHandler.CurrentHealth);
+        Debug.Log("Enemy Damage: " + statHandler.CriticalDamage);
+    }
+
+    void SetWeaponSystems() {
+        BaseWeaponSystem weaponSystem;
+        switch(vesselSelection){
+            case VesselType.xWing:
+                weaponSystem = this.gameObject.AddComponent<XWingWeaponSystem>();
+                weaponSystem.SetupSystem(GetObjectID(), this, true);
+                break;
+            case VesselType.TieFighter:
+                weaponSystem = this.gameObject.AddComponent<TieWeaponSystem>();
+                weaponSystem.SetupSystem(GetObjectID(), this, true);
+                break;
+        }
     }
 
     public void SetState<T>() where T : BaseState {
@@ -31,7 +51,6 @@ public class EnemyController : EntityController
     void FixedUpdate()
     {
         if(enemyState.currentState == null) return;
-
         enemyState.currentState.RunState();
     }
 }

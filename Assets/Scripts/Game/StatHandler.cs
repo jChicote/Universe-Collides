@@ -9,23 +9,37 @@ public class StatHandler
     [SerializeField] private BaseStats currentStats; 
     [SerializeField] private BaseStats defaultStats;
 
+    //Invoked by player only
     public UnityEvent OnHealthChanged = new UnityEvent();
 
     public StatHandler(BaseStats baseStats) {
         this.currentStats = baseStats;
         this.defaultStats = baseStats;
+
+        //Init variables
+        currentHealth = currentStats.maxHealth;
+        damageBuff = currentStats.statModifier.damageModif;
     }
 
+    [SerializeField] private float currentHealth;
     public float CurrentHealth {
         get {
-            return currentStats.health;
+            return currentHealth;
         }
         set {
-            currentStats.health = value;
+            currentHealth = value;
 
             if(currentStats.health > currentStats.maxHealth)
-                currentStats.health = currentStats.maxHealth;
+                currentHealth = currentStats.maxHealth;
         }
+    }
+
+    [SerializeField] private float damageBuff = 0;
+    public float DamageBuff {
+        get {
+            return currentStats.statModifier.damageModif;
+        }
+        set { damageBuff = value; }
     }
 
     public float CriticalDamage {
@@ -36,13 +50,6 @@ public class StatHandler
         }
     }
 
-    public float DamageBuff {
-        get {
-            return currentStats.statModifier.damageModif;
-        }
-        set { currentStats.statModifier.damageModif = value; }
-    }
-
     public void Reset() {
         currentStats = defaultStats;
     }
@@ -50,7 +57,6 @@ public class StatHandler
 
 [System.Serializable]
 public class BaseStats {
-    public VesselType type;
     public float health;
     public float maxHealth;
     public float healthRegen;

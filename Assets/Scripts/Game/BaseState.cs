@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BaseState : MonoBehaviour, IPausable
+public abstract class BaseState : MonoBehaviour, IPausable, IDamageReciever
 {
-    [HideInInspector] public BaseWeaponSystem weaponSystem;
+    [HideInInspector] public IWeaponSystem weaponSystem;
     [HideInInspector] public DamageManager damageSystem;
     [HideInInspector] public Vector3 currentRotation = Vector3.zero;
     [HideInInspector] public Vector3 currentVelocity = Vector3.zero;
@@ -18,7 +18,7 @@ public abstract class BaseState : MonoBehaviour, IPausable
     public float thrust = 0;
 
     public bool isPaused = false;
-    public bool isEngineDamaged = false;
+    //public bool isEngineDamaged = false;
 
     public abstract void BeginState();
 
@@ -34,5 +34,10 @@ public abstract class BaseState : MonoBehaviour, IPausable
     public void UnPause()
     {
         isPaused = false;
+    }
+
+    public void OnRecievedDamage(float damage, string id)
+    {
+        damageSystem.CalculateHealth(damage, id);
     }
 }

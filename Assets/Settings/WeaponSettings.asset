@@ -19,7 +19,7 @@ MonoBehaviour:
     lifeTime: 4
     fireRate: 0.15
     speed: 60
-    damage: 5
+    damage: 2
   impactEffects:
   - type: 0
     effectsArray:

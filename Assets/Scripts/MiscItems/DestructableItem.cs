@@ -13,7 +13,7 @@ public class DestructableItem : MonoBehaviour, IDamageReciever, IEntity
 
     public void OnRecievedDamage(float damage, string id)
     {
-        Debug.Log(damage);
-        Debug.Log(id);
+        //Debug.Log(damage);
+        //Debug.Log(id);
     }
 }

@@ -6,33 +6,27 @@ using UnityEngine.InputSystem;
 
 public class XWingWeaponSystem : BaseWeaponSystem
 {
-    PlayerController playerController;
-    FighterDamageManager damageSystem;
     LaserCannon laserCannon;
     VesselTransforms transforms;
     
     void Awake() {
         gameManager = GameManager.Instance;
-        playerController = this.GetComponent<PlayerController>();
+        transforms = this.GetComponent<VesselTransforms>();
+        //controller = this.GetComponent<PlayerController>();
     }
 
     void Start() {
-        transforms = this.GetComponent<VesselTransforms>();
-        damageSystem = this.GetComponent<FighterDamageManager>();
-        laserCannon = this.gameObject.AddComponent<LaserCannon>();
-        objectID = playerController.objectID;
-        laserCannon.shooterID = objectID;
-        Init();
+        
+        SetupWeapons();
     }
 
-    public override void Init() {
-        laserCannon.Init(playerController.statHandler);
-        laserCannon.firePoint = transforms.forwardGuns;
-        laserCannon.audioSystem = playerController.audioSystem;
+    void SetupWeapons() {
+        laserCannon = this.gameObject.AddComponent<LaserCannon>();
+        laserCannon.Init(objectID, true, transforms.forwardGuns, controller.audioSystem);
     }
 
     public override void RunSystem() {
-        if (canShootPrimary) laserCannon.Shoot();
+        if (canShootPrimary) laserCannon.Shoot(controller.statHandler.DamageBuff, controller.statHandler.CriticalDamage, SoundType.LaserCannon_1);
     }
 
     public override void SetAimPosition(float speed)
@@ -52,9 +46,9 @@ public class XWingWeaponSystem : BaseWeaponSystem
         canShootSecondary = value.isPressed;
     }
     private void OnLocking(InputValue value) {
-        playerController.cameraController.isFocused = value.isPressed;
-        playerController.cameraController.ModifyCameraTracking();
+        controller.cameraController.isFocused = value.isPressed;
+        controller.cameraController.ModifyCameraTracking();
 
-        StartCoroutine(playerController.cameraController.LockingCamera());
+        StartCoroutine(controller.cameraController.LockingCamera());
     }
 }

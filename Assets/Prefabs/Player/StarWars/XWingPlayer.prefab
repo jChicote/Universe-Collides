@@ -412,9 +412,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f35384c5d4ebd4a738089fdb751f0907, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectID: 
+  objectID: PlayerXWing_1
+  controller: {fileID: 0}
+  target: {fileID: 0}
   gameManager: {fileID: 0}
   vesselType: 0
+  shipStats:
+    type: 0
+    maxProximityDist: 0
+    evasionDist: 0
+    stableAngleLimit: 0
+    yawRate: 0
+    extraYaw: 0
+    pitchRate: 0
+    extraPitch: 0
+    rollRate: 0
+    extraRoll: 0
+    speed: 0
+    throttleSpeed: 0
+    baseShipStats:
+      health: 0
+      maxHealth: 0
+      healthRegen: 0
+      healthRegenRate: 0
+      fireRate: 0
+      statModifier:
+        fireRateModif: 0
+        healthRegenModif: 0
+        damageModif: 0
+      damageInfo:
+        critDMG: 0
+        critChance: 0
   canShootPrimary: 0
   canShootSecondary: 0
 --- !u!114 &5601508052107788581
@@ -429,13 +457,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d759860e95f2b41838a88aaa442ab633, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectID: testXWing
   vesselSelection: 0
   modelTransform: {fileID: 8906494851320653828}
-  virtualCamera: {fileID: 5601508051502691943}
   statHandler:
     currentStats:
-      type: 0
       health: 0
       maxHealth: 0
       healthRegen: 0
@@ -449,7 +474,6 @@ MonoBehaviour:
         critDMG: 0
         critChance: 0
     defaultStats:
-      type: 0
       health: 0
       maxHealth: 0
       healthRegen: 0
@@ -465,9 +489,10 @@ MonoBehaviour:
     OnHealthChanged:
       m_PersistentCalls:
         m_Calls: []
-  playerState: {fileID: 0}
   audioSystem: {fileID: 0}
   cameraController: {fileID: 0}
+  virtualCamera: {fileID: 5601508051502691943}
+  playerState: {fileID: 0}
 --- !u!114 &5601508052107788580
 MonoBehaviour:
   m_ObjectHideFlags: 0

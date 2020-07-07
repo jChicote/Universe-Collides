@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class EnemyPursuit : EnemyState
 {
+    TargetDirectionCheck dirChecker;
     Vector3 pursuitDir;
     Quaternion targetRot;
     bool isAvoiding = false;
@@ -13,25 +14,40 @@ public class EnemyPursuit : EnemyState
     {
         controller = this.GetComponent<EnemyController>();
         shipStats = GameManager.Instance.gameSettings.vesselStats.Where(x => x.type.Equals(controller.vesselSelection)).First();
+        dirChecker = new TargetDirectionCheck();
 
-        damageSystem = this.gameObject.GetComponent<FighterDamageManager>();
-        damageSystem.Init(this, null);
-        damageSystem.components = shipStats.components;
+        weaponSystem = this.GetComponent<IWeaponSystem>();
+
+        damageSystem = new FighterDamageManager();
+        damageSystem.Init(this, weaponSystem, controller.statHandler);
     }
 
     public override void RunState() {
         if(isPaused) return;
         if(GameManager.Instance.playerController == null) return;
-        
-        targetDistance = Vector3.Distance(transform.position, GameManager.Instance.playerController.transform.position);
-        if(targetDistance > shipStats.maxProximityDist) controller.SetState<EnemyWander>();
-        if(targetDistance < 10) controller.SetState<EnemyEvasion>();
 
+        /// Testing purposes only ///
+
+        if(GameManager.Instance.playerController.gameObject != null) {
+            weaponSystem.AssignTarget(GameManager.Instance.playerController.gameObject);//MUST REMOVE
+        }
+
+        /// --------------------- ///
+        
+        if(weaponSystem.CheckAimDirection()) weaponSystem.RunSystem();
+
+        ChangeState();
         Movement();
         if(controller.avoidanceSystem.DetectCollision()) return;
 
         LookPursuit();
         ApplyRoll();
+    }
+
+    private void ChangeState() {
+        targetDistance = Vector3.Distance(transform.position, GameManager.Instance.playerController.transform.position);
+        if(targetDistance > shipStats.maxProximityDist) controller.SetState<EnemyWander>();
+        if(targetDistance < 10) controller.SetState<EnemyEvasion>();
     }
 
     private void Movement() {

@@ -11,7 +11,7 @@ public class PhotonLauncher : BaseWeapon
         info = settings.weaponStats.Where(x => x.type == WeaponType.Photon).First();
     }
 
-    public override void Shoot()
+    public override void Shoot(float damageBuff, float critDamage, SoundType type)
     {
         if(!isShooting) return;
 

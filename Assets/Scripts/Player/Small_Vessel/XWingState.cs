@@ -12,18 +12,23 @@ public class XWingState : PlayerState
 
     public override void BeginState()
     {
+        //Load primary player components.
         playerSettings = GameManager.Instance.gameSettings.playerSettings;
-
-        playerController = this.GetComponent<PlayerController>();
+        controller = this.GetComponent<PlayerController>();
         playerRB = this.GetComponent<Rigidbody>();
-        weaponSystem = this.GetComponent<XWingWeaponSystem>();
 
-        shipStats = GameManager.Instance.gameSettings.vesselStats.Where(x => x.type.Equals(weaponSystem.vesselType)).First();
+        //Load shipstates.
+        GameSettings gameSettings = GameManager.Instance.gameSettings;
+        shipStats = gameSettings.vesselStats.Where(x => x.type.Equals(controller.vesselSelection)).First();
         speed = shipStats.speed;
 
-        damageSystem = this.gameObject.AddComponent<FighterDamageManager>();
-        damageSystem.Init(this, weaponSystem);
-        damageSystem.components = shipStats.components;
+        //Load Input Controllers
+        movementController = new InputMovementController(this, shipStats);
+
+        //Load weapon/damage components.
+        weaponSystem = this.GetComponent<IWeaponSystem>();
+        damageSystem = new FighterDamageManager();
+        damageSystem.Init(this, weaponSystem, controller.statHandler);
     }
 
     void FixedUpdate()
@@ -31,15 +36,17 @@ public class XWingState : PlayerState
         if(isPaused) return;
 
         ApplyRotation();
-        Movement();
-        Throttle();
+        ApplyMovement();
+        //SetThrottling();
+        
+
         weaponSystem.RunSystem();
         weaponSystem.SetAimPosition(speed);
     }
 
     private void ApplyRotation() {
-        if(inputX == 0 || playerController.cameraController.isFocused) {
-            playerController.modelTransform.rotation = Quaternion.Slerp(playerController.modelTransform.rotation, transform.rotation, 0.1f);
+        if(inputX == 0 || controller.cameraController.isFocused) {
+            controller.modelTransform.rotation = Quaternion.Slerp(controller.modelTransform.rotation, transform.rotation, 0.1f);
             if(inputX == 0) return;
         }
 
@@ -47,16 +54,20 @@ public class XWingState : PlayerState
         currentRotation = new Vector3(-1 * pitch, yaw, -1 * roll);
         transform.Rotate(currentRotation);
 
+        RollLocalModel();
+    }
+
+    private void RollLocalModel() {
         //Finds roll angle of local model
-        modelLocalAngles =  playerController.modelTransform.localEulerAngles;
+        modelLocalAngles =  controller.modelTransform.localEulerAngles;
         modelAngle = (modelLocalAngles.z > 180) ? modelLocalAngles.z - 360 : modelLocalAngles.z;
 
         //Applied roll rotation of model
         angleResult = modelAngle + (-1 * roll);
         if (angleResult > -30 && angleResult < 30 )
-            playerController.modelTransform.Rotate(0, 0, -1 * roll);
+            controller.modelTransform.Rotate(0, 0, -1 * roll);
         else {
-            playerController.modelTransform.localEulerAngles = new Vector3(0, 0, modelAngle);
+            controller.modelTransform.localEulerAngles = new Vector3(0, 0, modelAngle);
         }
     }
 }

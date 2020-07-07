@@ -11,20 +11,21 @@ public interface IEntity {
 
 public class PlayerController : EntityController
 {
-    public VesselType vesselSelection;
-    public Transform modelTransform;
     public CinemachineVirtualCamera virtualCamera;
-    public StatHandler statHandler;
 
     [HideInInspector] public PlayerStateManager playerState = null;
-    [HideInInspector] public VesselAudioSystem audioSystem;
-    [HideInInspector] public CameraController cameraController;
 
     void Awake() {
         if (playerState == null) playerState = this.gameObject.AddComponent<PlayerStateManager>();
         audioSystem = this.gameObject.AddComponent<VesselAudioSystem>();
         PlayerSettings playerSettings = GameManager.Instance.gameSettings.playerSettings;
-        BaseStats playerStats = playerSettings.basePlayerStats.Where(x => x.type == vesselSelection).First();
+
+        IWeaponSystem weaponSystem = this.GetComponent<IWeaponSystem>();
+        weaponSystem.SetupSystem(GetObjectID(), this, false);
+
+        GameSettings gameSettings = GameManager.Instance.gameSettings;
+        VesselShipStats vesselStats = gameSettings.vesselStats.Where(x => x.type == vesselSelection).First();
+        BaseStats playerStats = vesselStats.baseShipStats;
         statHandler = new StatHandler(playerStats);
     }
 

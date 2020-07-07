@@ -19,3 +19,7 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 7c7343587199247e9ac568e0c53b985c, type: 3}
     - {fileID: 8300000, guid: a92cb4394dcd34e9683b75177807d8de, type: 3}
     volume: 1
+  - type: 1
+    soundClips:
+    - {fileID: 8300000, guid: 83d364510c38544518dd034f95e4daab, type: 3}
+    volume: 1

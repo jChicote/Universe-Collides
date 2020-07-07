@@ -38,19 +38,19 @@ MonoBehaviour:
     extraRoll: 20
     speed: 13
     throttleSpeed: 10
-    components:
-    - type: 0
-      hits: 0
-      maxHits: 5
-      isDamaged: 0
-    - type: 1
-      hits: 0
-      maxHits: 5
-      isDamaged: 0
-    - type: 2
-      hits: 0
-      maxHits: 4
-      isDamaged: 0
+    baseShipStats:
+      health: 150
+      maxHealth: 100
+      healthRegen: 5
+      healthRegenRate: 0.5
+      fireRate: 0.15
+      statModifier:
+        fireRateModif: 0
+        healthRegenModif: 0
+        damageModif: 0
+      damageInfo:
+        critDMG: 10
+        critChance: 0.3
   - type: 1
     maxProximityDist: 130
     evasionDist: 20
@@ -63,19 +63,19 @@ MonoBehaviour:
     extraRoll: 20
     speed: 15
     throttleSpeed: 7
-    components:
-    - type: 0
-      hits: 0
-      maxHits: 5
-      isDamaged: 0
-    - type: 1
-      hits: 0
-      maxHits: 5
-      isDamaged: 0
-    - type: 2
-      hits: 0
-      maxHits: 4
-      isDamaged: 0
+    baseShipStats:
+      health: 130
+      maxHealth: 100
+      healthRegen: 10
+      healthRegenRate: 0.5
+      fireRate: 0.1
+      statModifier:
+        fireRateModif: 0
+        healthRegenModif: 0
+        damageModif: 0
+      damageInfo:
+        critDMG: 20
+        critChance: 0.1
   - type: 2
     maxProximityDist: 0
     evasionDist: 0
@@ -88,16 +88,16 @@ MonoBehaviour:
     extraRoll: 25
     speed: 20
     throttleSpeed: 7
-    components:
-    - type: 0
-      hits: 0
-      maxHits: 5
-      isDamaged: 0
-    - type: 1
-      hits: 0
-      maxHits: 5
-      isDamaged: 0
-    - type: 2
-      hits: 0
-      maxHits: 4
-      isDamaged: 0
+    baseShipStats:
+      health: 0
+      maxHealth: 0
+      healthRegen: 0
+      healthRegenRate: 0
+      fireRate: 0
+      statModifier:
+        fireRateModif: 0
+        healthRegenModif: 0
+        damageModif: 0
+      damageInfo:
+        critDMG: 0
+        critChance: 0

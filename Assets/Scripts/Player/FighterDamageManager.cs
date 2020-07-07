@@ -5,19 +5,22 @@ using UnityEngine;
 
 public class FighterDamageManager : DamageManager
 {
-    public override void Init(BaseState state, BaseWeaponSystem weaponSystem) {
+    public override void Init(BaseState state, IWeaponSystem weaponSystem, StatHandler statHandler) {
         this.shipState = state;
         this.weaponSystem = weaponSystem;
+        this.statHandler = statHandler;
     }
 
-    public override void OnDeath()
+    public override void OnDeath(Vector3 position)
     {
-        Debug.Log("is Dead");
+        //Debug.Log("is Dead");
     }
 
-    public override void OnRecievedDamage(float damage, string id)
+    public override void CalculateHealth(float damage, string id)
     {
-        Debug.Log(damage);
-        Debug.Log(id);
+        float health = statHandler.CurrentHealth - damage;
+        statHandler.CurrentHealth = health;
+        Debug.Log("Damage: " + damage);
+        Debug.Log("Health: " + health);
     }
 }

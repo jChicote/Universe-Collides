@@ -6,15 +6,15 @@ public interface IDamageReciever {
     void OnRecievedDamage(float damage, string id);
 }
 
-public abstract class DamageManager : MonoBehaviour, IDamageReciever
+public abstract class DamageManager
 {
     public BaseState shipState;
-    public BaseWeaponSystem weaponSystem;
-    public ShipComponent[] components;
+    public IWeaponSystem weaponSystem;
+    public StatHandler statHandler;
 
-    public abstract void Init(BaseState state, BaseWeaponSystem weaponSystem);
+    public abstract void Init(BaseState state, IWeaponSystem weaponSystem, StatHandler statHandler);
 
-    public abstract void OnRecievedDamage(float damage, string id);
+    public abstract void CalculateHealth(float damage, string id);
     
-    public abstract void OnDeath();
+    public abstract void OnDeath(Vector3 position);
 }

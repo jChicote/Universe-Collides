@@ -51,5 +51,8 @@ public class VesselShipStats {
     public float extraRoll;
     public float speed;
     public float throttleSpeed;
-    public ShipComponent[] components;
+
+    [Header("Vessel Handler Stats")]
+    public BaseStats baseShipStats;
+
 }

@@ -28,5 +28,6 @@ public class Sound {
 }
 
 public enum SoundType {
-    LaserCannon
+    LaserCannon_1,
+    LaserCannon_2
 }
