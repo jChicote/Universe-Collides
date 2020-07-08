@@ -7,7 +7,6 @@ public class PlayerSettings : ScriptableObject
 {
     public float sensitivity = 2;
     public List<CameraAttributes> cameraAttributes;
-    public List<BaseStats> basePlayerStats;
 }
 
 [System.Serializable]

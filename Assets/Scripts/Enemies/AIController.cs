@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class EnemyController : EntityController 
+public class AIController : BaseEntityController 
 {
     public AvoidanceSystem avoidanceSystem;
-    //public BaseWeaponSystem weaponSystem;
 
-    [HideInInspector] public EnemyStateManager enemyState = null;
+    [HideInInspector] public AIStateManager enemyState = null;
 
     void Awake() {
         if (enemyState == null) 
-            enemyState = this.gameObject.AddComponent<EnemyStateManager>();
+            enemyState = this.gameObject.AddComponent<AIStateManager>();
         avoidanceSystem = this.gameObject.AddComponent<AvoidanceSystem>();
         audioSystem = this.gameObject.AddComponent<VesselAudioSystem>();
 
+        //Initialise Stat Handler
         GameSettings gameSettings = GameManager.Instance.gameSettings;
         VesselShipStats vesselStats = gameSettings.vesselStats.Where(x => x.type == vesselSelection).First();
         BaseStats enemyStats = vesselStats.baseShipStats;
@@ -24,7 +24,7 @@ public class EnemyController : EntityController
 
     void Start() {
         SetWeaponSystems();
-        SetState<EnemyPursuit>();
+        SetState<AIPursuit>();
 
         Debug.Log("Enemy Health: " + statHandler.CurrentHealth);
         Debug.Log("Enemy Damage: " + statHandler.CriticalDamage);
@@ -32,25 +32,21 @@ public class EnemyController : EntityController
 
     void SetWeaponSystems() {
         BaseWeaponSystem weaponSystem;
+        VesselShipStats vesselStats = GameManager.Instance.gameSettings.vesselStats.Where(x => x.type == vesselSelection).First();
+       
         switch(vesselSelection){
             case VesselType.xWing:
                 weaponSystem = this.gameObject.AddComponent<XWingWeaponSystem>();
-                weaponSystem.SetupSystem(GetObjectID(), this, true);
+                weaponSystem.Init(GetObjectID(), this, true, vesselStats);
                 break;
             case VesselType.TieFighter:
                 weaponSystem = this.gameObject.AddComponent<TieWeaponSystem>();
-                weaponSystem.SetupSystem(GetObjectID(), this, true);
+                weaponSystem.Init(GetObjectID(), this, true, vesselStats);
                 break;
         }
     }
 
     public void SetState<T>() where T : BaseState {
         enemyState.AddState<T>();
-    }
-
-    void FixedUpdate()
-    {
-        if(enemyState.currentState == null) return;
-        enemyState.currentState.RunState();
     }
 }

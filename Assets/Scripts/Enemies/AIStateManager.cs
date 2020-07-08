@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyStateManager : MonoBehaviour
+public class AIStateManager : MonoBehaviour
 {
-    public BaseState currentState;
+    BaseState currentState;
 
     public void AddState<T>() where T : BaseState
     {

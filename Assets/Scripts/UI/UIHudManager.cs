@@ -12,7 +12,10 @@ public class UIHudManager : MonoBehaviour
     void Start()
     {
         gameManager = GameManager.Instance;
-        aimSightUI.parentTransform = this.GetComponent<RectTransform>();
+    }
+
+    public void Init(AimUI aimUI) {
+        this.aimSightUI = aimUI;
     }
 
     public void RevealPauseScreen(bool isRevealed) {

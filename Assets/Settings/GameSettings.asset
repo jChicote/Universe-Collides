@@ -21,6 +21,8 @@ MonoBehaviour:
     type: 3}
   UIHudPrefab: {fileID: 2456526430375880183, guid: 260044937dac649caafeb44757e5f541,
     type: 3}
+  UIaimSightPrefab: {fileID: 6774373207111884642, guid: 9dfa2c11a7f62457ab1d501f7aec5e94,
+    type: 3}
   mainMenuPrefab: {fileID: 1172539618945808642, guid: afa1ab848539d4661aab3e0ded5bfc8a,
     type: 3}
   playerPrefab: {fileID: 5601508052107788582, guid: 4bfd7f2325e3f498ca6087cdaddaf9e4,
@@ -31,11 +33,11 @@ MonoBehaviour:
     evasionDist: 20
     stableAngleLimit: 0
     yawRate: 15
-    extraYaw: 20
+    extraYaw: 30
     pitchRate: 15
-    extraPitch: 20
+    extraPitch: 30
     rollRate: 15
-    extraRoll: 20
+    extraRoll: 30
     speed: 13
     throttleSpeed: 10
     baseShipStats:

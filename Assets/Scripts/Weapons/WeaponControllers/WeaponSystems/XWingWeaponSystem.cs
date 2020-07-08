@@ -7,22 +7,14 @@ using UnityEngine.InputSystem;
 public class XWingWeaponSystem : BaseWeaponSystem
 {
     LaserCannon laserCannon;
-    VesselTransforms transforms;
-    
-    void Awake() {
-        gameManager = GameManager.Instance;
-        transforms = this.GetComponent<VesselTransforms>();
-        //controller = this.GetComponent<PlayerController>();
-    }
 
     void Start() {
-        
         SetupWeapons();
     }
 
     void SetupWeapons() {
         laserCannon = this.gameObject.AddComponent<LaserCannon>();
-        laserCannon.Init(objectID, true, transforms.forwardGuns, controller.audioSystem);
+        laserCannon.Init(objectID, false, transforms.forwardGuns, controller.audioSystem);
     }
 
     public override void RunSystem() {
@@ -31,9 +23,10 @@ public class XWingWeaponSystem : BaseWeaponSystem
 
     public override void SetAimPosition(float speed)
     {
-        Vector3 future = transform.position + transform.forward * speed * 3;
+        float timeAhead = Mathf.Clamp(speed, 5, 50);
+        Vector3 future = transform.position + transform.forward * timeAhead * 3;
         Debug.DrawLine(transform.position,future);
-        GameManager.Instance.gameplayHUD.aimSightUI.SetAimPosition(future);
+        gameManager.gameplayHUD.aimSightUI.SetAimPosition(future);
     }
 
     //METHODS BELOW ARE CALLED FROM INPUT SYSTEM

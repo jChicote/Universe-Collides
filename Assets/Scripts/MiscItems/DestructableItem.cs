@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DestructableItem : MonoBehaviour, IDamageReciever, IEntity
+public class DestructableItem : MonoBehaviour, IDamageReciever, IIdentity
 {
-
     public string objectID = "DestructID_1";
     public string GetObjectID()
     {

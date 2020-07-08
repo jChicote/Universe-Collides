@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EntityController : MonoBehaviour, IEntity
+public interface IIdentity {
+    string GetObjectID();
+}
+
+public abstract class BaseEntityController : MonoBehaviour, IIdentity
 {
     public string objectID = "testXWing";
     public VesselType vesselSelection;
     public Transform modelTransform;
     public StatHandler statHandler;
+    public VesselShipStats shipStats;
 
     [HideInInspector] public VesselAudioSystem audioSystem;
     [HideInInspector] public CameraController cameraController;

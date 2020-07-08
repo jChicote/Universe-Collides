@@ -3,27 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class EnemyEvasion : EnemyState
+public class AIEvasion : AIState
 {
     Vector3 evasionDir;
     Quaternion targetRot;
 
-    bool isAvoiding = false;
-
     public override void BeginState()
     {
-        controller = this.GetComponent<EnemyController>();
+        controller = this.GetComponent<AIController>();
+        objectID = controller.objectID;
         shipStats = GameManager.Instance.gameSettings.vesselStats.Where(x => x.type.Equals(controller.vesselSelection)).First();
 
         damageSystem = new FighterDamageManager();
         damageSystem.Init(this, weaponSystem, controller.statHandler);
     }
 
+    void FixedUpdate()
+    {
+        RunState();
+    }
+
     public override void RunState() {
         if(isPaused) return;
+        
         targetDistance = Vector3.Distance(transform.position, GameManager.Instance.playerController.transform.position);
-        if(targetDistance > shipStats.maxProximityDist) controller.SetState<EnemyWander>();
-        if(targetDistance > shipStats.pursuitDistance) controller.SetState<EnemyPursuit>();
+        if(targetDistance > shipStats.maxProximityDist) controller.SetState<AIWander>();
+        if(targetDistance > shipStats.pursuitDistance) controller.SetState<AIPursuit>();
 
         Movement();
         if(controller.avoidanceSystem.DetectCollision()) return;

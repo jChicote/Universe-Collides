@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class EnemyPursuit : EnemyState
+public class AIPursuit : AIState
 {
     TargetDirectionCheck dirChecker;
     Vector3 pursuitDir;
     Quaternion targetRot;
-    bool isAvoiding = false;
 
     public override void BeginState()
     {
-        controller = this.GetComponent<EnemyController>();
+        controller = this.GetComponent<AIController>();
+        objectID = controller.objectID;
         shipStats = GameManager.Instance.gameSettings.vesselStats.Where(x => x.type.Equals(controller.vesselSelection)).First();
         dirChecker = new TargetDirectionCheck();
 
@@ -20,6 +20,11 @@ public class EnemyPursuit : EnemyState
 
         damageSystem = new FighterDamageManager();
         damageSystem.Init(this, weaponSystem, controller.statHandler);
+    }
+
+    void FixedUpdate()
+    {
+        RunState();
     }
 
     public override void RunState() {
@@ -46,8 +51,8 @@ public class EnemyPursuit : EnemyState
 
     private void ChangeState() {
         targetDistance = Vector3.Distance(transform.position, GameManager.Instance.playerController.transform.position);
-        if(targetDistance > shipStats.maxProximityDist) controller.SetState<EnemyWander>();
-        if(targetDistance < 10) controller.SetState<EnemyEvasion>();
+        if(targetDistance > shipStats.maxProximityDist) controller.SetState<AIWander>();
+        if(targetDistance < 10) controller.SetState<AIEvasion>();
     }
 
     private void Movement() {

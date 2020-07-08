@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyState : BaseState
+public class AIState : BaseState
 {
-    public EnemyController controller;
+    public AIController controller;
     public GameObject target;
 
     public float targetDistance;
@@ -29,7 +29,7 @@ public class EnemyState : BaseState
 
         //Applied roll rotation of model
         angleResult = modelAngle + (-1 * roll);
-        if (angleResult > -30 && angleResult < 30 )
+        if (angleResult > -30 && angleResult < 30)
             controller.modelTransform.Rotate(0, 0, -1 * roll);
         else {
             controller.modelTransform.localEulerAngles = new Vector3(0, 0, modelAngle);

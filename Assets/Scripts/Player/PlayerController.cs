@@ -5,13 +5,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Cinemachine;
 
-public interface IEntity {
-    string GetObjectID();
-}
-
-public class PlayerController : EntityController
+public class PlayerController : BaseEntityController
 {
-    public CinemachineVirtualCamera virtualCamera;
+    [SerializeField] private CinemachineVirtualCamera virtualCamera;
 
     [HideInInspector] public PlayerStateManager playerState = null;
 
@@ -20,18 +16,21 @@ public class PlayerController : EntityController
         audioSystem = this.gameObject.AddComponent<VesselAudioSystem>();
         PlayerSettings playerSettings = GameManager.Instance.gameSettings.playerSettings;
 
-        IWeaponSystem weaponSystem = this.GetComponent<IWeaponSystem>();
-        weaponSystem.SetupSystem(GetObjectID(), this, false);
-
+        //Initialise Stat Handler
         GameSettings gameSettings = GameManager.Instance.gameSettings;
         VesselShipStats vesselStats = gameSettings.vesselStats.Where(x => x.type == vesselSelection).First();
         BaseStats playerStats = vesselStats.baseShipStats;
         statHandler = new StatHandler(playerStats);
+
+        //Initialise Weapon System
+        IWeaponSystem weaponSystem = this.GetComponent<IWeaponSystem>();
+        weaponSystem.Init(GetObjectID(), this, false, vesselStats);
+
+        cameraController = this.gameObject.AddComponent<CameraController>();
+        cameraController.Init(virtualCamera, vesselSelection);
     }
 
     void Start() {
-        cameraController = this.gameObject.AddComponent<CameraController>();
-        
         //Sets the state based on selected type
         switch (vesselSelection) {
             case VesselType.xWing:

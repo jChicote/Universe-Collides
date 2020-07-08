@@ -14,6 +14,7 @@ public class GameSettings : ScriptableObject
     public GameObject sceneCamera;
     public GameObject audioManagerPrefab;
     public GameObject UIHudPrefab;
+    public GameObject UIaimSightPrefab;
     public GameObject mainMenuPrefab;
     public GameObject playerPrefab; //later change to loaded model types that add the controller;
 

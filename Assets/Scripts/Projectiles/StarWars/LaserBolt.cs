@@ -37,8 +37,7 @@ public class LaserBolt : BasicProjectile
 
     private void OnCollisionEnter(Collision collisionInfo)
     {
-
-        string objectID = collisionInfo.gameObject.GetComponent<IEntity>().GetObjectID();
+        string objectID = collisionInfo.gameObject.GetComponent<IIdentity>().GetObjectID();
         if(objectID == shooterID) return;
 
         if (collisionInfo.gameObject.GetComponent<IDamageReciever>() == null) {

@@ -6,8 +6,8 @@ using Cinemachine;
 
 public class CameraController : MonoBehaviour
 {
+    CinemachineVirtualCamera virtualCamera;
     CameraAttributes attributes;
-    PlayerController playerController;
     [HideInInspector] public CinemachineTransposer cameraTransposer;
     [HideInInspector] public CinemachineComposer cameraComposer;
 
@@ -15,26 +15,30 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
-        playerController = this.GetComponent<PlayerController>();
-        attributes = GameManager.Instance.gameSettings.playerSettings.cameraAttributes.Where(x => x.type == playerController.vesselSelection).First();
-        cameraTransposer = playerController.virtualCamera.GetCinemachineComponent<CinemachineTransposer>();
-        cameraComposer = playerController.virtualCamera.GetCinemachineComponent<CinemachineComposer>();
+        cameraTransposer = virtualCamera.GetCinemachineComponent<CinemachineTransposer>();
+        cameraComposer = virtualCamera.GetCinemachineComponent<CinemachineComposer>();
         SetCameraTrack(attributes.composerDefaultY, attributes.defaultXDamp, attributes.defaultYDamp, attributes.defaultZDamp,
                         attributes.defaultPitchDamp, attributes.defaultYawDamp, attributes.defaultRollDamp);
+    }
+
+    public void Init(CinemachineVirtualCamera camera, VesselType vesselType) {
+        this.virtualCamera = camera;
+        PlayerSettings playerSettings = GameManager.Instance.gameSettings.playerSettings;
+        attributes = playerSettings.cameraAttributes.Where(x => x.type == vesselType).First();
     }
 
     public void ModifyFieldOfView(float valueY) {
         //Returns to normal when no throttling is applied
         if(valueY == 0) {
-            playerController.virtualCamera.m_Lens.FieldOfView = Mathf.Lerp(playerController.virtualCamera.m_Lens.FieldOfView, attributes.defaultFOV, 0.1f);
+            virtualCamera.m_Lens.FieldOfView = Mathf.Lerp(virtualCamera.m_Lens.FieldOfView, attributes.defaultFOV, 0.1f);
             return;
         }
         
         //Increases or decreases camera FOV on throttle value
         if(valueY > 0){
-            playerController.virtualCamera.m_Lens.FieldOfView = Mathf.Lerp(playerController.virtualCamera.m_Lens.FieldOfView, attributes.maxFOV, 0.1f);
+            virtualCamera.m_Lens.FieldOfView = Mathf.Lerp(virtualCamera.m_Lens.FieldOfView, attributes.maxFOV, 0.1f);
         } else {
-            playerController.virtualCamera.m_Lens.FieldOfView = Mathf.Lerp(playerController.virtualCamera.m_Lens.FieldOfView, attributes.minFOV, 0.04f);
+            virtualCamera.m_Lens.FieldOfView = Mathf.Lerp(virtualCamera.m_Lens.FieldOfView, attributes.minFOV, 0.04f);
         }
     }
 

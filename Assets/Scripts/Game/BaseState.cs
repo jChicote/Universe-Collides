@@ -4,6 +4,8 @@ using UnityEngine;
 
 public abstract class BaseState : MonoBehaviour, IPausable, IDamageReciever
 {
+    public string objectID;
+
     [HideInInspector] public IWeaponSystem weaponSystem;
     [HideInInspector] public DamageManager damageSystem;
     [HideInInspector] public Vector3 currentRotation = Vector3.zero;
@@ -15,10 +17,8 @@ public abstract class BaseState : MonoBehaviour, IPausable, IDamageReciever
     public float roll = 0;
 
     public float speed = 0;
-    public float thrust = 0;
 
     public bool isPaused = false;
-    //public bool isEngineDamaged = false;
 
     public abstract void BeginState();
 
@@ -39,5 +39,10 @@ public abstract class BaseState : MonoBehaviour, IPausable, IDamageReciever
     public void OnRecievedDamage(float damage, string id)
     {
         damageSystem.CalculateHealth(damage, id);
+    }
+
+    public string GetObjectID()
+    {
+        return objectID;
     }
 }

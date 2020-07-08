@@ -52,8 +52,10 @@ public class GameManager : MonoBehaviour
     }
 
     public void BeginGamePlay() {
-        //Debug.Log("Forth");
+        AimUI aimSightUI = GameObject.Instantiate(gameSettings.UIaimSightPrefab, transform.position, Quaternion.identity).GetComponent<AimUI>();
         gameplayHUD = GameObject.Instantiate(gameSettings.UIHudPrefab,transform.position,Quaternion.identity).GetComponent<UIHudManager>();
+        gameplayHUD.Init(aimSightUI);
+
         sceneCamera = GameObject.Instantiate(gameSettings.sceneCamera).GetComponent<Camera>();
         playerController = Instantiate(gameSettings.playerPrefab, transform.position, Quaternion.identity).GetComponent<PlayerController>(); 
     }
@@ -63,24 +65,12 @@ public class GameManager : MonoBehaviour
     }
 
     IEnumerator ILoadScene(int index) {
-        //Debug.Log("Second");
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(index, LoadSceneMode.Single);
         while (!asyncOperation.isDone)
         {
             yield return null;
         }
 
-        //Debug.Log("Third");
         OnGameplayStart.Invoke();
     }
-
-    /*IEnumerator IUnloadScene(int index) {
-        AsyncOperation asyncOperation = SceneManager.UnloadSceneAsync(index);
-
-        while (!asyncOperation.isDone)
-        {
-            yield return null;
-        }
-    }*/
-
 }

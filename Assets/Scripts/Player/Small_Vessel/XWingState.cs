@@ -4,9 +4,7 @@ using System.Linq;
 using UnityEngine;
 
 public class XWingState : PlayerState
-{
-    Vector3 modelLocalAngles;
-    
+{    
     float modelAngle;
     float angleResult;
 
@@ -15,6 +13,7 @@ public class XWingState : PlayerState
         //Load primary player components.
         playerSettings = GameManager.Instance.gameSettings.playerSettings;
         controller = this.GetComponent<PlayerController>();
+        objectID = controller.objectID;
         playerRB = this.GetComponent<Rigidbody>();
 
         //Load shipstates.
@@ -24,6 +23,7 @@ public class XWingState : PlayerState
 
         //Load Input Controllers
         movementController = new InputMovementController(this, shipStats);
+        rotationController = new InputRotationController();
 
         //Load weapon/damage components.
         weaponSystem = this.GetComponent<IWeaponSystem>();
@@ -59,8 +59,7 @@ public class XWingState : PlayerState
 
     private void RollLocalModel() {
         //Finds roll angle of local model
-        modelLocalAngles =  controller.modelTransform.localEulerAngles;
-        modelAngle = (modelLocalAngles.z > 180) ? modelLocalAngles.z - 360 : modelLocalAngles.z;
+        modelAngle =rotationController.CalculateObjectRoll(controller.modelTransform.localEulerAngles.z);
 
         //Applied roll rotation of model
         angleResult = modelAngle + (-1 * roll);

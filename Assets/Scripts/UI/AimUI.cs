@@ -5,10 +5,11 @@ using UnityEngine.UI;
 
 public class AimUI : MonoBehaviour
 {
-    GameManager gameManager;
     public RectTransform aimTransform;
-    public RectTransform parentTransform;
-    public Canvas parentCanvas;
+
+    GameManager gameManager;
+    RectTransform parentTransform;
+    Canvas parentCanvas;
 
     Vector2 screenPosition;
     Vector2 scaledScreenPosition;
@@ -18,7 +19,8 @@ public class AimUI : MonoBehaviour
 
     void Awake()
     {
-        aimTransform = this.GetComponent<RectTransform>();
+        parentCanvas = this.GetComponent<Canvas>();
+        parentTransform = this.GetComponent<RectTransform>();
         gameManager = GameManager.Instance;
     }
 

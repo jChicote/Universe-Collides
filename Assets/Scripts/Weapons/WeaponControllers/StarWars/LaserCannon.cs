@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class LaserCannon : BaseWeapon
 {
-    public bool isParallelFire = false;
+    private bool isParallelFire = false;
+
     void Start()
     {
         WeaponSettings settings = GameManager.Instance.gameSettings.weaponSettings;
@@ -37,10 +38,7 @@ public class LaserCannon : BaseWeapon
         foreach(Transform point in firePoint) {
             Quaternion rotation = Quaternion.Euler(point.eulerAngles);
             LaserBolt bolt = Instantiate(info.prefab, point.position, rotation).GetComponent<LaserBolt>();
-            bolt.speed = info.speed;
-            bolt.damage = (info.damage + damageBuff) + critDamage;
-            bolt.lifeTime = info.lifeTime;
-            bolt.shooterID = shooterID;
+            SetProjectileInfo(bolt, damageBuff, critDamage);
         }
 
         StartCoroutine(Reload());
@@ -49,13 +47,17 @@ public class LaserCannon : BaseWeapon
     private void SequentialFire(float damageBuff, float critDamage) {
         Quaternion rotation = Quaternion.Euler(firePoint[transformIndex].eulerAngles);
         LaserBolt bolt = Instantiate(info.prefab, firePoint[transformIndex].position, rotation).GetComponent<LaserBolt>();
-        bolt.speed = info.speed;
-        bolt.damage = (info.damage + damageBuff) * critDamage;
-        bolt.lifeTime = info.lifeTime;
-        bolt.shooterID = shooterID;
+        SetProjectileInfo(bolt, damageBuff, critDamage);
         StartCoroutine(Reload());
         
         transformIndex++;
         if(transformIndex == firePoint.Length) transformIndex = 0;
+    }
+
+    private void SetProjectileInfo(LaserBolt bolt, float damageBuff, float critDamage) {
+        bolt.speed = info.speed;
+        bolt.damage = (info.damage + damageBuff) * critDamage;
+        bolt.lifeTime = info.lifeTime;
+        bolt.shooterID = shooterID;
     }
 }

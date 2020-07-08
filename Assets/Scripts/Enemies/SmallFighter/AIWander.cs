@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class EnemyWander : EnemyState
+public class AIWander : AIState
 {
-
     float wanderAngle;
 
     Vector3 forwardVel;
@@ -17,13 +16,19 @@ public class EnemyWander : EnemyState
 
     public override void BeginState()
     {
-        controller = this.GetComponent<EnemyController>();
+        controller = this.GetComponent<AIController>();
+        objectID = controller.objectID;
         shipStats = GameManager.Instance.gameSettings.vesselStats.Where(x => x.type.Equals(controller.vesselSelection)).First();
 
         damageSystem = new FighterDamageManager();
         damageSystem.Init(this, weaponSystem, controller.statHandler);
 
         InvokeRepeating("SetNewAngle", 5f, 5f);
+    }
+
+    void FixedUpdate()
+    {
+        RunState();
     }
 
     public override void RunState() {

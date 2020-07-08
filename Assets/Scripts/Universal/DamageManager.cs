@@ -4,6 +4,7 @@ using UnityEngine;
 
 public interface IDamageReciever { 
     void OnRecievedDamage(float damage, string id);
+    string GetObjectID();
 }
 
 public abstract class DamageManager
