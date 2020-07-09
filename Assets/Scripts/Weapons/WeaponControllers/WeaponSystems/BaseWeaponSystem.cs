@@ -8,6 +8,7 @@ public interface IWeaponSystem {
     bool CheckAimDirection();
     void SetAimPosition(float speed);
     void AssignTarget(GameObject target);
+    void ChangeFireRate(float fireRate, bool isParallel);
 }
 
 public class BaseWeaponSystem : MonoBehaviour, IWeaponSystem
@@ -39,6 +40,7 @@ public class BaseWeaponSystem : MonoBehaviour, IWeaponSystem
     public virtual void RunSystem() {}
     
     public virtual void SetAimPosition(float speed) {}
+    public virtual void ChangeFireRate(float fireRate, bool isParallel) {}
 
     public void AssignTarget(GameObject target) {
         this.target = target;

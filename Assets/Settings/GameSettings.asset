@@ -15,6 +15,7 @@ MonoBehaviour:
   playerSettings: {fileID: 11400000, guid: 523fe6efda0d44505b9babe09169accf, type: 2}
   weaponSettings: {fileID: 11400000, guid: 989fdeef64c204a2f8536e291b54a416, type: 2}
   audioSettings: {fileID: 11400000, guid: a3ef3a6ca6c344e11b3930dd20ee651c, type: 2}
+  powerupSettings: {fileID: 11400000, guid: d3a2f7b97e7d94089bdd50745e4adbf2, type: 2}
   sceneCamera: {fileID: 7194062120517304673, guid: c780b125553cf49bb9b8fa9b845faf24,
     type: 3}
   audioManagerPrefab: {fileID: 582465508603545342, guid: ca4b1b090f1954b4aa62ed2491f7d33d,

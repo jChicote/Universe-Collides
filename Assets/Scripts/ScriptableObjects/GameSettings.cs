@@ -9,6 +9,7 @@ public class GameSettings : ScriptableObject
     public PlayerSettings playerSettings;
     public WeaponSettings weaponSettings;
     public AudioSettings audioSettings;
+    public PowerupSettings powerupSettings;
 
     [Header ("Prefabs")]
     public GameObject sceneCamera;

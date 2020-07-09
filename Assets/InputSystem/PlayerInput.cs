@@ -97,6 +97,30 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""Ability1"",
+                    ""type"": ""Button"",
+                    ""id"": ""d1bbc666-124b-4255-8506-bd9cdafcf584"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Ability2"",
+                    ""type"": ""Button"",
+                    ""id"": ""ba076ddd-8fde-40e8-a675-7af44d2202c8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Ability3"",
+                    ""type"": ""Button"",
+                    ""id"": ""2ce304fb-d819-4af8-8c8a-8544a98c67e4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -341,6 +365,72 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""action"": ""Test_Death"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2f1b9d98-aa62-4d01-b239-85b1c6cea4d0"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Ability1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""af8fc9d2-f87c-4a93-9429-f41df50c448a"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Ability1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d2ad98e2-d768-4e0c-a33f-f4c923223447"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Ability2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b6a8f641-47e1-4731-988f-b58da2468698"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Ability2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e11a5eef-680d-468a-b3a3-3a61e2112caa"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Ability3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6f6c24e4-cfee-4dda-8d95-d723a6d30860"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Ability3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -413,6 +503,9 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         m_Fighter_Controls_SecondaryFire = m_Fighter_Controls.FindAction("SecondaryFire", throwIfNotFound: true);
         m_Fighter_Controls_Test_Damage = m_Fighter_Controls.FindAction("Test_Damage", throwIfNotFound: true);
         m_Fighter_Controls_Test_Death = m_Fighter_Controls.FindAction("Test_Death", throwIfNotFound: true);
+        m_Fighter_Controls_Ability1 = m_Fighter_Controls.FindAction("Ability1", throwIfNotFound: true);
+        m_Fighter_Controls_Ability2 = m_Fighter_Controls.FindAction("Ability2", throwIfNotFound: true);
+        m_Fighter_Controls_Ability3 = m_Fighter_Controls.FindAction("Ability3", throwIfNotFound: true);
         // Turrent_Controls
         m_Turrent_Controls = asset.FindActionMap("Turrent_Controls", throwIfNotFound: true);
         m_Turrent_Controls_Newaction = m_Turrent_Controls.FindAction("New action", throwIfNotFound: true);
@@ -478,6 +571,9 @@ public class @PlayerInput : IInputActionCollection, IDisposable
     private readonly InputAction m_Fighter_Controls_SecondaryFire;
     private readonly InputAction m_Fighter_Controls_Test_Damage;
     private readonly InputAction m_Fighter_Controls_Test_Death;
+    private readonly InputAction m_Fighter_Controls_Ability1;
+    private readonly InputAction m_Fighter_Controls_Ability2;
+    private readonly InputAction m_Fighter_Controls_Ability3;
     public struct Fighter_ControlsActions
     {
         private @PlayerInput m_Wrapper;
@@ -492,6 +588,9 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         public InputAction @SecondaryFire => m_Wrapper.m_Fighter_Controls_SecondaryFire;
         public InputAction @Test_Damage => m_Wrapper.m_Fighter_Controls_Test_Damage;
         public InputAction @Test_Death => m_Wrapper.m_Fighter_Controls_Test_Death;
+        public InputAction @Ability1 => m_Wrapper.m_Fighter_Controls_Ability1;
+        public InputAction @Ability2 => m_Wrapper.m_Fighter_Controls_Ability2;
+        public InputAction @Ability3 => m_Wrapper.m_Fighter_Controls_Ability3;
         public InputActionMap Get() { return m_Wrapper.m_Fighter_Controls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -531,6 +630,15 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @Test_Death.started -= m_Wrapper.m_Fighter_ControlsActionsCallbackInterface.OnTest_Death;
                 @Test_Death.performed -= m_Wrapper.m_Fighter_ControlsActionsCallbackInterface.OnTest_Death;
                 @Test_Death.canceled -= m_Wrapper.m_Fighter_ControlsActionsCallbackInterface.OnTest_Death;
+                @Ability1.started -= m_Wrapper.m_Fighter_ControlsActionsCallbackInterface.OnAbility1;
+                @Ability1.performed -= m_Wrapper.m_Fighter_ControlsActionsCallbackInterface.OnAbility1;
+                @Ability1.canceled -= m_Wrapper.m_Fighter_ControlsActionsCallbackInterface.OnAbility1;
+                @Ability2.started -= m_Wrapper.m_Fighter_ControlsActionsCallbackInterface.OnAbility2;
+                @Ability2.performed -= m_Wrapper.m_Fighter_ControlsActionsCallbackInterface.OnAbility2;
+                @Ability2.canceled -= m_Wrapper.m_Fighter_ControlsActionsCallbackInterface.OnAbility2;
+                @Ability3.started -= m_Wrapper.m_Fighter_ControlsActionsCallbackInterface.OnAbility3;
+                @Ability3.performed -= m_Wrapper.m_Fighter_ControlsActionsCallbackInterface.OnAbility3;
+                @Ability3.canceled -= m_Wrapper.m_Fighter_ControlsActionsCallbackInterface.OnAbility3;
             }
             m_Wrapper.m_Fighter_ControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -565,6 +673,15 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @Test_Death.started += instance.OnTest_Death;
                 @Test_Death.performed += instance.OnTest_Death;
                 @Test_Death.canceled += instance.OnTest_Death;
+                @Ability1.started += instance.OnAbility1;
+                @Ability1.performed += instance.OnAbility1;
+                @Ability1.canceled += instance.OnAbility1;
+                @Ability2.started += instance.OnAbility2;
+                @Ability2.performed += instance.OnAbility2;
+                @Ability2.canceled += instance.OnAbility2;
+                @Ability3.started += instance.OnAbility3;
+                @Ability3.performed += instance.OnAbility3;
+                @Ability3.canceled += instance.OnAbility3;
             }
         }
     }
@@ -647,6 +764,9 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         void OnSecondaryFire(InputAction.CallbackContext context);
         void OnTest_Damage(InputAction.CallbackContext context);
         void OnTest_Death(InputAction.CallbackContext context);
+        void OnAbility1(InputAction.CallbackContext context);
+        void OnAbility2(InputAction.CallbackContext context);
+        void OnAbility3(InputAction.CallbackContext context);
     }
     public interface ITurrent_ControlsActions
     {
