@@ -121,6 +121,14 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Overloading"",
+                    ""type"": ""Button"",
+                    ""id"": ""818ad850-8bbc-4f50-a787-3fd55ce651ff"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=2)""
                 }
             ],
             ""bindings"": [
@@ -431,6 +439,17 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""action"": ""Ability3"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cde212c3-5091-4607-ad1e-fb3337b516e0"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Overloading"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -506,6 +525,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         m_Fighter_Controls_Ability1 = m_Fighter_Controls.FindAction("Ability1", throwIfNotFound: true);
         m_Fighter_Controls_Ability2 = m_Fighter_Controls.FindAction("Ability2", throwIfNotFound: true);
         m_Fighter_Controls_Ability3 = m_Fighter_Controls.FindAction("Ability3", throwIfNotFound: true);
+        m_Fighter_Controls_Overloading = m_Fighter_Controls.FindAction("Overloading", throwIfNotFound: true);
         // Turrent_Controls
         m_Turrent_Controls = asset.FindActionMap("Turrent_Controls", throwIfNotFound: true);
         m_Turrent_Controls_Newaction = m_Turrent_Controls.FindAction("New action", throwIfNotFound: true);
@@ -574,6 +594,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
     private readonly InputAction m_Fighter_Controls_Ability1;
     private readonly InputAction m_Fighter_Controls_Ability2;
     private readonly InputAction m_Fighter_Controls_Ability3;
+    private readonly InputAction m_Fighter_Controls_Overloading;
     public struct Fighter_ControlsActions
     {
         private @PlayerInput m_Wrapper;
@@ -591,6 +612,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         public InputAction @Ability1 => m_Wrapper.m_Fighter_Controls_Ability1;
         public InputAction @Ability2 => m_Wrapper.m_Fighter_Controls_Ability2;
         public InputAction @Ability3 => m_Wrapper.m_Fighter_Controls_Ability3;
+        public InputAction @Overloading => m_Wrapper.m_Fighter_Controls_Overloading;
         public InputActionMap Get() { return m_Wrapper.m_Fighter_Controls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -639,6 +661,9 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @Ability3.started -= m_Wrapper.m_Fighter_ControlsActionsCallbackInterface.OnAbility3;
                 @Ability3.performed -= m_Wrapper.m_Fighter_ControlsActionsCallbackInterface.OnAbility3;
                 @Ability3.canceled -= m_Wrapper.m_Fighter_ControlsActionsCallbackInterface.OnAbility3;
+                @Overloading.started -= m_Wrapper.m_Fighter_ControlsActionsCallbackInterface.OnOverloading;
+                @Overloading.performed -= m_Wrapper.m_Fighter_ControlsActionsCallbackInterface.OnOverloading;
+                @Overloading.canceled -= m_Wrapper.m_Fighter_ControlsActionsCallbackInterface.OnOverloading;
             }
             m_Wrapper.m_Fighter_ControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -682,6 +707,9 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @Ability3.started += instance.OnAbility3;
                 @Ability3.performed += instance.OnAbility3;
                 @Ability3.canceled += instance.OnAbility3;
+                @Overloading.started += instance.OnOverloading;
+                @Overloading.performed += instance.OnOverloading;
+                @Overloading.canceled += instance.OnOverloading;
             }
         }
     }
@@ -767,6 +795,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         void OnAbility1(InputAction.CallbackContext context);
         void OnAbility2(InputAction.CallbackContext context);
         void OnAbility3(InputAction.CallbackContext context);
+        void OnOverloading(InputAction.CallbackContext context);
     }
     public interface ITurrent_ControlsActions
     {

@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public UIHudManager gameplayHUD = null;
     [HideInInspector] public MainMenuUI mainMenuUI = null;
 
+    public GameObject[] sceneEntities;
+
     void Awake() {
         if(Instance == null)
         {

@@ -12,19 +12,22 @@ public interface IPowerUpSystem
 
 public class PowerupSystem : MonoBehaviour, IPowerUpSystem
 {
+    StatHandler statHandler;
+
     private PowerUp[] powerUps = new PowerUp[3];
 
-    void Start()
-    {
-        //Invoke("TestInstance", 5f);
+    void Start() {
+        statHandler = this.GetComponent<IEntity>().GetStatHandler();
     }
 
     public void SetPowerUpEffect(PowerUpInfo powerUpInfo) {
         PowerUp powerUp = Activator.CreateInstance(powerUpInfo.classType) as PowerUp;
-        powerUp.Init(null, this, powerUpInfo.lifeTime);
+        powerUp.Init(statHandler, this, powerUpInfo.lifeTime);
         for(int i = 0; i < powerUps.Length; i++) {
             if(powerUps[i] == null){
                 powerUps[i] = powerUp;
+                Debug.Log(GameManager.Instance.gameplayHUD.powerUpUI);
+                GameManager.Instance.gameplayHUD.powerUpUI.ChangeImage(powerUpInfo.icon, i);
                 return;
             }
         }

@@ -18,7 +18,7 @@ public class TieWeaponSystem : BaseWeaponSystem
 
     void SetupWeapons() {
         laserCannon = this.gameObject.AddComponent<LaserCannon>();
-        laserCannon.Init(objectID, true, transforms.forwardGuns, controller.audioSystem);
+        laserCannon.Init(objectID, true, controller.statHandler.FireRate, transforms.forwardGuns, controller.audioSystem);
     }
 
     public override void RunSystem() {

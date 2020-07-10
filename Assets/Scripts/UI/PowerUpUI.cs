@@ -16,7 +16,7 @@ public class PowerUpUI : MonoBehaviour
         
     }
 
-    void ChangeImage(Sprite card, int index) {
+    public void ChangeImage(Sprite card, int index) {
         powerUpCards[index].sprite = card;
     }
 }

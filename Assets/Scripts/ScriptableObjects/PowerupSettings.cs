@@ -10,6 +10,6 @@ public class PowerupSettings : ScriptableObject
 }
 
 public enum PowerUpType {
-    MaxFireRate,
+    MaxFireDamage,
     OverHealth
 }

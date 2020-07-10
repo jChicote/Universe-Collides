@@ -14,7 +14,7 @@ public class XWingWeaponSystem : BaseWeaponSystem
 
     void SetupWeapons() {
         laserCannon = this.gameObject.AddComponent<LaserCannon>();
-        laserCannon.Init(objectID, false, transforms.forwardGuns, controller.audioSystem);
+        laserCannon.Init(objectID, false, controller.statHandler.FireRate, transforms.forwardGuns, controller.audioSystem);
     }
 
     public override void RunSystem() {
@@ -27,6 +27,10 @@ public class XWingWeaponSystem : BaseWeaponSystem
         Vector3 future = transform.position + transform.forward * timeAhead * 3;
         Debug.DrawLine(transform.position,future);
         gameManager.gameplayHUD.aimSightUI.SetAimPosition(future);
+    }
+
+    public override void ChangeFireRate(float fireRate, bool isParallel) {
+        laserCannon.ModifyStats(controller.statHandler.FireRate);
     }
 
     //METHODS BELOW ARE CALLED FROM INPUT SYSTEM

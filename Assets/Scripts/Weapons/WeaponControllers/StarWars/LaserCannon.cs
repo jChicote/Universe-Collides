@@ -13,11 +13,12 @@ public class LaserCannon : BaseWeapon
         info = settings.weaponStats.Where(x => x.type == WeaponType.LaserBolt).First();
     }
 
-    public void Init(string id, bool enableParrallel, Transform[] cannons, VesselAudioSystem audioSystem) {
+    public void Init(string id, bool enableParrallel, float fireRate, Transform[] cannons, VesselAudioSystem audioSystem) {
         this.shooterID = id;
         this.isParallelFire = enableParrallel;
         this.firePoint = cannons;
         this.audioSystem = audioSystem;
+        this.fireRate = fireRate;
     }
 
     public override void Shoot(float damageBuff, float critDamage, SoundType type)

@@ -17,3 +17,4 @@ MonoBehaviour:
   powerUpInfo:
   - type: 0
     lifeTime: 5
+    icon: {fileID: 21300000, guid: 5d1f3d54c141a4663a54a5b4ab3ba573, type: 3}

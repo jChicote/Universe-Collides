@@ -6,7 +6,11 @@ public interface IIdentity {
     string GetObjectID();
 }
 
-public abstract class BaseEntityController : MonoBehaviour, IIdentity
+public interface IEntity {
+    StatHandler GetStatHandler();
+}
+
+public abstract class BaseEntityController : MonoBehaviour, IIdentity, IEntity
 {
     public string objectID = "testXWing";
     public VesselType vesselSelection;
@@ -17,8 +21,11 @@ public abstract class BaseEntityController : MonoBehaviour, IIdentity
     [HideInInspector] public VesselAudioSystem audioSystem;
     [HideInInspector] public CameraController cameraController;
 
-    public string GetObjectID()
-    {
+    public string GetObjectID() {
         return objectID;
+    }
+
+    public StatHandler GetStatHandler() {
+        return statHandler;
     }
 }

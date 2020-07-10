@@ -8,6 +8,7 @@ public class UIHudManager : MonoBehaviour
     
     public AimUI aimSightUI;
     public PauseUI pauseUI;
+    public PowerUpUI powerUpUI;
 
     void Start()
     {

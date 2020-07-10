@@ -17,6 +17,7 @@ public class StatHandler
         this.defaultStats = baseStats;
 
         //Init variables
+        currentFireRate = currentStats.fireRate;
         currentHealth = currentStats.maxHealth;
         damageBuff = currentStats.statModifier.damageModif;
     }
@@ -37,9 +38,19 @@ public class StatHandler
     [SerializeField] private float damageBuff = 0;
     public float DamageBuff {
         get {
-            return currentStats.statModifier.damageModif;
+            return damageBuff;
         }
         set { damageBuff = value; }
+    }
+    
+    [SerializeField] private float currentFireRate;
+    public float FireRate {
+        get {
+            return currentFireRate;
+        }
+        set {
+            currentFireRate = value;
+        }
     }
 
     public float CriticalDamage {
@@ -62,7 +73,7 @@ public class BaseStats {
     public float healthRegen;
     public float healthRegenRate;
     public float fireRate;
-    [HideInInspector] public StatModifier statModifier;
+    public StatModifier statModifier;
     public DamageInfo damageInfo;
 }
 

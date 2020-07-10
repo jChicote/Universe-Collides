@@ -27,5 +27,6 @@ public class PowerUpInfo {
     }
 
     public float lifeTime;
+    public Sprite icon;
 
 }
