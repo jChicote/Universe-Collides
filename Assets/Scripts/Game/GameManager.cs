@@ -55,8 +55,9 @@ public class GameManager : MonoBehaviour
 
     public void BeginGamePlay() {
         AimUI aimSightUI = GameObject.Instantiate(gameSettings.UIaimSightPrefab, transform.position, Quaternion.identity).GetComponent<AimUI>();
+        UIPointerManager pointerManagerUI = GameObject.Instantiate(gameSettings.UIPointerManagerPrefab, transform.position, Quaternion.identity).GetComponent<UIPointerManager>();
         gameplayHUD = GameObject.Instantiate(gameSettings.UIHudPrefab,transform.position,Quaternion.identity).GetComponent<UIHudManager>();
-        gameplayHUD.Init(aimSightUI);
+        gameplayHUD.Init(aimSightUI, pointerManagerUI);
 
         sceneCamera = GameObject.Instantiate(gameSettings.sceneCamera).GetComponent<Camera>();
         playerController = Instantiate(gameSettings.playerPrefab, transform.position, Quaternion.identity).GetComponent<PlayerController>(); 

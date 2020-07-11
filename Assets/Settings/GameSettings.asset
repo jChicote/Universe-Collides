@@ -22,6 +22,12 @@ MonoBehaviour:
     type: 3}
   UIHudPrefab: {fileID: 2456526430375880183, guid: 260044937dac649caafeb44757e5f541,
     type: 3}
+  UIPointerManagerPrefab: {fileID: 8906654455481472808, guid: 96770d2c05f3c40f584279d23e2df958,
+    type: 3}
+  uiPointerPrefab: {fileID: 2637925461059868768, guid: 7ae48bb90675445e98d68251f7de5743,
+    type: 3}
+  uiPointingPrefab: {fileID: 6439772815771800707, guid: f77dbc88103364d6b8b7e3da768d772b,
+    type: 3}
   UIaimSightPrefab: {fileID: 6774373207111884642, guid: 9dfa2c11a7f62457ab1d501f7aec5e94,
     type: 3}
   mainMenuPrefab: {fileID: 1172539618945808642, guid: afa1ab848539d4661aab3e0ded5bfc8a,
