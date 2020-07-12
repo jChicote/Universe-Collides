@@ -20,8 +20,9 @@ public class AIWander : AIState
         objectID = controller.objectID;
         shipStats = GameManager.Instance.gameSettings.vesselStats.Where(x => x.type.Equals(controller.vesselSelection)).First();
 
-        damageSystem = new FighterDamageManager();
-        damageSystem.Init(this, weaponSystem, controller.statHandler);
+        damageSystem = controller.damageSystem;
+        //damageSystem = new FighterDamageManager();
+        //damageSystem.Init(weaponSystem, controller.statHandler);
 
         InvokeRepeating("SetNewAngle", 5f, 5f);
     }
@@ -33,6 +34,10 @@ public class AIWander : AIState
 
     public override void RunState() {
         if(isPaused) return;
+
+        //Check if player is dead
+        if(controller.statHandler.CurrentHealth <= 0) AIDeath();
+
         Movement();
         if(controller.avoidanceSystem.DetectCollision()) return;
         

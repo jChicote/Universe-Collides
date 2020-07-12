@@ -30,7 +30,7 @@ public class StatHandler
         set {
             currentHealth = value;
 
-            if(currentStats.health > currentStats.maxHealth)
+            if(currentHealth > currentStats.maxHealth)
                 currentHealth = currentStats.maxHealth;
         }
     }

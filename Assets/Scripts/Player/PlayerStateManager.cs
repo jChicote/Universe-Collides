@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PlayerStateManager : MonoBehaviour
 {
-    PlayerState currentState;
+    BaseState currentState;
 
-    public void AddState<T>() where T : PlayerState
+    public void AddState<T>() where T : BaseState
     {
         if(currentState != null)
         {

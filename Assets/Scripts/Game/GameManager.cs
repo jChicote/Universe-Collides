@@ -54,13 +54,25 @@ public class GameManager : MonoBehaviour
     }
 
     public void BeginGamePlay() {
+
+        //Scene and UI is loaded first
+        sceneCamera = GameObject.Instantiate(gameSettings.sceneCamera).GetComponent<Camera>();
+
         AimUI aimSightUI = GameObject.Instantiate(gameSettings.UIaimSightPrefab, transform.position, Quaternion.identity).GetComponent<AimUI>();
         UIPointerManager pointerManagerUI = GameObject.Instantiate(gameSettings.UIPointerManagerPrefab, transform.position, Quaternion.identity).GetComponent<UIPointerManager>();
+        pointerManagerUI.Init(sceneCamera);
         gameplayHUD = GameObject.Instantiate(gameSettings.UIHudPrefab,transform.position,Quaternion.identity).GetComponent<UIHudManager>();
         gameplayHUD.Init(aimSightUI, pointerManagerUI);
 
-        sceneCamera = GameObject.Instantiate(gameSettings.sceneCamera).GetComponent<Camera>();
         playerController = Instantiate(gameSettings.playerPrefab, transform.position, Quaternion.identity).GetComponent<PlayerController>(); 
+
+        //Entities last loaded
+        SpawnEnemy();
+    }
+
+    public void SpawnEnemy() {
+        Vector3 testPosition = new Vector3(transform.position.x - 5, transform.position.y +3, transform.position.z + 5);
+        Instantiate(gameSettings.tieFighterPrefab, testPosition, Quaternion.identity);
     }
 
     public void LoadLevel(int sceneIndex) {

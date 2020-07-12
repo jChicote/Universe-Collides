@@ -18,8 +18,10 @@ public class AIPursuit : AIState
 
         weaponSystem = this.GetComponent<IWeaponSystem>();
 
-        damageSystem = new FighterDamageManager();
-        damageSystem.Init(this, weaponSystem, controller.statHandler);
+        damageSystem = controller.damageSystem;
+
+        //damageSystem = new FighterDamageManager();
+        //damageSystem.Init(weaponSystem, controller.statHandler);
     }
 
     void FixedUpdate()
@@ -30,6 +32,9 @@ public class AIPursuit : AIState
     public override void RunState() {
         if(isPaused) return;
         if(GameManager.Instance.playerController == null) return;
+
+        //Check if player is dead
+        if(controller.statHandler.CurrentHealth <= 0) AIDeath();
 
         /// Testing purposes only ///
 

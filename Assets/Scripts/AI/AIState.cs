@@ -43,4 +43,8 @@ public class AIState : BaseState
         if(targetAngle < shipStats.stableAngleLimit) return true;
         return false;
     }
+
+    public void AIDeath() {
+        controller.SetState<DeathState>();
+    }
 }

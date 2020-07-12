@@ -28,6 +28,11 @@ public class PlayerController : BaseEntityController
 
         cameraController = this.gameObject.AddComponent<CameraController>();
         cameraController.Init(virtualCamera, vesselSelection);
+
+        //Load weapon/damage components.
+        weaponSystem = this.GetComponent<IWeaponSystem>();
+        damageSystem = new FighterDamageManager();
+        damageSystem.Init(weaponSystem, statHandler);
     }
 
     void Start() {
@@ -42,7 +47,7 @@ public class PlayerController : BaseEntityController
         Debug.Log("Starting Damage: " + statHandler.CriticalDamage);
     }
 
-    public void SetState<T>() where T : PlayerState {
+    public void SetState<T>() where T : BaseState {
         playerState.AddState<T>();
     }
 

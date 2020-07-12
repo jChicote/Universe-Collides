@@ -77,7 +77,7 @@ MonoBehaviour:
       maxHealth: 100
       healthRegen: 10
       healthRegenRate: 0.5
-      fireRate: 0.5
+      fireRate: 12
       statModifier:
         fireRateModif: 0
         healthRegenModif: 0
@@ -110,3 +110,5 @@ MonoBehaviour:
       damageInfo:
         critDMG: 0
         critChance: 0
+  tieFighterPrefab: {fileID: 5718407724837510089, guid: 33fc84f418c6541e289770612416dbfb,
+    type: 3}

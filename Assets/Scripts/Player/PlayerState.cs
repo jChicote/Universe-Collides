@@ -72,4 +72,8 @@ public abstract class PlayerState : BaseState, IMovementController
         yaw = rotationController.CalculateAxis(yawStrength, inputX);
         roll = rotationController.CalculateAxis(rollStrength, inputX);
     }
+
+    public void PlayerDeath() {
+        controller.SetState<DeathState>();
+    }
 }

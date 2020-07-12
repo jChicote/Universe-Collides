@@ -28,12 +28,15 @@ public class XWingState : PlayerState
         //Load weapon/damage components.
         weaponSystem = this.GetComponent<IWeaponSystem>();
         damageSystem = new FighterDamageManager();
-        damageSystem.Init(this, weaponSystem, controller.statHandler);
+        damageSystem.Init(weaponSystem, controller.statHandler);
     }
 
     void FixedUpdate()
     {
         if(isPaused) return;
+
+        //Check if player is dead
+        if(controller.statHandler.CurrentHealth <= 0) PlayerDeath();
 
         ApplyRotation();
         ApplyMovement();

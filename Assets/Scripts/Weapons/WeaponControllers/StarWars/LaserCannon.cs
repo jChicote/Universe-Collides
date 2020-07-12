@@ -57,7 +57,7 @@ public class LaserCannon : BaseWeapon
 
     private void SetProjectileInfo(LaserBolt bolt, float damageBuff, float critDamage) {
         bolt.speed = info.speed;
-        bolt.damage = (info.damage + damageBuff) * critDamage;
+        bolt.damage = (info.damage + damageBuff) + critDamage;
         bolt.lifeTime = info.lifeTime;
         bolt.shooterID = shooterID;
     }

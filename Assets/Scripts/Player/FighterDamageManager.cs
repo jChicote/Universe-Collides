@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class FighterDamageManager : DamageManager
 {
-    public override void Init(BaseState state, IWeaponSystem weaponSystem, StatHandler statHandler) {
-        this.shipState = state;
+    public override void Init(IWeaponSystem weaponSystem, StatHandler statHandler) {
         this.weaponSystem = weaponSystem;
         this.statHandler = statHandler;
     }
 
+    //SET Death state through here
     public override void OnDeath(Vector3 position)
     {
         //Debug.Log("is Dead");
@@ -20,7 +20,7 @@ public class FighterDamageManager : DamageManager
     {
         float health = statHandler.CurrentHealth - damage;
         statHandler.CurrentHealth = health;
-        Debug.Log("Damage: " + damage);
-        Debug.Log("Health: " + health);
+        //Debug.Log("Damage: " + damage);
+        //Debug.Log("Health: " + health);
     }
 }

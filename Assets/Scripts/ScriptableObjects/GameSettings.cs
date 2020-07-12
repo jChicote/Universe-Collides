@@ -22,8 +22,15 @@ public class GameSettings : ScriptableObject
     public GameObject mainMenuPrefab;
     public GameObject playerPrefab; //later change to loaded model types that add the controller;
 
+    [Header("Colours")]
+    public Color targetedColor = new Color();
+    public Color idleColor = new Color();
+
     [Header ("Collections")]
     public VesselShipStats[] vesselStats;
+
+    [Header ("Enemies")]
+    public GameObject tieFighterPrefab;
 }
 
 public enum VesselType {

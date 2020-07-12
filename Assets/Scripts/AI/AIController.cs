@@ -8,6 +8,7 @@ public class AIController : BaseEntityController
     public AvoidanceSystem avoidanceSystem;
 
     [HideInInspector] public AIStateManager enemyState = null;
+    UIEntityPointer attachedPointer;
 
     void Awake() {
         if (enemyState == null) 
@@ -25,6 +26,9 @@ public class AIController : BaseEntityController
     void Start() {
         SetWeaponSystems();
         SetState<AIPursuit>();
+
+        //Returns pointer
+        attachedPointer = GameManager.Instance.gameplayHUD.pointerManagerUI.CreateEntity(gameObject.transform);
 
         Debug.Log("Enemy Health: " + statHandler.CurrentHealth);
         Debug.Log("Enemy Damage: " + statHandler.CriticalDamage);
@@ -44,9 +48,17 @@ public class AIController : BaseEntityController
                 weaponSystem.Init(GetObjectID(), this, true, vesselStats);
                 break;
         }
+
+        //Load weapon/damage components.
+        damageSystem = new FighterDamageManager();
+        damageSystem.Init(this.GetComponent<IWeaponSystem>(), statHandler);
     }
 
     public void SetState<T>() where T : BaseState {
         enemyState.AddState<T>();
+    }
+
+    public override void OnEntityDeath() {
+        attachedPointer.RemovePointer();
     }
 }

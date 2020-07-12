@@ -8,6 +8,7 @@ public class UIEntityPointer : MonoBehaviour, IPausable
     public Transform target;
     public RectTransform canvasTransform;
 
+    UIPointerManager manager;
     RectTransform pointerTransform;
     RectTransform arrowTransform;
     public Image arrowImage;
@@ -38,7 +39,8 @@ public class UIEntityPointer : MonoBehaviour, IPausable
         pointerTransform.transform.parent = transform.root;
     }
 
-    public void Init(Camera camera, RectTransform canvasTransform, Transform target) {
+    public void Init(Camera camera, RectTransform canvasTransform, Transform target, UIPointerManager manager) {
+        this.manager = manager;
         this.cam = camera;
         this.canvasTransform = canvasTransform;
         this.target = target;
@@ -91,6 +93,12 @@ public class UIEntityPointer : MonoBehaviour, IPausable
         cross = Vector3.Cross(dir, Vector3.up);
         angle = -Mathf.Sign(cross.z) * angle;
         arrowTransform.localEulerAngles = new Vector3(arrowTransform.localEulerAngles.x, arrowTransform.localEulerAngles.y, angle);
+    }
+
+    public void RemovePointer() {
+        GameObject.Destroy(pointerTransform.gameObject);
+        manager.RemoveFromList(this);
+        Destroy(this.gameObject);
     }
 
     public void Pause()

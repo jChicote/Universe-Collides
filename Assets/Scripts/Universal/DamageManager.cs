@@ -13,7 +13,7 @@ public abstract class DamageManager
     public IWeaponSystem weaponSystem;
     public StatHandler statHandler;
 
-    public abstract void Init(BaseState state, IWeaponSystem weaponSystem, StatHandler statHandler);
+    public abstract void Init(IWeaponSystem weaponSystem, StatHandler statHandler);
 
     public abstract void CalculateHealth(float damage, string id);
     

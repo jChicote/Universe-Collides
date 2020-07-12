@@ -47,6 +47,7 @@ public class LaserBolt : BasicProjectile
         }
 
         SpawnImpact(collisionInfo.GetContact(0));
+        //Debug.Log(collisionInfo.gameObject.name);
 
         IDamageReciever victim = collisionInfo.gameObject.GetComponent<IDamageReciever>();
         victim.OnRecievedDamage(damage, shooterID);

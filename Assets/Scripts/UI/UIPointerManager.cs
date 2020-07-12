@@ -22,15 +22,14 @@ public class UIPointerManager : MonoBehaviour
     void Start()
     {
         canvasTransform = this.GetComponent<RectTransform>();
-        targetedEntitiy = GameObject.Find("Tie_Fighter_Enemy");
+        //targetedEntitiy = GameObject.Find("Tie_Fighter_Enemy");
     }
 
     void FixedUpdate()
     {
-        if(GameManager.Instance.sceneCamera == null) return;
         if(cam == null) {
             cam = GameManager.Instance.sceneCamera;
-            CreateEntity(targetedEntitiy.transform);
+            //CreateEntity(targetedEntitiy.transform);
             return;
         }
 
@@ -39,12 +38,21 @@ public class UIPointerManager : MonoBehaviour
         }
     }
 
-    public void CreateEntity(Transform target) {
+    public void Init(Camera camera) {
+        this.cam = camera;
+    }
+
+    public UIEntityPointer CreateEntity(Transform target) {
         GameObject prefab = GameManager.Instance.gameSettings.uiPointerPrefab;
         UIEntityPointer pointer = Instantiate(prefab, transform.position, Quaternion.identity).GetComponent<UIEntityPointer>();
-        pointer.Init(cam, canvasTransform, target);
-        pointer.transform.parent = this.transform;
+        pointer.Init(cam, canvasTransform, target, this);
+        pointer.transform.SetParent(this.transform);
         entityPointers.Add(pointer);
+        return pointer;
+    }
+    
+    public void RemoveFromList(UIEntityPointer pointer) {
+        entityPointers.Remove(pointer);
     }
 }
 

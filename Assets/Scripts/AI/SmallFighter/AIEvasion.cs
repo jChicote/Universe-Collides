@@ -14,8 +14,10 @@ public class AIEvasion : AIState
         objectID = controller.objectID;
         shipStats = GameManager.Instance.gameSettings.vesselStats.Where(x => x.type.Equals(controller.vesselSelection)).First();
 
-        damageSystem = new FighterDamageManager();
-        damageSystem.Init(this, weaponSystem, controller.statHandler);
+        damageSystem = controller.damageSystem;
+
+        //damageSystem = new FighterDamageManager();
+        //damageSystem.Init(this, weaponSystem, controller.statHandler);
     }
 
     void FixedUpdate()
@@ -25,6 +27,9 @@ public class AIEvasion : AIState
 
     public override void RunState() {
         if(isPaused) return;
+
+        //Check if player is dead
+        if(controller.statHandler.CurrentHealth <= 0) AIDeath();
         
         targetDistance = Vector3.Distance(transform.position, GameManager.Instance.playerController.transform.position);
         if(targetDistance > shipStats.maxProximityDist) controller.SetState<AIWander>();
