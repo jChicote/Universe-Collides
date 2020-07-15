@@ -11,7 +11,9 @@ public class PlayerController : BaseEntityController
 
     [HideInInspector] public PlayerStateManager playerState = null;
 
-    void Awake() {
+    public override void Init(SpawnManager spawner, TeamColor teamColor){
+        base.Init(spawner, teamColor);
+
         if (playerState == null) playerState = this.gameObject.AddComponent<PlayerStateManager>();
         audioSystem = this.gameObject.AddComponent<VesselAudioSystem>();
         PlayerSettings playerSettings = GameManager.Instance.gameSettings.playerSettings;
@@ -54,5 +56,9 @@ public class PlayerController : BaseEntityController
     public void OnPause(InputValue value) {
         //Externally triggers pause funciton
         GameManager.Instance.sessionData.TogglePause();
+    }
+    
+    public override void OnEntityDeath() {
+        spawner.OnEntityRespawn.Invoke(objectID, vesselSelection, EntityType.Player, teamColor);
     }
 }

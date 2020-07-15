@@ -13,6 +13,7 @@ public class GameSettings : ScriptableObject
 
     [Header ("Prefabs")]
     public GameObject sceneCamera;
+    public GameObject spawnManager;
     public GameObject audioManagerPrefab;
     public GameObject UIHudPrefab;
     public GameObject UIPointerManagerPrefab;
@@ -26,11 +27,18 @@ public class GameSettings : ScriptableObject
     public Color targetedColor = new Color();
     public Color idleColor = new Color();
 
-    [Header ("Collections")]
+    [Header ("Vessel Ship Stats")]
     public VesselShipStats[] vesselStats;
 
-    [Header ("Enemies")]
-    public GameObject tieFighterPrefab;
+    [Header ("All Vessel Objects")]
+    public VesselObjects[] vesselObjects;
+}
+
+[System.Serializable]
+public struct VesselObjects {
+    public EntityType entityType;
+    public VesselType vesselType;
+    public GameObject objectPrefab;
 }
 
 public enum VesselType {

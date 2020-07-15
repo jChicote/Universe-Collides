@@ -8,6 +8,15 @@ public class SessionData : MonoBehaviour
     public int currentSceneIndex = 0;
     bool isPaused = false;
 
+    //Gameplay Selection
+    VesselType vesselType;
+    BattleMode battleMode;
+
+    public void SetGamePlay(VesselType vesselType, BattleMode battleMode) {
+        this.vesselType = vesselType;
+        this.battleMode = battleMode;
+    }
+
     public void TogglePause() {
         isPaused = !isPaused;
         GameManager.Instance.gameplayHUD.RevealPauseScreen(isPaused);
@@ -20,4 +29,9 @@ public class SessionData : MonoBehaviour
                 p.GetComponent<IPausable>().UnPause();
         }
     }
+}
+
+public enum BattleMode {
+    FreeForAll,
+    TeamBattle
 }

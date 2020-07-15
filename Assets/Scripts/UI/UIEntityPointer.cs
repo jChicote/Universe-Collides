@@ -36,7 +36,7 @@ public class UIEntityPointer : MonoBehaviour, IPausable
     {
         arrowTransform = this.GetComponent<RectTransform>();
         pointerTransform = Instantiate(GameManager.Instance.gameSettings.uiPointingPrefab, transform.position, Quaternion.identity).GetComponent<RectTransform>();
-        pointerTransform.transform.parent = transform.root;
+        pointerTransform.transform.SetParent(transform.root);
     }
 
     public void Init(Camera camera, RectTransform canvasTransform, Transform target, UIPointerManager manager) {

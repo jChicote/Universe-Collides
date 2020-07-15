@@ -29,9 +29,6 @@ public class AIController : BaseEntityController
 
         //Returns pointer
         attachedPointer = GameManager.Instance.gameplayHUD.pointerManagerUI.CreateEntity(gameObject.transform);
-
-        Debug.Log("Enemy Health: " + statHandler.CurrentHealth);
-        Debug.Log("Enemy Damage: " + statHandler.CriticalDamage);
     }
 
     void SetWeaponSystems() {
@@ -59,6 +56,7 @@ public class AIController : BaseEntityController
     }
 
     public override void OnEntityDeath() {
+        spawner.OnEntityRespawn.Invoke(objectID, vesselSelection, EntityType.AiComputer, teamColor);
         attachedPointer.RemovePointer();
     }
 }

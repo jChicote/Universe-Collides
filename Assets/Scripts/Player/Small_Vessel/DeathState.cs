@@ -32,7 +32,7 @@ public class DeathState : BaseState
     }
 
     public override void OnRecievedDamage(float damage, string id) {
-        Debug.Log("Damage on Death");
+        //Debug.Log("Damage on Death");
     }
 
 }

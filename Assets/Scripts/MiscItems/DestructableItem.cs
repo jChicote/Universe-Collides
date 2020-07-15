@@ -10,6 +10,10 @@ public class DestructableItem : MonoBehaviour, IDamageReciever, IIdentity
         return objectID;
     }
 
+    public void SetObjectID(string objectID) {
+        this.objectID = objectID;
+    }
+
     public void OnRecievedDamage(float damage, string id)
     {
         //Debug.Log(damage);

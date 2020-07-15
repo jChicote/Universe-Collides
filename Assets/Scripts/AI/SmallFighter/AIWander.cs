@@ -21,8 +21,6 @@ public class AIWander : AIState
         shipStats = GameManager.Instance.gameSettings.vesselStats.Where(x => x.type.Equals(controller.vesselSelection)).First();
 
         damageSystem = controller.damageSystem;
-        //damageSystem = new FighterDamageManager();
-        //damageSystem.Init(weaponSystem, controller.statHandler);
 
         InvokeRepeating("SetNewAngle", 5f, 5f);
     }

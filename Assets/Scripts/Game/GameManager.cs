@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -22,6 +23,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public Camera sceneCamera = null;
     [HideInInspector] public UIHudManager gameplayHUD = null;
     [HideInInspector] public MainMenuUI mainMenuUI = null;
+    public List<SpawnManager> spawnerManagers;
 
     public GameObject[] sceneEntities;
 
@@ -52,7 +54,6 @@ public class GameManager : MonoBehaviour
 
         mainMenuUI = Instantiate(gameSettings.mainMenuPrefab, transform.position, Quaternion.identity).GetComponent<MainMenuUI>();
     }
-
     public void BeginGamePlay() {
 
         //Scene and UI is loaded first
@@ -64,15 +65,26 @@ public class GameManager : MonoBehaviour
         gameplayHUD = GameObject.Instantiate(gameSettings.UIHudPrefab,transform.position,Quaternion.identity).GetComponent<UIHudManager>();
         gameplayHUD.Init(aimSightUI, pointerManagerUI);
 
-        playerController = Instantiate(gameSettings.playerPrefab, transform.position, Quaternion.identity).GetComponent<PlayerController>(); 
-
-        //Entities last loaded
-        SpawnEnemy();
+        //Load Entities
+        SpawnEntities();
     }
 
-    public void SpawnEnemy() {
-        Vector3 testPosition = new Vector3(transform.position.x - 5, transform.position.y +3, transform.position.z + 5);
-        Instantiate(gameSettings.tieFighterPrefab, testPosition, Quaternion.identity);
+    public void SpawnEntities() {
+        
+        //TODO : Create interface for spawning.
+        //TODO : Streamline and implement methods for dynamic spawn of entities
+        //TODO : Transfer associated spawn logic to spawn manager
+        //Spawn Enemy Side
+        spawnerManagers = FindObjectsOfType<SpawnManager>().Where(x => x.GetComponent<ISpawner>() != null).ToList();
+        spawnerManagers[0].InitialSpawn(VesselType.TieFighter, EntityType.AiComputer, 0, TeamColor.Red);
+        spawnerManagers[0].InitialSpawn(VesselType.TieFighter, EntityType.AiComputer, 1, TeamColor.Red);
+        spawnerManagers[0].InitialSpawn(VesselType.TieFighter, EntityType.AiComputer, 2, TeamColor.Red);
+
+        //Spawn Player Side
+
+        //Spawn Player
+        spawnerManagers[1].InitialSpawn(VesselType.xWing, EntityType.Player, 1, TeamColor.Blue);
+        playerController = GameObject.FindObjectOfType<PlayerController>();
     }
 
     public void LoadLevel(int sceneIndex) {
