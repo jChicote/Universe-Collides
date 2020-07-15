@@ -122,3 +122,8 @@ MonoBehaviour:
     vesselType: 1
     objectPrefab: {fileID: 5718407724837510089, guid: 33fc84f418c6541e289770612416dbfb,
       type: 3}
+  battleSpawnModes:
+  - mode: 0
+    className: FreeForAllSpawner
+  - mode: 1
+    className: TeamBattleSpawner

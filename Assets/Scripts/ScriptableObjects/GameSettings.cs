@@ -32,6 +32,9 @@ public class GameSettings : ScriptableObject
 
     [Header ("All Vessel Objects")]
     public VesselObjects[] vesselObjects;
+
+    [Header ("Battle Spawner Modes")]
+    public List<SpawnerModes> battleSpawnModes;
 }
 
 [System.Serializable]

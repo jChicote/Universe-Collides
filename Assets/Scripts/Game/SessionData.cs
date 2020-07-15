@@ -9,8 +9,8 @@ public class SessionData : MonoBehaviour
     bool isPaused = false;
 
     //Gameplay Selection
-    VesselType vesselType;
-    BattleMode battleMode;
+    public VesselType vesselType;
+    public BattleMode battleMode;
 
     public void SetGamePlay(VesselType vesselType, BattleMode battleMode) {
         this.vesselType = vesselType;

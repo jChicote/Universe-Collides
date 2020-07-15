@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 public class XWingWeaponSystem : BaseWeaponSystem
 {
     LaserCannon laserCannon;
+    bool isLocking = false;
 
     void Start() {
         SetupWeapons();
@@ -23,10 +24,11 @@ public class XWingWeaponSystem : BaseWeaponSystem
 
     public override void SetAimPosition(float speed)
     {
-        float timeAhead = Mathf.Clamp(speed, 5, 50);
-        Vector3 future = transform.position + transform.forward * timeAhead * 3;
-        Debug.DrawLine(transform.position,future);
-        gameManager.gameplayHUD.aimSightUI.SetAimPosition(future);
+        float timeAhead = Mathf.Clamp(speed, 3, 50);
+        //Vector3 futurePosition = transform.position + transform.forward;
+        //Vector3 future = transform.position + transform.forward * timeAhead * 3;
+        //Debug.DrawLine(transform.position,future);
+        gameManager.gameplayHUD.aimSightUI.SetAimPosition(transform.position, transform.forward, timeAhead, controller.cameraController.isFocused);
     }
 
     public override void ChangeFireRate(float fireRate, bool isParallel) {

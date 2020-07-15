@@ -44,9 +44,6 @@ public class PlayerController : BaseEntityController
                 SetState<XWingState>();
                 break;
         }
-
-        Debug.Log("Starting Health: " + statHandler.CurrentHealth);
-        Debug.Log("Starting Damage: " + statHandler.CriticalDamage);
     }
 
     public void SetState<T>() where T : BaseState {

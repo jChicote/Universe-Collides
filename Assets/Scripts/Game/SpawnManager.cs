@@ -23,6 +23,10 @@ public class SpawnManager : MonoBehaviour, ISpawner
         StartCoroutine(RespawnEntity(id, vesselType, entityType, teamColor, 0));
     }
 
+    public int GetSpawnAreaLength() {
+        return spawnAreas.Length;
+    }
+
     public void InitialSpawn(VesselType vesselType, EntityType entityType, int index, TeamColor teamColor){
         string id = IDGenerator(vesselType, entityType, index);
         StartCoroutine(RespawnEntity(id, vesselType, entityType, teamColor, 0)); 

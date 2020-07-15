@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -76,14 +77,10 @@ public class GameManager : MonoBehaviour
         //TODO : Transfer associated spawn logic to spawn manager
         //Spawn Enemy Side
         spawnerManagers = FindObjectsOfType<SpawnManager>().Where(x => x.GetComponent<ISpawner>() != null).ToList();
-        spawnerManagers[0].InitialSpawn(VesselType.TieFighter, EntityType.AiComputer, 0, TeamColor.Red);
-        spawnerManagers[0].InitialSpawn(VesselType.TieFighter, EntityType.AiComputer, 1, TeamColor.Red);
-        spawnerManagers[0].InitialSpawn(VesselType.TieFighter, EntityType.AiComputer, 2, TeamColor.Red);
-
-        //Spawn Player Side
-
-        //Spawn Player
-        spawnerManagers[1].InitialSpawn(VesselType.xWing, EntityType.Player, 1, TeamColor.Blue);
+        Type spawnerType = gameSettings.battleSpawnModes.Where(x => x.mode == sessionData.battleMode).First().modeClassType;
+        BattleModeSpawner modeSpawner = Activator.CreateInstance(spawnerType) as BattleModeSpawner;
+        modeSpawner.Init(this, spawnerManagers[0], spawnerManagers[1]);
+        modeSpawner.RunInstance();
         playerController = GameObject.FindObjectOfType<PlayerController>();
     }
 
