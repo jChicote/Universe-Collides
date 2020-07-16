@@ -24,17 +24,18 @@ public class AIController : BaseEntityController
     }
 
     void Start() {
-        SetWeaponSystems();
+        VesselShipStats vesselStats = GameManager.Instance.gameSettings.vesselStats.Where(x => x.type == vesselSelection).First();
+
+        SetWeaponSystems(vesselStats);
         SetState<AIPursuit>();
 
         //Returns pointer
-        attachedPointer = GameManager.Instance.gameplayHUD.pointerManagerUI.CreateEntity(gameObject.transform);
+        attachedPointer = GameManager.Instance.gameplayHUD.pointerManagerUI.CreateEntity(gameObject.transform, vesselStats.speed);
     }
 
-    void SetWeaponSystems() {
+    void SetWeaponSystems(VesselShipStats vesselStats) {
         BaseWeaponSystem weaponSystem;
-        VesselShipStats vesselStats = GameManager.Instance.gameSettings.vesselStats.Where(x => x.type == vesselSelection).First();
-       
+
         switch(vesselSelection){
             case VesselType.xWing:
                 weaponSystem = this.gameObject.AddComponent<XWingWeaponSystem>();

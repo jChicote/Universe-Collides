@@ -28,6 +28,7 @@ public class CameraController : MonoBehaviour
     }
 
     public void ModifyFieldOfView(float valueY) {
+        //if(isPaused) return;
         //Returns to normal when no throttling is applied
         if(valueY == 0) {
             virtualCamera.m_Lens.FieldOfView = Mathf.Lerp(virtualCamera.m_Lens.FieldOfView, attributes.defaultFOV, 0.1f);
@@ -64,6 +65,7 @@ public class CameraController : MonoBehaviour
     }
 
     public IEnumerator LockingCamera() {
+        
         float zOffset = 0;
         float yOffset = 0;
 

@@ -13,12 +13,16 @@ public class GameSettings : ScriptableObject
 
     [Header ("Prefabs")]
     public GameObject sceneCamera;
-    public GameObject spawnManager;
     public GameObject audioManagerPrefab;
+    public GameObject postProcessingPrefab;
     public GameObject UIHudPrefab;
+
+    //Pointers
     public GameObject UIPointerManagerPrefab;
-    public GameObject uiPointerPrefab;
-    public GameObject uiPointingPrefab;
+    public GameObject UiPointerControllerPrefab;
+    public GameObject arrowUIPrefab;
+    public GameObject pointerUIPrefab;
+    public GameObject predictiveUIPrefab;
     public GameObject UIaimSightPrefab;
     public GameObject mainMenuPrefab;
     public GameObject playerPrefab; //later change to loaded model types that add the controller;

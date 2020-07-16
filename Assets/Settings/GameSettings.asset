@@ -18,16 +18,21 @@ MonoBehaviour:
   powerupSettings: {fileID: 11400000, guid: d3a2f7b97e7d94089bdd50745e4adbf2, type: 2}
   sceneCamera: {fileID: 7194062120517304673, guid: c780b125553cf49bb9b8fa9b845faf24,
     type: 3}
-  spawnManager: {fileID: 0}
   audioManagerPrefab: {fileID: 582465508603545342, guid: ca4b1b090f1954b4aa62ed2491f7d33d,
+    type: 3}
+  postProcessingPrefab: {fileID: 7977024648701742790, guid: 99a833f125dc0470fa16cdd46d39e3b1,
     type: 3}
   UIHudPrefab: {fileID: 2456526430375880183, guid: 260044937dac649caafeb44757e5f541,
     type: 3}
   UIPointerManagerPrefab: {fileID: 8906654455481472808, guid: 96770d2c05f3c40f584279d23e2df958,
     type: 3}
-  uiPointerPrefab: {fileID: 2637925461059868768, guid: 7ae48bb90675445e98d68251f7de5743,
+  UiPointerControllerPrefab: {fileID: 443264432489087075, guid: 59ca0d3a951b0409087409e1db421f56,
     type: 3}
-  uiPointingPrefab: {fileID: 6439772815771800707, guid: f77dbc88103364d6b8b7e3da768d772b,
+  arrowUIPrefab: {fileID: 2637925461059868768, guid: 7ae48bb90675445e98d68251f7de5743,
+    type: 3}
+  pointerUIPrefab: {fileID: 6439772815771800707, guid: f77dbc88103364d6b8b7e3da768d772b,
+    type: 3}
+  predictiveUIPrefab: {fileID: 1916640238936349950, guid: b15a1fee86b9d41b396c309f47858584,
     type: 3}
   UIaimSightPrefab: {fileID: 6774373207111884642, guid: 9dfa2c11a7f62457ab1d501f7aec5e94,
     type: 3}
@@ -35,8 +40,8 @@ MonoBehaviour:
     type: 3}
   playerPrefab: {fileID: 5601508052107788582, guid: 4bfd7f2325e3f498ca6087cdaddaf9e4,
     type: 3}
-  targetedColor: {r: 0, g: 0, b: 0, a: 0}
-  idleColor: {r: 0, g: 0, b: 0, a: 0}
+  targetedColor: {r: 1, g: 0, b: 0, a: 0}
+  idleColor: {r: 1, g: 0.06152262, b: 0, a: 0}
   vesselStats:
   - type: 0
     maxProximityDist: 150

@@ -112,12 +112,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a30ba16d7e7543b8b0e131e96325205, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetedEntitiy: {fileID: 0}
   canvasTransform: {fileID: 0}
-  targetInsidePointer: {fileID: 0}
-  targetOutsideArrow: {fileID: 0}
   cam: {fileID: 0}
-  primaryTarget: {fileID: 0}
   entityPointers: []
 --- !u!1 &8906654455610834187
 GameObject:
@@ -136,7 +132,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8906654455610834188
 RectTransform:
   m_ObjectHideFlags: 0

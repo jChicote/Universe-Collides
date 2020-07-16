@@ -59,6 +59,7 @@ public class GameManager : MonoBehaviour
 
         //Scene and UI is loaded first
         sceneCamera = GameObject.Instantiate(gameSettings.sceneCamera).GetComponent<Camera>();
+        GameObject.Instantiate(gameSettings.postProcessingPrefab, transform.position, Quaternion.identity);
 
         AimUI aimSightUI = GameObject.Instantiate(gameSettings.UIaimSightPrefab, transform.position, Quaternion.identity).GetComponent<AimUI>();
         UIPointerManager pointerManagerUI = GameObject.Instantiate(gameSettings.UIPointerManagerPrefab, transform.position, Quaternion.identity).GetComponent<UIPointerManager>();

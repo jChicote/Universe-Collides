@@ -58,7 +58,7 @@ public class AimUI : MonoBehaviour
 
     void ScaleAimUI(float maxTimeAhead){
 
-        Debug.Log(maxTimeAhead);
+        //Debug.Log(maxTimeAhead);
         if(maxTimeAhead > 15){
             CalculateAimUIScale(1.3f, secondTransform);
             CalculateAimUIScale(1.3f, thirdTransform);

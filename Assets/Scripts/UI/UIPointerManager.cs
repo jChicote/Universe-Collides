@@ -5,31 +5,21 @@ using UnityEngine.UI;
 
 public class UIPointerManager : MonoBehaviour
 {
-    public GameObject targetedEntitiy; //TEST
-
     public RectTransform canvasTransform;
 
-    //Test Pointers
-    public RectTransform targetInsidePointer;
-    public RectTransform targetOutsideArrow;
-
     public Camera cam;
-
-    public UIEntityPointer primaryTarget;
     public List<UIEntityPointer> entityPointers;
 
 
     void Start()
     {
         canvasTransform = this.GetComponent<RectTransform>();
-        //targetedEntitiy = GameObject.Find("Tie_Fighter_Enemy");
     }
 
     void FixedUpdate()
     {
         if(cam == null) {
             cam = GameManager.Instance.sceneCamera;
-            //CreateEntity(targetedEntitiy.transform);
             return;
         }
 
@@ -42,10 +32,10 @@ public class UIPointerManager : MonoBehaviour
         this.cam = camera;
     }
 
-    public UIEntityPointer CreateEntity(Transform target) {
-        GameObject prefab = GameManager.Instance.gameSettings.uiPointerPrefab;
+    public UIEntityPointer CreateEntity(Transform target, float shipSpeed) {
+        GameObject prefab = GameManager.Instance.gameSettings.UiPointerControllerPrefab;
         UIEntityPointer pointer = Instantiate(prefab, transform.position, Quaternion.identity).GetComponent<UIEntityPointer>();
-        pointer.Init(cam, canvasTransform, target, this);
+        pointer.Init(shipSpeed, cam, canvasTransform, target, this);
         pointer.transform.SetParent(this.transform);
         entityPointers.Add(pointer);
         return pointer;
