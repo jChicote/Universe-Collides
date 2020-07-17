@@ -6,28 +6,32 @@ using UnityEngine.InputSystem;
 
 public class XWingWeaponSystem : BaseWeaponSystem
 {
+    AimAssist aimAssist;
     LaserCannon laserCannon;
     bool isLocking = false;
 
     void Start() {
+        aimAssist = new AimAssist();
+        aimAssist.Init(this, GameManager.Instance.gameplayHUD.aimSightUI);
+
         SetupWeapons();
     }
 
     void SetupWeapons() {
         laserCannon = this.gameObject.AddComponent<LaserCannon>();
-        laserCannon.Init(objectID, false, controller.statHandler.FireRate, transforms.forwardGuns, controller.audioSystem);
+        laserCannon.Init(objectID, false, controller.statHandler.FireRate, transforms.forwardGuns, controller.audioSystem, aimAssist);
     }
 
     public override void RunSystem() {
-        if (canShootPrimary) laserCannon.Shoot(controller.statHandler.DamageBuff, controller.statHandler.CriticalDamage, SoundType.LaserCannon_1);
+        if (canShootPrimary) {
+            aimAssist.CheckWithinAimRange();
+            laserCannon.Shoot(controller.statHandler.DamageBuff, controller.statHandler.CriticalDamage, SoundType.LaserCannon_1);
+        }
     }
 
     public override void SetAimPosition(float speed)
     {
         float timeAhead = Mathf.Clamp(speed, 3, 50);
-        //Vector3 futurePosition = transform.position + transform.forward;
-        //Vector3 future = transform.position + transform.forward * timeAhead * 3;
-        //Debug.DrawLine(transform.position,future);
         gameManager.gameplayHUD.aimSightUI.SetAimPosition(transform.position, transform.forward, timeAhead, controller.cameraController.isFocused);
     }
 

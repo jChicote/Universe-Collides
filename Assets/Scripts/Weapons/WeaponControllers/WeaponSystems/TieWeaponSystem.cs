@@ -6,9 +6,13 @@ using UnityEngine;
 public class TieWeaponSystem : BaseWeaponSystem
 {
     private LaserCannon laserCannon;
+    AimAssist aimAssist;
 
     void Start()
     {
+        aimAssist = new AimAssist();
+        aimAssist.Init(this, GameManager.Instance.gameplayHUD.aimSightUI);
+
         targetChecker = new TargetDirectionCheck();
         transforms = this.GetComponent<VesselTransforms>();
         detectionDist = shipStats.maxProximityDist / 3; 
@@ -18,7 +22,7 @@ public class TieWeaponSystem : BaseWeaponSystem
 
     void SetupWeapons() {
         laserCannon = this.gameObject.AddComponent<LaserCannon>();
-        laserCannon.Init(objectID, true, controller.statHandler.FireRate, transforms.forwardGuns, controller.audioSystem);
+        laserCannon.Init(objectID, true, controller.statHandler.FireRate, transforms.forwardGuns, controller.audioSystem, aimAssist);
     }
 
     public override void RunSystem() {

@@ -10,15 +10,13 @@ public class UIHudManager : MonoBehaviour
     public PauseUI pauseUI;
     public PowerUpUI powerUpUI;
     public UIPointerManager pointerManagerUI;
+    public ScoreUI scoreUI;
 
-    void Start()
-    {
-        gameManager = GameManager.Instance;
-    }
-
-    public void Init(AimUI aimUI, UIPointerManager pointerUI) {
+    public void Init(AimUI aimUI, UIPointerManager pointerUI, ScoreUI scoreUI) {
+        this.gameManager = GameManager.Instance;
         this.aimSightUI = aimUI;
         this.pointerManagerUI = pointerUI;
+        this.scoreUI = scoreUI;
     }
 
     public void RevealPauseScreen(bool isRevealed) {

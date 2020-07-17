@@ -14,10 +14,11 @@ public class GameSettings : ScriptableObject
     [Header ("Prefabs")]
     public GameObject sceneCamera;
     public GameObject audioManagerPrefab;
+    public GameObject scoreManagerPrefab;
     public GameObject postProcessingPrefab;
     public GameObject UIHudPrefab;
 
-    //Pointers
+    //UI
     public GameObject UIPointerManagerPrefab;
     public GameObject UiPointerControllerPrefab;
     public GameObject arrowUIPrefab;
@@ -25,6 +26,7 @@ public class GameSettings : ScriptableObject
     public GameObject predictiveUIPrefab;
     public GameObject UIaimSightPrefab;
     public GameObject mainMenuPrefab;
+    public GameObject scoreUIPrefab;
     public GameObject playerPrefab; //later change to loaded model types that add the controller;
 
     [Header("Colours")]

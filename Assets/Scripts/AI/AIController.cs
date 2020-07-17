@@ -59,5 +59,6 @@ public class AIController : BaseEntityController
     public override void OnEntityDeath() {
         spawner.OnEntityRespawn.Invoke(objectID, vesselSelection, EntityType.AiComputer, teamColor);
         attachedPointer.RemovePointer();
+        GameManager.Instance.scoreManager.OnScoreEvent.Invoke(teamColor, 100);
     }
 }

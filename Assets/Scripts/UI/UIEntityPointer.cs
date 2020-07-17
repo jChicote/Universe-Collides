@@ -139,6 +139,7 @@ public class UIEntityPointer : MonoBehaviour, IPausable
     }
 
     public void RemovePointer() {
+        isPaused = true;
         GameObject.Destroy(pointerTransform.gameObject);
         GameObject.Destroy(arrowTransform.gameObject);
         GameObject.Destroy(predictiveAimPoint.gameObject);

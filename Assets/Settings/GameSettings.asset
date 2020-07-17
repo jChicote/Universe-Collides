@@ -20,6 +20,8 @@ MonoBehaviour:
     type: 3}
   audioManagerPrefab: {fileID: 582465508603545342, guid: ca4b1b090f1954b4aa62ed2491f7d33d,
     type: 3}
+  scoreManagerPrefab: {fileID: 5523738369006880800, guid: cd9aa3ace47a74e438ea2b4a7f60fd79,
+    type: 3}
   postProcessingPrefab: {fileID: 7977024648701742790, guid: 99a833f125dc0470fa16cdd46d39e3b1,
     type: 3}
   UIHudPrefab: {fileID: 2456526430375880183, guid: 260044937dac649caafeb44757e5f541,
@@ -37,6 +39,8 @@ MonoBehaviour:
   UIaimSightPrefab: {fileID: 6774373207111884642, guid: 9dfa2c11a7f62457ab1d501f7aec5e94,
     type: 3}
   mainMenuPrefab: {fileID: 1172539618945808642, guid: afa1ab848539d4661aab3e0ded5bfc8a,
+    type: 3}
+  scoreUIPrefab: {fileID: 7884790664331383155, guid: 6b6af5389b15948ec83ac1b1c48ad2a9,
     type: 3}
   playerPrefab: {fileID: 5601508052107788582, guid: 4bfd7f2325e3f498ca6087cdaddaf9e4,
     type: 3}

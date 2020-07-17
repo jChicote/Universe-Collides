@@ -6,6 +6,7 @@ using UnityEngine;
 public class LaserCannon : BaseWeapon
 {
     private bool isParallelFire = false;
+    AimAssist aimAssist;
 
     void Start()
     {
@@ -13,12 +14,13 @@ public class LaserCannon : BaseWeapon
         info = settings.weaponStats.Where(x => x.type == WeaponType.LaserBolt).First();
     }
 
-    public void Init(string id, bool enableParrallel, float fireRate, Transform[] cannons, VesselAudioSystem audioSystem) {
+    public void Init(string id, bool enableParrallel, float fireRate, Transform[] cannons, VesselAudioSystem audioSystem, AimAssist aimAssist) {
         this.shooterID = id;
         this.isParallelFire = enableParrallel;
         this.firePoint = cannons;
         this.audioSystem = audioSystem;
         this.fireRate = fireRate;
+        this.aimAssist = aimAssist;
     }
 
     public override void Shoot(float damageBuff, float critDamage, SoundType type)
@@ -37,7 +39,7 @@ public class LaserCannon : BaseWeapon
 
     private void ParallelFire(float damageBuff, float critDamage) {
         foreach(Transform point in firePoint) {
-            Quaternion rotation = Quaternion.Euler(point.eulerAngles);
+            Quaternion rotation = aimAssist.CalculateAimDirection(point);
             LaserBolt bolt = Instantiate(info.prefab, point.position, rotation).GetComponent<LaserBolt>();
             SetProjectileInfo(bolt, damageBuff, critDamage);
         }
@@ -46,7 +48,7 @@ public class LaserCannon : BaseWeapon
     }
 
     private void SequentialFire(float damageBuff, float critDamage) {
-        Quaternion rotation = Quaternion.Euler(firePoint[transformIndex].eulerAngles);
+        Quaternion rotation = aimAssist.CalculateAimDirection(firePoint[transformIndex]);
         LaserBolt bolt = Instantiate(info.prefab, firePoint[transformIndex].position, rotation).GetComponent<LaserBolt>();
         SetProjectileInfo(bolt, damageBuff, critDamage);
         StartCoroutine(Reload());
