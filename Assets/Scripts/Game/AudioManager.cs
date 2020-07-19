@@ -11,18 +11,24 @@ public class AudioManager : MonoBehaviour
 
     [HideInInspector] public AudioSettings audioSettings;
     public SoundEvent onSoundEvent;
+    public TrackEvent onTrackEvent;
+
     AudioSource backgroundAudioSource;
     AudioSource generalAudioSource;
 
     void Awake()
     {
-        if (Instance == null)
+        if (Instance == null) {
             Instance = this;
-        else
+            DontDestroyOnLoad(gameObject);
+        }
+        else {
             Destroy(this);
+        }
 
         audioSettings = GameManager.Instance.gameSettings.audioSettings;
         onSoundEvent.AddListener(PlaySoundEffect);
+        onTrackEvent.AddListener(PlayBackgroundTrack);
     }
 
     // Start is called before the first frame update
@@ -44,7 +50,17 @@ public class AudioManager : MonoBehaviour
         AudioClip sound = soundSelection.clip;
         generalAudioSource.PlayOneShot(sound, soundSelection.volume);
     }
+
+    public void PlayBackgroundTrack(BackgroundOstType track) {
+        BackgroundTrack trackSelection = audioSettings.backgroundTracks.Where(x => x.type == track).First();
+        AudioClip music = trackSelection.clip;
+        backgroundAudioSource.clip = music;
+        backgroundAudioSource.Play();
+    }
 }
 
 [System.Serializable]
 public class SoundEvent : UnityEvent<SoundType> { }
+
+[System.Serializable]
+public class TrackEvent : UnityEvent<BackgroundOstType> { }

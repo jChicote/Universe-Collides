@@ -57,6 +57,6 @@ public class Photon : BasicProjectile
         }
 
         IDamageReciever victim = collisionInfo.gameObject.GetComponent<IDamageReciever>();
-        victim.OnRecievedDamage(damage, shooterID);
+        victim.OnRecievedDamage(damage, shooterID, SoundType.BoltImpact);
     }
 }

@@ -15,12 +15,13 @@ public class AIController : BaseEntityController
             enemyState = this.gameObject.AddComponent<AIStateManager>();
         avoidanceSystem = this.gameObject.AddComponent<AvoidanceSystem>();
         audioSystem = this.gameObject.AddComponent<VesselAudioSystem>();
+        audioSystem.Init(EntityType.AiComputer);
 
         //Initialise Stat Handler
         GameSettings gameSettings = GameManager.Instance.gameSettings;
         VesselShipStats vesselStats = gameSettings.vesselStats.Where(x => x.type == vesselSelection).First();
         BaseStats enemyStats = vesselStats.baseShipStats;
-        statHandler = new StatHandler(enemyStats);
+        statHandler = new StatHandler(enemyStats, EntityType.AiComputer, this);
     }
 
     void Start() {

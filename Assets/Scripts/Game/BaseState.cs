@@ -36,7 +36,7 @@ public abstract class BaseState : MonoBehaviour, IPausable, IDamageReciever
         isPaused = false;
     }
 
-    public virtual void OnRecievedDamage(float damage, string id)
+    public virtual void OnRecievedDamage(float damage, string id, SoundType soundType)
     {
         damageSystem.CalculateHealth(damage, id);
     }

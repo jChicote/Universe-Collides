@@ -31,9 +31,14 @@ public class AIPursuit : AIState
 
     public override void RunState() {
         if(isPaused) return;
-        if(GameManager.Instance.playerController == null) return;
 
-        //Check if player is dead
+        //Change to be dynamic
+        if(GameManager.Instance.playerController == null) {
+            controller.SetState<AIWander>();
+            return;
+        }
+
+        //Check if ai is dead
         if(controller.statHandler.CurrentHealth <= 0) AIDeath();
 
         /// Testing purposes only ///

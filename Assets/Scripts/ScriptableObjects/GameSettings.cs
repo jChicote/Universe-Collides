@@ -11,6 +11,9 @@ public class GameSettings : ScriptableObject
     public AudioSettings audioSettings;
     public PowerupSettings powerupSettings;
 
+    [Header ("Base Canvas")]
+    public GameObject animatingCanvas;
+
     [Header ("Prefabs")]
     public GameObject sceneCamera;
     public GameObject audioManagerPrefab;
@@ -27,6 +30,8 @@ public class GameSettings : ScriptableObject
     public GameObject UIaimSightPrefab;
     public GameObject mainMenuPrefab;
     public GameObject scoreUIPrefab;
+    public GameObject healthBarUIPrefab;
+    public GameObject thrustUIPrefab;
     public GameObject playerPrefab; //later change to loaded model types that add the controller;
 
     [Header("Colours")]

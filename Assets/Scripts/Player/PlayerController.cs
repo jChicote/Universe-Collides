@@ -16,13 +16,15 @@ public class PlayerController : BaseEntityController
 
         if (playerState == null) playerState = this.gameObject.AddComponent<PlayerStateManager>();
         audioSystem = this.gameObject.AddComponent<VesselAudioSystem>();
+        audioSystem.Init(EntityType.Player);
+        audioSystem.PlayFlightAudio(vesselSelection);
         PlayerSettings playerSettings = GameManager.Instance.gameSettings.playerSettings;
 
         //Initialise Stat Handler
         GameSettings gameSettings = GameManager.Instance.gameSettings;
         VesselShipStats vesselStats = gameSettings.vesselStats.Where(x => x.type == vesselSelection).First();
         BaseStats playerStats = vesselStats.baseShipStats;
-        statHandler = new StatHandler(playerStats);
+        statHandler = new StatHandler(playerStats, EntityType.Player, this);
 
         //Initialise Weapon System
         IWeaponSystem weaponSystem = this.GetComponent<IWeaponSystem>();

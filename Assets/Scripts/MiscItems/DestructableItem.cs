@@ -14,7 +14,7 @@ public class DestructableItem : MonoBehaviour, IDamageReciever, IIdentity
         this.objectID = objectID;
     }
 
-    public void OnRecievedDamage(float damage, string id)
+    public void OnRecievedDamage(float damage, string id, SoundType soundType)
     {
         //Debug.Log(damage);
         //Debug.Log(id);

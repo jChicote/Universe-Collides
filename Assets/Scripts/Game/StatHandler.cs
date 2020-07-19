@@ -8,18 +8,29 @@ public class StatHandler
 {
     [SerializeField] private BaseStats currentStats; 
     [SerializeField] private BaseStats defaultStats;
+    BaseEntityController controller;
+    bool isHealthRegenerating = false;
 
     //Invoked by player only
-    public UnityEvent OnHealthChanged = new UnityEvent();
+    public HealthEvent OnHealthChanged = new HealthEvent();
 
-    public StatHandler(BaseStats baseStats) {
+    public StatHandler(BaseStats baseStats, EntityType entityType, BaseEntityController controller) {
         this.currentStats = baseStats;
         this.defaultStats = baseStats;
+        this.controller = controller;
 
         //Init variables
         currentFireRate = currentStats.fireRate;
         currentHealth = currentStats.maxHealth;
         damageBuff = currentStats.statModifier.damageModif;
+
+        if(entityType == EntityType.Player) AssignUI();
+    }
+
+    public void AssignUI() {
+        UIHudManager hudManager = GameManager.Instance.gameplayHUD;
+        hudManager.healthBar.Init(currentStats.maxHealth);
+        OnHealthChanged.AddListener(hudManager.healthBar.SetHealth);
     }
 
     [SerializeField] private float currentHealth;
@@ -29,9 +40,16 @@ public class StatHandler
         }
         set {
             currentHealth = value;
+            if(isHealthRegenerating){
+                controller.StopCoroutine(RegenerateHealth());
+                isHealthRegenerating = false;
+            }
 
             if(currentHealth > currentStats.maxHealth)
                 currentHealth = currentStats.maxHealth;
+
+            OnHealthChanged.Invoke(currentHealth);
+            controller.StartCoroutine(RegenerateHealth());
         }
     }
 
@@ -61,10 +79,32 @@ public class StatHandler
         }
     }
 
+    private IEnumerator RegenerateHealth() {
+        isHealthRegenerating = true;
+        float incrementRate = 0.5f;
+
+        yield return new WaitForSeconds(3);
+
+        //Debug.Log("Begin Regeneration");
+
+        while(currentHealth < currentStats.maxHealth) {
+            currentHealth += incrementRate;
+            if(currentHealth > currentStats.maxHealth) currentHealth = currentStats.maxHealth;
+            OnHealthChanged.Invoke(currentHealth);
+            yield return null;
+        }
+
+        //Debug.Log("Ended Regeneration");
+        isHealthRegenerating = false;
+    }
+
     public void Reset() {
         currentStats = defaultStats;
     }
 }
+
+[System.Serializable]
+public class HealthEvent : UnityEvent<float> {}
 
 [System.Serializable]
 public class BaseStats {

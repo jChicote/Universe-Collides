@@ -62,6 +62,8 @@ public class GameManager : MonoBehaviour
         sceneCamera = GameObject.Instantiate(gameSettings.sceneCamera).GetComponent<Camera>();
         GameObject.Instantiate(gameSettings.postProcessingPrefab, transform.position, Quaternion.identity);
 
+        GameObject animatingCanvas = Instantiate(gameSettings.animatingCanvas, transform.position, Quaternion.identity) as GameObject;
+
         AimUI aimSightUI = GameObject.Instantiate(gameSettings.UIaimSightPrefab, transform.position, Quaternion.identity).GetComponent<AimUI>();
         UIPointerManager pointerManagerUI = GameObject.Instantiate(gameSettings.UIPointerManagerPrefab, transform.position, Quaternion.identity).GetComponent<UIPointerManager>();
         pointerManagerUI.Init(sceneCamera);
@@ -71,8 +73,14 @@ public class GameManager : MonoBehaviour
         scoreManager = Instantiate(gameSettings.scoreManagerPrefab, transform.position, Quaternion.identity).GetComponent<ScoreManager>();
         scoreManager.Init(scoreUI);
 
+        HealthBarUI healthBar = Instantiate(gameSettings.healthBarUIPrefab, animatingCanvas.transform).GetComponent<HealthBarUI>();
+        ThrustUI thrustUI = Instantiate(gameSettings.thrustUIPrefab, animatingCanvas.transform).GetComponent<ThrustUI>();
+
         gameplayHUD = GameObject.Instantiate(gameSettings.UIHudPrefab,transform.position,Quaternion.identity).GetComponent<UIHudManager>();
-        gameplayHUD.Init(aimSightUI, pointerManagerUI, scoreUI);
+        gameplayHUD.Init(aimSightUI, pointerManagerUI, scoreUI, healthBar, thrustUI);
+
+        //Play Track
+        AudioManager.Instance.onTrackEvent.Invoke(BackgroundOstType.StarWars);
 
         //Load Entities
         SpawnEntities();

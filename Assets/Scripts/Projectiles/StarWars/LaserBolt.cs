@@ -49,7 +49,7 @@ public class LaserBolt : BasicProjectile
         SpawnImpact(collisionInfo.GetContact(0));
 
         IDamageReciever victim = collisionInfo.gameObject.GetComponent<IDamageReciever>();
-        victim.OnRecievedDamage(damage, shooterID);
+        victim.OnRecievedDamage(damage, shooterID, SoundType.BoltImpact);
 
         string playerID = GameManager.Instance.playerController.GetObjectID();
         if(shooterID == playerID) GameManager.Instance.scoreManager.OnPlayerHitChain.Invoke();

@@ -22,8 +22,12 @@ public class XWingState : PlayerState
         speed = shipStats.speed;
 
         //Load Input Controllers
-        movementController = new InputMovementController(this, shipStats);
+        ThrustUI thrustUI = GameManager.Instance.gameplayHUD.thrustUI;
+        movementController = new InputMovementController(this, shipStats, thrustUI);
         rotationController = new InputRotationController();
+
+        movementController.OnShipThrust.AddListener(controller.audioSystem.CalculateThrustSound);
+        movementController.OnShipThrust.AddListener(controller.audioSystem.CalculateEngineTempo);
 
         //Load weapon/damage components.
         weaponSystem = this.GetComponent<IWeaponSystem>();

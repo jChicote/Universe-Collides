@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public interface IDamageReciever { 
-    void OnRecievedDamage(float damage, string id);
+    void OnRecievedDamage(float damage, string id, SoundType soundType);
     string GetObjectID();
 }
 

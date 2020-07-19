@@ -18,8 +18,30 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 68e3383ead3d3441386b8bb7a060f702, type: 3}
     - {fileID: 8300000, guid: 7c7343587199247e9ac568e0c53b985c, type: 3}
     - {fileID: 8300000, guid: a92cb4394dcd34e9683b75177807d8de, type: 3}
-    volume: 1
+    volume: 0.9
   - type: 1
     soundClips:
     - {fileID: 8300000, guid: 83d364510c38544518dd034f95e4daab, type: 3}
     volume: 1
+  - type: 2
+    soundClips:
+    - {fileID: 8300000, guid: d947630872f8740ac8b5492180fa9e6f, type: 3}
+    - {fileID: 8300000, guid: fff4d9c21178a41f8b5205f01a209dc6, type: 3}
+    - {fileID: 8300000, guid: d139bb86f96c64569b1bfb34128960ea, type: 3}
+    volume: 0.6
+  - type: 3
+    soundClips:
+    - {fileID: 8300000, guid: 7dcaae4575bb24afda222a6813041bc6, type: 3}
+    volume: 0
+  backgroundTracks:
+  - type: 0
+    soundClips:
+    - {fileID: 8300000, guid: 010596c0ae49e4894afba371730f5817, type: 3}
+    - {fileID: 8300000, guid: 3f1c34e76a91b437fa9b6ce19b66e48a, type: 3}
+    - {fileID: 8300000, guid: eac229306703b47c297575430979ccba, type: 3}
+    volume: 1
+  engineSounds:
+  - type: 0
+    clip: {fileID: 8300000, guid: b62bd03ffe0814cd4bf19d09fe0324b7, type: 3}
+    defaultVolume: 0.6
+    defaultPitch: 1

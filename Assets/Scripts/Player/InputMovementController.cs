@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class InputMovementController {
 
@@ -11,12 +12,15 @@ public class InputMovementController {
     public float yawSteer = 0;
     public float rollSteer = 0;
 
+    public ThrustEvent OnShipThrust = new ThrustEvent();
+
     private IMovementController movementController;
     private VesselShipStats shipStats;
 
-    public InputMovementController(IMovementController controller, VesselShipStats shipStats) {
+    public InputMovementController(IMovementController controller, VesselShipStats shipStats, ThrustUI thrustUI) {
         this.movementController = controller;
         this.shipStats = shipStats;
+        this.OnShipThrust.AddListener(thrustUI.SetThrustLevel);
     }
 
     #region MOVEMENT RELATED CALCULATIONS
@@ -35,6 +39,7 @@ public class InputMovementController {
             speed = Mathf.Lerp(speed, shipStats.speed + thrust, 0.05f);
         }
 
+        OnShipThrust.Invoke(throttleInput);
         return speed;
     }
 
@@ -77,3 +82,5 @@ public class InputMovementController {
 
     #endregion
 }
+
+public class ThrustEvent : UnityEvent<float> {}
