@@ -31,7 +31,7 @@ public class InputMovementController {
     }
 
     public float CalculateCurrentSpeed(CameraController cameraController, float speed) {
-        cameraController.ModifyFieldOfView(throttleInput);
+        cameraController.SetFieldOfView(throttleInput);
 
         if(thrust == 0 || cameraController.isFocused) {
             speed = Mathf.Lerp(speed, shipStats.speed, 0.05f);

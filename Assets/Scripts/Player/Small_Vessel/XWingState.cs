@@ -42,8 +42,8 @@ public class XWingState : PlayerState
         //Check if player is dead
         if(controller.statHandler.CurrentHealth <= 0) PlayerDeath();
 
-        ApplyRotation();
-        ApplyMovement();
+        SetRotation();
+        DoMovement();
         //SetThrottling();
         
 
@@ -51,7 +51,7 @@ public class XWingState : PlayerState
         weaponSystem.SetAimPosition(speed);
     }
 
-    private void ApplyRotation() {
+    private void SetRotation() {
         if(inputX == 0 || controller.cameraController.isFocused) {
             controller.modelTransform.rotation = Quaternion.Slerp(controller.modelTransform.rotation, transform.rotation, 0.1f);
             if(inputX == 0) return;
@@ -61,10 +61,12 @@ public class XWingState : PlayerState
         currentRotation = new Vector3(-1 * pitch, yaw, -1 * roll);
         transform.Rotate(currentRotation);
 
-        RollLocalModel();
+        SetShipRoll();
     }
 
-    private void RollLocalModel() {
+    //Summary:
+    //  This sets the rotational roll of the local model of the ship.
+    private void SetShipRoll() {
         //Finds roll angle of local model
         modelAngle =rotationController.CalculateObjectRoll(controller.modelTransform.localEulerAngles.z);
 

@@ -32,11 +32,9 @@ public class AIWander : AIState
 
     public override void RunState() {
         if(isPaused) return;
+        if(controller.statHandler.CurrentHealth <= 0) AIDeath(); //Check if player is dead
 
-        //Check if player is dead
-        if(controller.statHandler.CurrentHealth <= 0) AIDeath();
-
-        Movement();
+        DoMovement();
         if(controller.avoidanceSystem.DetectCollision()) return;
         
         CheckOutOfBounds();
@@ -46,7 +44,7 @@ public class AIWander : AIState
         }
     }
 
-    private void Movement() {
+    private void DoMovement() {
         currentVelocity = shipStats.speed * transform.forward * Time.fixedDeltaTime;
         transform.position += currentVelocity;
     }
@@ -69,12 +67,12 @@ public class AIWander : AIState
     {
         float targetDistance = Vector3.Distance(transform.position, GameManager.Instance.transform.position);
         if(targetDistance < shipStats.maxProximityDist) return;
-        if(!isReturning) StartCoroutine(RedirectToCenter());
+        if(!isReturning) StartCoroutine(RotateToCenter());
 
         return;
     }
 
-    private IEnumerator RedirectToCenter() {
+    private IEnumerator RotateToCenter() {
         isReturning = true;
         Vector3 dir;
         Quaternion currentRot;

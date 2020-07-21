@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AvoidanceSystem : MonoBehaviour
 {
-    RaycastHit hit;
+    //RaycastHit hit;
     Vector3 raycastOffset = Vector3.zero;
 
     Vector3 left;
@@ -24,10 +24,10 @@ public class AvoidanceSystem : MonoBehaviour
         if(!whiskerEnabled) return false;
 
         raycastOffset = Vector3.zero;
-        left = transform.localPosition - (transform.right * 3f);// + (transform.forward * 3));
-        right = transform.localPosition + (transform.right * 3f);// + (transform.forward * 3));
-        up = transform.localPosition + (transform.up * 3f); // + (transform.forward * -3));
-        down = transform.localPosition - (transform.up * 3f);// + (transform.forward * 3));
+        left = transform.localPosition - (transform.right * 3f);
+        right = transform.localPosition + (transform.right * 3f);
+        up = transform.localPosition + (transform.up * 3f);
+        down = transform.localPosition - (transform.up * 3f);
 
         leftDir = transform.forward + -transform.right*0.4f;
         rightDir = transform.forward + transform.right*0.4f;

@@ -18,8 +18,8 @@ public class UIEntityPointer : MonoBehaviour, IPausable
     RectTransform pointerTransform;
     RectTransform predictiveAimPoint;
     Image pointerImage;
-    public Sprite inactivePointer;
-    public Sprite activePointer;
+    public Sprite inactivePointer; //Change to scriptableObject
+    public Sprite activePointer; //Change to scriptableObject
 
     Camera cam;
     Vector3 forward;
@@ -27,8 +27,8 @@ public class UIEntityPointer : MonoBehaviour, IPausable
 
     Vector3 screenPosition;
     Vector2 scaledScreenPosition;
+    Vector3 futurePosition;
 
-    //Vector3 arrowPoint = Vector3.zero;
     Vector3 center;
     Vector3 objScreenPos;
     Vector3 cross;
@@ -45,14 +45,10 @@ public class UIEntityPointer : MonoBehaviour, IPausable
     {
         GameSettings gameSettings = GameManager.Instance.gameSettings;
         controllerRect = this.GetComponent<RectTransform>();
-        arrowTransform = Instantiate(gameSettings.arrowUIPrefab, canvasTransform.transform.position, Quaternion.identity).GetComponent<RectTransform>();
-        pointerTransform = Instantiate(gameSettings.pointerUIPrefab, canvasTransform.transform.position, Quaternion.identity).GetComponent<RectTransform>();
-        predictiveAimPoint = Instantiate(gameSettings.predictiveUIPrefab, canvasTransform.transform.position, Quaternion.identity).GetComponent<RectTransform>();
+        arrowTransform = Instantiate(gameSettings.arrowUIPrefab, this.transform.root).GetComponent<RectTransform>();
+        pointerTransform = Instantiate(gameSettings.pointerUIPrefab, this.transform.root).GetComponent<RectTransform>();
+        predictiveAimPoint = Instantiate(gameSettings.predictiveUIPrefab, this.transform.root).GetComponent<RectTransform>();
         pointerImage = pointerTransform.GetComponent<Image>();
-
-        arrowTransform.transform.SetParent(this.transform.root);
-        pointerTransform.transform.SetParent(this.transform.root);
-        predictiveAimPoint.transform.SetParent(this.transform.root);
     }
 
     public void Init(float speed, Camera camera, RectTransform canvasTransform, Transform target, UIPointerManager manager) {
@@ -65,16 +61,22 @@ public class UIEntityPointer : MonoBehaviour, IPausable
 
     public void RunPointer()
     {
-        if(isPaused) return;
+        if(predictiveAimPoint == null || pointerTransform == null) return;
+        if(isPaused || target.gameObject == null) return;
 
         if(CheckIfTargetInSight()) {
-            arrowTransform.gameObject.SetActive(false);
-            pointerTransform.gameObject.SetActive(true);
+            if(!pointerTransform.gameObject.activeInHierarchy) {
+                arrowTransform.gameObject.SetActive(false);
+                pointerTransform.gameObject.SetActive(true);
+            }
+
             PointerInFrame();
         }
         else {
-            pointerTransform.gameObject.SetActive(false);
-            arrowTransform.gameObject.SetActive(true);
+            if(!arrowTransform.gameObject.activeInHierarchy) {
+                pointerTransform.gameObject.SetActive(false);
+                arrowTransform.gameObject.SetActive(true);
+            }
             PointingOutFrame();
         }
     }
@@ -95,12 +97,14 @@ public class UIEntityPointer : MonoBehaviour, IPausable
     //Summary: 
     //      Changes image once is within the inner range of firing.
     void ChangePointerImageInView(Vector3 forward, Vector3 targetDir) {
-        if(Vector3.Dot(forward, targetDir) > 0.9f) {
+        if(Vector3.Dot(forward, targetDir) > 0.9f) { //Should run once
+            RenderPredictiveAim();
+            if(predictiveAimPoint.gameObject.activeInHierarchy) return;
             pointerImage.sprite = activePointer;
             pointerTransform.localScale = new Vector3(1f, 1f, 1f);
             predictiveAimPoint.gameObject.SetActive(true);
-            RenderPredictiveAim();
         } else {
+            if(!predictiveAimPoint.gameObject.activeInHierarchy) return;
             pointerImage.sprite = inactivePointer;
             pointerTransform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
             predictiveAimPoint.gameObject.SetActive(false);
@@ -108,7 +112,7 @@ public class UIEntityPointer : MonoBehaviour, IPausable
     }
 
     void RenderPredictiveAim() {
-        Vector3 futurePosition = target.position + target.forward * (shipSpeed*0.3f);
+        futurePosition = target.position + target.forward * (shipSpeed*0.3f);
         screenPosition = RectTransformUtility.WorldToScreenPoint(cam, futurePosition);
         scaledWidth = canvasTransform.rect.width * (screenPosition.x / Screen.width) * 1;
         scaledHeight = canvasTransform.rect.height * (screenPosition.y / Screen.height) * 1;
@@ -118,6 +122,7 @@ public class UIEntityPointer : MonoBehaviour, IPausable
     }
 
     public void PointerInFrame() {
+        if(pointerTransform == null) return;
         screenPosition = RectTransformUtility.WorldToScreenPoint(cam, target.position);
         scaledWidth = canvasTransform.rect.width * (screenPosition.x / Screen.width) * 1;
         scaledHeight = canvasTransform.rect.height * (screenPosition.y / Screen.height) * 1;

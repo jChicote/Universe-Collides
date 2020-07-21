@@ -27,23 +27,22 @@ public class CameraController : MonoBehaviour
         attributes = playerSettings.cameraAttributes.Where(x => x.type == vesselType).First();
     }
 
-    public void ModifyFieldOfView(float valueY) {
-        //if(isPaused) return;
+    public void SetFieldOfView(float throttleValue) {
         //Returns to normal when no throttling is applied
-        if(valueY == 0) {
+        if(throttleValue == 0) {
             virtualCamera.m_Lens.FieldOfView = Mathf.Lerp(virtualCamera.m_Lens.FieldOfView, attributes.defaultFOV, 0.1f);
             return;
         }
         
         //Increases or decreases camera FOV on throttle value
-        if(valueY > 0){
+        if(throttleValue > 0){
             virtualCamera.m_Lens.FieldOfView = Mathf.Lerp(virtualCamera.m_Lens.FieldOfView, attributes.maxFOV, 0.1f);
         } else {
             virtualCamera.m_Lens.FieldOfView = Mathf.Lerp(virtualCamera.m_Lens.FieldOfView, attributes.minFOV, 0.04f);
         }
     }
 
-    public void ModifyCameraTracking() {
+    public void SetCameraTracking() {
         if(isFocused) {
             SetCameraTrack(attributes.composerModifiedY, attributes.focusedXDamp, attributes.focusedYDamp, attributes.focusedZDamp,
                         attributes.focusedPitchDamp, attributes.focusedYawDamp, attributes.focusedRollDamp);
@@ -65,7 +64,6 @@ public class CameraController : MonoBehaviour
     }
 
     public IEnumerator LockingCamera() {
-        
         float zOffset = 0;
         float yOffset = 0;
 

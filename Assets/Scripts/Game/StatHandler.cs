@@ -71,6 +71,16 @@ public class StatHandler
         }
     }
 
+    [SerializeField] private float hullResistence;
+    public float HullResistence {
+        get {
+            return hullResistence;
+        }
+        set {
+            hullResistence = value;
+        }
+    }
+
     public float CriticalDamage {
         get {
             DamageInfo damageInfo = currentStats.damageInfo;
@@ -108,10 +118,11 @@ public class HealthEvent : UnityEvent<float> {}
 
 [System.Serializable]
 public class BaseStats {
-    public float health;
+    public float health; // may need to remove
     public float maxHealth;
-    public float healthRegen;
-    public float healthRegenRate;
+    public float healthRegen; //may need to change
+    public float healthRegenRate; //may need to remove
+    public float hullResistence;
     public float fireRate;
     public StatModifier statModifier;
     public DamageInfo damageInfo;

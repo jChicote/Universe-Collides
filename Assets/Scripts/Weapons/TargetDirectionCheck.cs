@@ -8,15 +8,15 @@ public class TargetDirectionCheck {
     private Vector3 forward;
     private Vector3 targetDir;
 
-    public bool CheckInDirection(Vector3 targetPosition, Vector3 currentPosition, float maxRange) {
-        float distance = Vector3.Distance(targetPosition, currentPosition);
+    public bool TargetInDirection(Vector3 targetPosition, Vector3 currentPosition, float maxRange) {
+        distance = Vector3.Distance(targetPosition, currentPosition);
         if(distance < maxRange) {
             return true;
         }
         return false;
     }
 
-    public bool CheckInView(Vector3 targetPosition, Vector3 currentPosition, Vector3 currentForward, float dotLimit) {
+    public bool TargetInView(Vector3 targetPosition, Vector3 currentPosition, Vector3 currentForward, float dotLimit) {
         forward = currentForward.normalized;
         targetDir = (targetPosition - currentPosition).normalized;
 

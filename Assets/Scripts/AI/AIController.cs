@@ -31,7 +31,7 @@ public class AIController : BaseEntityController
         SetState<AIPursuit>();
 
         //Returns pointer
-        attachedPointer = GameManager.Instance.gameplayHUD.pointerManagerUI.CreateEntity(gameObject.transform, vesselStats.speed);
+        attachedPointer = GameManager.Instance.gameplayHUD.pointerManagerUI.CreateNewPointer(gameObject.transform, vesselStats.speed);
     }
 
     void SetWeaponSystems(VesselShipStats vesselStats) {

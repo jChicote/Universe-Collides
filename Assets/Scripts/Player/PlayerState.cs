@@ -28,7 +28,7 @@ public abstract class PlayerState : BaseState, IMovementController
     public float yawStrength = 0;
     public float rollStrength = 0;
 
-    public void ApplyMovement() {
+    public void DoMovement() {
         movementController.CalculateSteeringStrength(controller.cameraController, pitchStrength, yawStrength, rollStrength);
         speed = movementController.CalculateCurrentSpeed(controller.cameraController, speed);
         currentVelocity = movementController.CalculateVelocity(currentVelocity, transform.forward, speed);

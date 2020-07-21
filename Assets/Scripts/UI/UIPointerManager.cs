@@ -6,10 +6,9 @@ using UnityEngine.UI;
 public class UIPointerManager : MonoBehaviour
 {
     public RectTransform canvasTransform;
-
     public Camera cam;
     public List<UIEntityPointer> entityPointers;
-
+    
 
     void Start()
     {
@@ -32,11 +31,10 @@ public class UIPointerManager : MonoBehaviour
         this.cam = camera;
     }
 
-    public UIEntityPointer CreateEntity(Transform target, float shipSpeed) {
+    public UIEntityPointer CreateNewPointer(Transform target, float shipSpeed) {
         GameObject prefab = GameManager.Instance.gameSettings.UiPointerControllerPrefab;
-        UIEntityPointer pointer = Instantiate(prefab, transform.position, Quaternion.identity).GetComponent<UIEntityPointer>();
+        UIEntityPointer pointer = Instantiate(prefab, this.transform).GetComponent<UIEntityPointer>();
         pointer.Init(shipSpeed, cam, canvasTransform, target, this);
-        pointer.transform.SetParent(this.transform);
         entityPointers.Add(pointer);
         return pointer;
     }

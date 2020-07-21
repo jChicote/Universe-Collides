@@ -15,9 +15,6 @@ public class AIEvasion : AIState
         shipStats = GameManager.Instance.gameSettings.vesselStats.Where(x => x.type.Equals(controller.vesselSelection)).First();
 
         damageSystem = controller.damageSystem;
-
-        //damageSystem = new FighterDamageManager();
-        //damageSystem.Init(this, weaponSystem, controller.statHandler);
     }
 
     void FixedUpdate()
@@ -27,28 +24,30 @@ public class AIEvasion : AIState
 
     public override void RunState() {
         if(isPaused) return;
+        if(controller.statHandler.CurrentHealth <= 0) AIDeath(); //Check if player is dead
 
-        //Check if player is dead
-        if(controller.statHandler.CurrentHealth <= 0) AIDeath();
+        ChangeState();
+        DoMovement();
+        if(controller.avoidanceSystem.DetectCollision()) return;
         
+        DoMovement();
+        Evasion();
+        SetShipRoll();
+    }
+
+    private void ChangeState() {
         targetDistance = Vector3.Distance(transform.position, GameManager.Instance.playerController.transform.position);
         if(targetDistance > shipStats.maxProximityDist) controller.SetState<AIWander>();
         if(targetDistance > shipStats.pursuitDistance) controller.SetState<AIPursuit>();
-
-        Movement();
-        if(controller.avoidanceSystem.DetectCollision()) return;
-    
-        Evasion();
-        ApplyRoll();
     }
 
-    private void Movement() {
+    private void DoMovement() {
         currentVelocity = (shipStats.speed * 2) * transform.forward * Time.fixedDeltaTime;
         transform.position += currentVelocity;
     }
 
     private void Evasion() {
-        target = GameManager.Instance.playerController.gameObject;
+        target = GameManager.Instance.playerController.gameObject; //CHANGE TO DYNAMIC TARGETING
         evasionDir= target.transform.position - transform.position;
         targetRot = Quaternion.LookRotation(-evasionDir);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime);

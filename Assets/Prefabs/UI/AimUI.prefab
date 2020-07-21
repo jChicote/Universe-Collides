@@ -384,7 +384,7 @@ GameObject:
   - component: {fileID: 6112533940851318251}
   - component: {fileID: 8397839387653572277}
   m_Layer: 5
-  m_Name: TargettingAimUI
+  m_Name: AimUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -424,7 +424,7 @@ Canvas:
   m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
-  m_PixelPerfect: 1
+  m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
@@ -462,7 +462,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6774373207111884642}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
   m_Name: 
@@ -484,9 +484,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fd81cb546e034ba8b89b446f95259bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstTransform: {fileID: 2684498532912336266}
-  secondTransform: {fileID: 4785567254904908971}
-  thirdTransform: {fileID: 6422644378508192780}
+  firstAimsight: {fileID: 2684498532912336266}
+  secondAimsight: {fileID: 4785567254904908971}
+  thirdAimsight: {fileID: 6422644378508192780}
 --- !u!1 &7488111462407328332
 GameObject:
   m_ObjectHideFlags: 0

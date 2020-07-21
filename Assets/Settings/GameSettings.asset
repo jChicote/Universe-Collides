@@ -42,7 +42,7 @@ MonoBehaviour:
     type: 3}
   mainMenuPrefab: {fileID: 1172539618945808642, guid: afa1ab848539d4661aab3e0ded5bfc8a,
     type: 3}
-  scoreUIPrefab: {fileID: 7884790664331383155, guid: 6b6af5389b15948ec83ac1b1c48ad2a9,
+  scoreUIPrefab: {fileID: 5735469882637455552, guid: 5302209523499495ea69d20ef7bf93c2,
     type: 3}
   healthBarUIPrefab: {fileID: 1309509834499408784, guid: e74808f059c6e44be91c7ab9b0db54f8,
     type: 3}
@@ -70,6 +70,7 @@ MonoBehaviour:
       maxHealth: 100
       healthRegen: 5
       healthRegenRate: 0.5
+      hullResistence: 0
       fireRate: 0.15
       statModifier:
         fireRateModif: 0
@@ -95,6 +96,7 @@ MonoBehaviour:
       maxHealth: 100
       healthRegen: 10
       healthRegenRate: 0.5
+      hullResistence: 0
       fireRate: 0.3
       statModifier:
         fireRateModif: 0
@@ -120,6 +122,7 @@ MonoBehaviour:
       maxHealth: 0
       healthRegen: 0
       healthRegenRate: 0
+      hullResistence: 0
       fireRate: 0
       statModifier:
         fireRateModif: 0

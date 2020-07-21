@@ -21,20 +21,14 @@ public class DeathState : BaseState
         shipSpeed = vesselStats.speed;
 
         entityRB = this.GetComponent<Rigidbody>();
-        //entityRB.isKinematic = false;
+        entityRB.isKinematic = true;
         RigidbodyConstraints deathConstraints = RigidbodyConstraints.None;
         entityRB.constraints = deathConstraints;
         Invoke("RemoveFromScene", 3f);
-
-        //Add death force
-        //entityRB.AddExplosionForce(2, (transform.forward * -2) + transform.localPosition, 3f, 0);
-        //entityRB.add
     }
 
     void FixedUpdate()
     {
-        //Add death force
-        //entityRB.AddForce((transform.forward * 10) + transform.up * 4, ForceMode.Force);
         transform.Rotate(0.5f, 2f, 2f);
         transform.position += transform.forward * (shipSpeed * 2f) * Time.fixedDeltaTime;
     }

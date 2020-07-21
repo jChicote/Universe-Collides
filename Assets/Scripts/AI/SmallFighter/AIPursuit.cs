@@ -19,9 +19,6 @@ public class AIPursuit : AIState
         weaponSystem = this.GetComponent<IWeaponSystem>();
 
         damageSystem = controller.damageSystem;
-
-        //damageSystem = new FighterDamageManager();
-        //damageSystem.Init(weaponSystem, controller.statHandler);
     }
 
     void FixedUpdate()
@@ -32,7 +29,7 @@ public class AIPursuit : AIState
     public override void RunState() {
         if(isPaused) return;
 
-        //Change to be dynamic
+        //Change to be dynamic AND TO THE TARGET VARIABLE
         if(GameManager.Instance.playerController == null) {
             controller.SetState<AIWander>();
             return;
@@ -44,7 +41,7 @@ public class AIPursuit : AIState
         /// Testing purposes only ///
 
         if(GameManager.Instance.playerController.gameObject != null) {
-            weaponSystem.AssignTarget(GameManager.Instance.playerController.gameObject);//MUST REMOVE
+            weaponSystem.SetNewTarget(GameManager.Instance.playerController.gameObject);//MUST REMOVE
         }
 
         /// --------------------- ///
@@ -52,11 +49,11 @@ public class AIPursuit : AIState
         if(weaponSystem.CheckAimDirection()) weaponSystem.RunSystem();
 
         ChangeState();
-        Movement();
+        DoMovement();
         if(controller.avoidanceSystem.DetectCollision()) return;
 
-        LookPursuit();
-        ApplyRoll();
+        Pursuit();
+        SetShipRoll();
     }
 
     private void ChangeState() {
@@ -65,13 +62,13 @@ public class AIPursuit : AIState
         if(targetDistance < 10) controller.SetState<AIEvasion>();
     }
 
-    private void Movement() {
+    private void DoMovement() {
         currentVelocity = shipStats.speed * transform.forward * Time.fixedDeltaTime;
         transform.position += currentVelocity;
     }
 
-    private void LookPursuit() {
-        target = GameManager.Instance.playerController.gameObject;
+    private void Pursuit() {
+        target = GameManager.Instance.playerController.gameObject; //CHANGE TO DYNAMIC TARGETING
         pursuitDir = target.transform.position - transform.position;
         targetRot = Quaternion.LookRotation(pursuitDir);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime);

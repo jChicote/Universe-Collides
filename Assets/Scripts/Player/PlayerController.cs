@@ -37,9 +37,11 @@ public class PlayerController : BaseEntityController
         weaponSystem = this.GetComponent<IWeaponSystem>();
         damageSystem = new FighterDamageManager();
         damageSystem.Init(weaponSystem, statHandler);
+
+        SetInitalState();
     }
 
-    void Start() {
+    void SetInitalState() {
         //Sets the state based on selected type
         switch (vesselSelection) {
             case VesselType.xWing:

@@ -17,8 +17,8 @@ public class AIState : BaseState
 
     public override void BeginState() {}
 
-    public void ApplyRoll() {
-        if(CheckForward()) {
+    public void SetShipRoll() {
+        if(CheckTargetIsForward()) {
             controller.modelTransform.rotation = Quaternion.Slerp(controller.modelTransform.rotation, transform.rotation, 0.1f);
             return;
         }
@@ -36,8 +36,8 @@ public class AIState : BaseState
         }
     }
 
-    private bool CheckForward() {
-        target = GameManager.Instance.playerController.gameObject;
+    private bool CheckTargetIsForward() {
+        target = GameManager.Instance.playerController.gameObject; //CHANGE TO DYNAMIC TARGETING
         targetAngle = Vector3.Angle(target.transform.forward, transform.position - target.transform.position);
 
         if(targetAngle < shipStats.stableAngleLimit) return true;

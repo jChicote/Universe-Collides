@@ -6,11 +6,10 @@ using UnityEngine.InputSystem;
 
 public class XWingWeaponSystem : BaseWeaponSystem
 {
-    AimAssist aimAssist;
     LaserCannon laserCannon;
-    bool isLocking = false;
 
-    void Start() {
+    public override void Init(string objectID, BaseEntityController controller, bool weaponsActive, VesselShipStats shipStats) {
+        base.Init(objectID, controller, weaponsActive, shipStats);
         aimAssist = new AimAssist();
         aimAssist.Init(this, GameManager.Instance.gameplayHUD.aimSightUI);
 
@@ -19,7 +18,7 @@ public class XWingWeaponSystem : BaseWeaponSystem
 
     void SetupWeapons() {
         laserCannon = this.gameObject.AddComponent<LaserCannon>();
-        laserCannon.Init(objectID, false, controller.statHandler.FireRate, transforms.forwardGuns, controller.audioSystem, aimAssist);
+        laserCannon.Init(objectID, false, controller.statHandler.FireRate, shipTransforms.forwardGuns, controller.audioSystem, aimAssist);
     }
 
     public override void RunSystem() {
@@ -35,7 +34,7 @@ public class XWingWeaponSystem : BaseWeaponSystem
         gameManager.gameplayHUD.aimSightUI.SetAimPosition(transform.position, transform.forward, timeAhead, controller.cameraController.isFocused);
     }
 
-    public override void ChangeFireRate(float fireRate, bool isParallel) {
+    public override void SetFireRate(float fireRate, bool isParallel) {
         laserCannon.ModifyStats(controller.statHandler.FireRate);
     }
 
@@ -45,12 +44,12 @@ public class XWingWeaponSystem : BaseWeaponSystem
     }
 
     private void OnSecondaryFire(InputValue value) {
-        Debug.Log("secondary fire");
+        //Debug.Log("secondary fire");
         canShootSecondary = value.isPressed;
     }
     private void OnLocking(InputValue value) {
         controller.cameraController.isFocused = value.isPressed;
-        controller.cameraController.ModifyCameraTracking();
+        controller.cameraController.SetCameraTracking();
 
         StartCoroutine(controller.cameraController.LockingCamera());
     }

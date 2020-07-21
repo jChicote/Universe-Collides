@@ -16,13 +16,13 @@ public class MaxFireDamage : PowerUp
     }
 
     public override void BeginPowerUp() {
-        Debug.Log("Powerup Beginning");
+        Debug.Log("Enabled Max Damage");
         defaultValue = statHandler.DamageBuff;
         statHandler.DamageBuff = defaultValue * 4;
     }
 
     public override void EndPowerUp() {
-        Debug.Log("Powerup Ending");
+        Debug.Log("Disabled Max Damage");
         statHandler.FireRate = defaultValue;
     }
 }

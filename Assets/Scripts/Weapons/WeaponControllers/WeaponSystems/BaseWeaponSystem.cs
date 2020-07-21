@@ -7,8 +7,8 @@ public interface IWeaponSystem {
     void RunSystem();
     bool CheckAimDirection();
     void SetAimPosition(float speed);
-    void AssignTarget(GameObject target);
-    void ChangeFireRate(float fireRate, bool isParallel);
+    void SetNewTarget(GameObject target);
+    void SetFireRate(float fireRate, bool isParallel);
 }
 
 public class BaseWeaponSystem : MonoBehaviour, IWeaponSystem
@@ -19,8 +19,9 @@ public class BaseWeaponSystem : MonoBehaviour, IWeaponSystem
     public GameManager gameManager;
     public VesselShipStats shipStats;
     public TargetDirectionCheck targetChecker;
+    public AimAssist aimAssist;
 
-    public VesselTransforms transforms;
+    public VesselTransforms shipTransforms;
 
     public bool canShootPrimary = false;
     public bool canShootSecondary = false;
@@ -34,27 +35,27 @@ public class BaseWeaponSystem : MonoBehaviour, IWeaponSystem
         gameManager = GameManager.Instance;
         canShootPrimary = weaponsActive;
         canShootSecondary = weaponsActive;
-        transforms = this.GetComponent<VesselTransforms>();
+        shipTransforms = this.GetComponent<VesselTransforms>();
     }
 
     public virtual void RunSystem() {}
     
     public virtual void SetAimPosition(float speed) {}
-    public virtual void ChangeFireRate(float fireRate, bool isParallel) {}
+    public virtual void SetFireRate(float fireRate, bool isParallel) {}
 
-    public void AssignTarget(GameObject target) {
+    public void SetNewTarget(GameObject target) {
         this.target = target;
     }
 
     public bool CheckAimDirection() {
-        if(target == null) return false;
+        if(target == null || targetChecker == null) return false;
         Vector3 targetPos = target.transform.position;
 
-        if(!targetChecker.CheckInDirection(targetPos ,transform.position, detectionDist)) {
+        if(!targetChecker.TargetInDirection(targetPos ,transform.position, detectionDist)) {
             return false;
         }
 
-        if(!targetChecker.CheckInView(targetPos, transform.position, transform.forward, 0.7f)){
+        if(!targetChecker.TargetInView(targetPos, transform.position, transform.forward, 0.7f)){
             canShootPrimary = false;
             return false;
         } else {
