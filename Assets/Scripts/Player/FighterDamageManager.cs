@@ -21,6 +21,6 @@ public class FighterDamageManager : DamageManager
         float health = statHandler.CurrentHealth - damage;
         statHandler.CurrentHealth = health;
         //Debug.Log("Damage: " + damage);
-        //Debug.Log("Health: " + health);
+        Debug.Log("Health: " + health);
     }
 }

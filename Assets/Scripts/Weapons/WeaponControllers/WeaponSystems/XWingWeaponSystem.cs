@@ -10,6 +10,8 @@ public class XWingWeaponSystem : BaseWeaponSystem
 
     public override void Init(string objectID, BaseEntityController controller, bool weaponsActive, VesselShipStats shipStats) {
         base.Init(objectID, controller, weaponsActive, shipStats);
+
+        //Create the aim assist object
         aimAssist = new AimAssist();
         aimAssist.Init(this, GameManager.Instance.gameplayHUD.aimSightUI);
 
@@ -21,9 +23,12 @@ public class XWingWeaponSystem : BaseWeaponSystem
         laserCannon.Init(objectID, false, controller.statHandler.FireRate, shipTransforms.forwardGuns, controller.audioSystem, aimAssist);
     }
 
+    /// <summary>
+    /// Runs the primary systems of the weapons
+    /// </summary>
     public override void RunSystem() {
         if (canShootPrimary) {
-            aimAssist.CheckWithinAimRange();
+            aimAssist.SetTargetInAimRange();
             laserCannon.Shoot(controller.statHandler.DamageBuff, controller.statHandler.CriticalDamage, SoundType.LaserCannon_1);
         }
     }
@@ -44,7 +49,6 @@ public class XWingWeaponSystem : BaseWeaponSystem
     }
 
     private void OnSecondaryFire(InputValue value) {
-        //Debug.Log("secondary fire");
         canShootSecondary = value.isPressed;
     }
     private void OnLocking(InputValue value) {

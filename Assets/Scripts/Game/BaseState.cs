@@ -2,7 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BaseState : MonoBehaviour, IPausable, IDamageReciever
+//MOVEMENT NEEDS TO BE REFACTORED
+public interface IMovementControl
+{
+    Vector3 GetVelocity();
+}
+
+public abstract class BaseState : MonoBehaviour, IPausable, IDamageReciever, IMovementControl
 {
     public string objectID;
 
@@ -39,6 +45,11 @@ public abstract class BaseState : MonoBehaviour, IPausable, IDamageReciever
     public virtual void OnRecievedDamage(float damage, string id, SoundType soundType)
     {
         damageSystem.CalculateHealth(damage, id);
+    }
+
+    public Vector3 GetVelocity()
+    {
+        return currentVelocity;
     }
 
     public string GetObjectID()

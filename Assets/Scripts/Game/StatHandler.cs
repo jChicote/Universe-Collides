@@ -33,6 +33,10 @@ public class StatHandler
         OnHealthChanged.AddListener(hudManager.healthBar.SetHealth);
     }
 
+    //TODO: Note, damage controller should handle the all of health regeneration,
+    //      improper refactoring coupling systems together.
+
+
     [SerializeField] private float currentHealth;
     public float CurrentHealth {
         get {

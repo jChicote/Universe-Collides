@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class XWingState : PlayerState
 {    
-    float modelAngle;
-    float angleResult;
+    private float modelAngle;
+    private float angleResult;
 
     public override void BeginState()
     {

@@ -56,6 +56,8 @@ public class GameManager : MonoBehaviour
 
         mainMenuUI = Instantiate(gameSettings.mainMenuPrefab, transform.position, Quaternion.identity).GetComponent<MainMenuUI>();
     }
+
+
     public void BeginGamePlay() {
         //Scene and UI is loaded first
         sceneCamera = GameObject.Instantiate(gameSettings.sceneCamera).GetComponent<Camera>();
