@@ -334,11 +334,15 @@ GameObject:
   m_Component:
   - component: {fileID: 5601508052107788583}
   - component: {fileID: 7140535020074736112}
-  - component: {fileID: 3430703124785022480}
-  - component: {fileID: 5020438621919313778}
-  - component: {fileID: 5601508052107788581}
   - component: {fileID: 5601508052107788580}
+  - component: {fileID: 5601508052107788581}
+  - component: {fileID: 3698144023446216443}
+  - component: {fileID: 7672626330589685404}
+  - component: {fileID: 3430703124785022480}
+  - component: {fileID: 1371586523205165722}
+  - component: {fileID: 5020438621919313778}
   - component: {fileID: 6834306819805104510}
+  - component: {fileID: 5840132408367605410}
   m_Layer: 9
   m_Name: XWingPlayer
   m_TagString: Untagged
@@ -380,7 +384,7 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 126
   m_CollisionDetection: 2
---- !u!114 &3430703124785022480
+--- !u!114 &5601508052107788580
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -389,67 +393,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 5601508052107788582}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 024ec9f7cb1cf4e7eb506f71f27fff6e, type: 3}
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forwardGuns:
-  - {fileID: 5283594964560323730}
-  - {fileID: 5917105098062368547}
-  - {fileID: 2195498140896673065}
-  - {fileID: 3910818820283065528}
-  forwardLaunchers:
-  - {fileID: 7704362173404972688}
-  sternLaunchers: []
-  phaserBanks: []
-  turrentGuns: []
-  engineExhausts: []
---- !u!114 &5020438621919313778
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5601508052107788582}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f35384c5d4ebd4a738089fdb751f0907, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectID: PlayerXWing_1
-  controller: {fileID: 0}
-  target: {fileID: 0}
-  gameManager: {fileID: 0}
-  shipStats:
-    type: 0
-    maxProximityDist: 0
-    evasionDist: 0
-    stableAngleLimit: 0
-    yawRate: 0
-    extraYaw: 0
-    pitchRate: 0
-    extraPitch: 0
-    rollRate: 0
-    extraRoll: 0
-    speed: 0
-    throttleSpeed: 0
-    baseShipStats:
-      health: 0
-      maxHealth: 0
-      healthRegen: 0
-      healthRegenRate: 0
-      hullResistence: 0
-      fireRate: 0
-      statModifier:
-        fireRateModif: 0
-        healthRegenModif: 0
-        damageModif: 0
-      damageInfo:
-        critDMG: 0
-        critChance: 0
-  transforms: {fileID: 0}
-  canShootPrimary: 0
-  canShootSecondary: 0
-  detectionDist: 0
+  m_Actions: {fileID: -944628639613478452, guid: cde7d57b0d7ec44d9b76545341d364ef,
+    type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Fighter_Controls
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!114 &5601508052107788581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -507,7 +472,7 @@ MonoBehaviour:
   cameraController: {fileID: 0}
   virtualCamera: {fileID: 5601508051502691943}
   playerState: {fileID: 0}
---- !u!114 &5601508052107788580
+--- !u!114 &3698144023446216443
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -516,28 +481,108 @@ MonoBehaviour:
   m_GameObject: {fileID: 5601508052107788582}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Script: {fileID: 11500000, guid: e55b53fcbd9584b4aabc27a4814ecfd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: cde7d57b0d7ec44d9b76545341d364ef,
-    type: 3}
-  m_NotificationBehavior: 0
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Fighter_Controls
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
+  childModel: {fileID: 8906494851320653828}
+--- !u!114 &7672626330589685404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5601508052107788582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 702325d78ea844a95972ccef34f4705a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraTransposer: {fileID: 0}
+  cameraComposer: {fileID: 0}
+  isFocused: 0
+--- !u!114 &3430703124785022480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5601508052107788582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 024ec9f7cb1cf4e7eb506f71f27fff6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  forwardGuns:
+  - {fileID: 5283594964560323730}
+  - {fileID: 5917105098062368547}
+  - {fileID: 2195498140896673065}
+  - {fileID: 3910818820283065528}
+  forwardLaunchers:
+  - {fileID: 7704362173404972688}
+  sternLaunchers: []
+  phaserBanks: []
+  turrentGuns: []
+  engineExhausts: []
+--- !u!114 &1371586523205165722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5601508052107788582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18aed30ca30f547a6a8f03ce8e094ea7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSettings: {fileID: 0}
+--- !u!114 &5020438621919313778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5601508052107788582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f35384c5d4ebd4a738089fdb751f0907, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectID: PlayerXWing_1
+  controller: {fileID: 0}
+  target: {fileID: 0}
+  gameManager: {fileID: 0}
+  shipStats:
+    type: 0
+    maxProximityDist: 0
+    evasionDist: 0
+    stableAngleLimit: 0
+    yawRate: 0
+    extraYaw: 0
+    pitchRate: 0
+    extraPitch: 0
+    rollRate: 0
+    extraRoll: 0
+    speed: 0
+    throttleSpeed: 0
+    baseShipStats:
+      health: 0
+      maxHealth: 0
+      healthRegen: 0
+      healthRegenRate: 0
+      hullResistence: 0
+      fireRate: 0
+      statModifier:
+        fireRateModif: 0
+        healthRegenModif: 0
+        damageModif: 0
+      damageInfo:
+        critDMG: 0
+        critChance: 0
+  shipTransforms: {fileID: 0}
+  canShootPrimary: 0
+  canShootSecondary: 0
+  detectionDist: 0
 --- !u!114 &6834306819805104510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -548,6 +593,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c4b3a6b09141f4cfbb367ae423627e30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5840132408367605410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5601508052107788582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48c598326af904f48b7d54d4e5729d1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &5921521890908398054
@@ -5532,15 +5589,15 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 5601508052152940172}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &8044049914651000391 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2458606002293459147, guid: 1f7e7583914df4473a61548fbd1f511d,
-    type: 3}
-  m_PrefabInstance: {fileID: 5601508052152940172}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5347519436224827751 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1f7e7583914df4473a61548fbd1f511d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5601508052152940172}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8044049914651000391 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2458606002293459147, guid: 1f7e7583914df4473a61548fbd1f511d,
     type: 3}
   m_PrefabInstance: {fileID: 5601508052152940172}
   m_PrefabAsset: {fileID: 0}

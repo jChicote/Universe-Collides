@@ -15,7 +15,7 @@ public class PlayerController : BaseEntityController
         base.Init(spawner, teamColor);
 
         if (playerState == null) playerState = this.gameObject.AddComponent<PlayerStateManager>();
-        audioSystem = this.gameObject.AddComponent<VesselAudioSystem>();
+        audioSystem = this.GetComponent<VesselAudioSystem>();
         audioSystem.Init(EntityType.Player);
         audioSystem.PlayFlightAudio(vesselSelection);
         PlayerSettings playerSettings = GameManager.Instance.gameSettings.playerSettings;
@@ -30,13 +30,17 @@ public class PlayerController : BaseEntityController
         IWeaponSystem weaponSystem = this.GetComponent<IWeaponSystem>();
         weaponSystem.Init(GetObjectID(), this, false, vesselStats);
 
-        cameraController = this.gameObject.AddComponent<CameraController>();
+        cameraController = this.GetComponent<CameraController>();
         cameraController.Init(virtualCamera, vesselSelection);
 
         //Load weapon/damage components.
         weaponSystem = this.GetComponent<IWeaponSystem>();
         damageSystem = new FighterDamageManager();
         damageSystem.Init(weaponSystem, statHandler);
+
+        //Load Movement Manager
+        MovementController movementController = this.GetComponent<MovementController>();
+        movementController.Init(this, cameraController);
 
         SetInitalState();
     }
@@ -50,13 +54,9 @@ public class PlayerController : BaseEntityController
         }
     }
 
-    public void SetState<T>() where T : BaseState {
+    public void SetState<T>() where T : BaseState
+    {
         playerState.AddState<T>();
-    }
-
-    public void OnPause(InputValue value) {
-        //Externally triggers pause funciton
-        GameManager.Instance.sessionData.TogglePause();
     }
     
     public override void OnEntityDeath() {

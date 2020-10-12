@@ -44,17 +44,30 @@ public class XWingWeaponSystem : BaseWeaponSystem
     }
 
     //METHODS BELOW ARE CALLED FROM INPUT SYSTEM
-    private void OnPrimaryFire(InputValue value) {
+    /*private void OnPrimaryFire(InputValue value) {
         canShootPrimary = value.isPressed;
     }
 
     private void OnSecondaryFire(InputValue value) {
         canShootSecondary = value.isPressed;
+    }*/
+
+    public override void SetPrimaryFire(InputValue value)
+    {
+        canShootPrimary = value.isPressed;
     }
-    private void OnLocking(InputValue value) {
+
+    public override void SetSecondaryFire(InputValue value)
+    {
+        canShootSecondary = value.isPressed;
+    }
+
+
+    //Needs to be moved to the camera controller
+    /*private void OnLocking(InputValue value) {
         controller.cameraController.isFocused = value.isPressed;
         controller.cameraController.SetCameraTracking();
 
         StartCoroutine(controller.cameraController.LockingCamera());
-    }
+    }*/
 }

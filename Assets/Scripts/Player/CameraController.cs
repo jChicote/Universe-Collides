@@ -2,9 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Cinemachine;
 
-public class CameraController : MonoBehaviour
+public interface ICameraControl
+{
+    void SetCameraLocking(InputValue value);
+}
+
+public class CameraController : MonoBehaviour, ICameraControl
 {
     CinemachineVirtualCamera virtualCamera;
     CameraAttributes attributes;
@@ -25,6 +31,13 @@ public class CameraController : MonoBehaviour
         this.virtualCamera = camera;
         PlayerSettings playerSettings = GameManager.Instance.gameSettings.playerSettings;
         attributes = playerSettings.cameraAttributes.Where(x => x.type == vesselType).First();
+    }
+
+    public void SetCameraLocking(InputValue value)
+    {
+        isFocused = value.isPressed;
+        SetCameraTracking();
+        StartCoroutine(LockingCamera());
     }
 
     public void SetFieldOfView(float throttleValue) {

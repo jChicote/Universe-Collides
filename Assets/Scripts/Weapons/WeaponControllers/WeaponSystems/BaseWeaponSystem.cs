@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public interface IWeaponSystem {
     void Init(string objectID, BaseEntityController controller, bool weaponsActive, VesselShipStats shipStats);
@@ -9,6 +10,9 @@ public interface IWeaponSystem {
     void SetAimPosition(float speed);
     void SetNewTarget(GameObject target);
     void SetFireRate(float fireRate, bool isParallel);
+
+    void SetPrimaryFire(InputValue value);
+    void SetSecondaryFire(InputValue value);
 }
 
 public class BaseWeaponSystem : MonoBehaviour, IWeaponSystem
@@ -63,4 +67,8 @@ public class BaseWeaponSystem : MonoBehaviour, IWeaponSystem
             return true;
         }
     }
+
+    public virtual void SetPrimaryFire(InputValue value) { }
+
+    public virtual void SetSecondaryFire(InputValue value) { }
 }

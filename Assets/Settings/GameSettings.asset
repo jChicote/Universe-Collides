@@ -94,8 +94,8 @@ MonoBehaviour:
     baseShipStats:
       health: 130
       maxHealth: 100
-      healthRegen: 10
-      healthRegenRate: 0
+      healthRegen: 0
+      healthRegenRate: 0.5
       hullResistence: 0
       fireRate: 0.3
       statModifier:

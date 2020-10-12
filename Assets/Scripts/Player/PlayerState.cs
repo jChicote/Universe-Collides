@@ -8,27 +8,23 @@ public interface IPausable {
     void UnPause();
 }
 
-public interface IMovementController {
-    void SetSteeringStrength(float pitchStrength, float yawStrength, float rollStrength);
-}
-
-public abstract class PlayerState : BaseState, IMovementController
+public abstract class PlayerState : BaseState
 {
     [HideInInspector] public PlayerSettings playerSettings;
     [HideInInspector] public PlayerController controller;
     [HideInInspector] public Rigidbody playerRB;
     
-    public InputMovementController movementController;
-    public InputRotationController rotationController;
+    //public InputMovementController movementController;
+    //public InputRotationController rotationController;
 
-    public float inputX = 0;
-    public float inputY = 0;
+    //public float inputX = 0;
+    //public float inputY = 0;
 
-    public float pitchStrength = 0;
-    public float yawStrength = 0;
-    public float rollStrength = 0;
+    //public float pitchStrength = 0;
+    //public float yawStrength = 0;
+    //public float rollStrength = 0;
 
-    public void DoMovement() {
+    /*public void DoMovement() {
         movementController.CalculateSteeringStrength(controller.cameraController, pitchStrength, yawStrength, rollStrength);
         speed = movementController.CalculateCurrentSpeed(controller.cameraController, speed);
         currentVelocity = movementController.CalculateVelocity(currentVelocity, transform.forward, speed);
@@ -71,7 +67,7 @@ public abstract class PlayerState : BaseState, IMovementController
         pitch = rotationController.CalculateAxis(pitchStrength, inputY);
         yaw = rotationController.CalculateAxis(yawStrength, inputX);
         roll = rotationController.CalculateAxis(rollStrength, inputX);
-    }
+    }*/
 
     public void PlayerDeath() {
         controller.SetState<DeathState>();

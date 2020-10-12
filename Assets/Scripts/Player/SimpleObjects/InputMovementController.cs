@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class InputMovementController {
+public class InputMovementSystem {
 
     private float throttleInput = 0;
 
@@ -17,20 +17,30 @@ public class InputMovementController {
     private IMovementController movementController;
     private VesselShipStats shipStats;
 
-    public InputMovementController(IMovementController controller, VesselShipStats shipStats, ThrustUI thrustUI) {
+    /// <summary>
+    /// Constructor for initialising important movement variables for calculation
+    /// </summary>
+    public InputMovementSystem(IMovementController controller, VesselShipStats shipStats, ThrustUI thrustUI)
+    {
         this.movementController = controller;
         this.shipStats = shipStats;
         this.OnShipThrust.AddListener(thrustUI.SetThrustLevel);
     }
 
-    #region MOVEMENT RELATED CALCULATIONS
-
-    public Vector3 CalculateVelocity(Vector3 currentVelocity, Vector3 forward, float speed) {
+    /// <summary>
+    /// Calculates the movement velocity of the vessel returning vector
+    /// </summary>
+    public Vector3 CalculateVelocity(Vector3 currentVelocity, Vector3 forward, float speed)
+    {
         currentVelocity = speed * forward * Time.fixedDeltaTime;
         return currentVelocity;
     }
 
-    public float CalculateCurrentSpeed(CameraController cameraController, float speed) {
+    /// <summary>
+    /// Calculates the current speed that the vessel is flying at
+    /// </summary>
+    public float CalculateCurrentSpeed(CameraController cameraController, float speed)
+    {
         cameraController.SetFieldOfView(throttleInput);
 
         if(thrust == 0 || cameraController.isFocused) {
@@ -43,12 +53,20 @@ public class InputMovementController {
         return speed;
     }
 
-    public void CalculateThrust(float inputY) {
+    /// <summary>
+    /// Calculates the forward thrust input value used for the vessel throttling
+    /// </summary>
+    public void CalculateThrust(float inputY)
+    {
         throttleInput = inputY;
         thrust = shipStats.throttleSpeed * inputY;
     }
-    
-    public void CalculateSteering(float inputY) {
+
+    /// <summary>
+    /// Calculates the steering modifier of the each rotational axis
+    /// </summary>
+    public void CalculateSteering(float inputY)
+    {
         if(inputY > 0) return;
 
         pitchSteer = shipStats.extraPitch * (-1 * inputY);
@@ -56,7 +74,11 @@ public class InputMovementController {
         rollSteer = shipStats.extraRoll * (-1 * inputY);
     }
 
-    public void CalculateSteeringStrength(CameraController cameraController, float pitchStrength, float yawStrength, float rollStrength) {
+    /// <summary>
+    /// Calculates the steeting strength of the rotational steer with its modifier
+    /// </summary>
+    public void CalculateSteeringStrength(CameraController cameraController, float pitchStrength, float yawStrength, float rollStrength)
+    {
         if(thrust == 0 || cameraController.isFocused) {
             pitchStrength = Mathf.Lerp(pitchStrength, shipStats.pitchRate + pitchSteer, 0.05f);
             yawStrength = Mathf.Lerp(yawStrength, shipStats.yawRate + yawSteer, 0.05f);
@@ -70,7 +92,11 @@ public class InputMovementController {
         movementController.SetSteeringStrength(pitchStrength, yawStrength, rollStrength);
     }
 
-    public bool ThrottleIsZero(float inputY) {
+    /// <summary>
+    /// Resets the calculation movement variables when the input on y is zero
+    /// </summary>
+    public bool ThrottleIsZero(float inputY)
+    {
         if (inputY != 0) return false;
         throttleInput = 0;
         thrust = 0;
@@ -79,8 +105,6 @@ public class InputMovementController {
         rollSteer = 0;
         return true;
     }
-
-    #endregion
 }
 
 public class ThrustEvent : UnityEvent<float> {}
