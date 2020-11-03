@@ -65,6 +65,33 @@ MonoBehaviour:
     extraRoll: 30
     speed: 13
     throttleSpeed: 10
+    primaryWeaponInfo:
+      weaponType: 0
+      isEnabled: 1
+      isParallel: 0
+      isSequential: 1
+      isRandomised: 0
+      weaponData:
+        projectileType: 0
+        fireRate: 0.15
+    alternativeWeaponInfo:
+      weaponType: 0
+      isEnabled: 0
+      isParallel: 0
+      isSequential: 0
+      isRandomised: 0
+      weaponData:
+        projectileType: 0
+        fireRate: 0
+    secondaryWeaponInfo:
+      weaponType: 0
+      isEnabled: 0
+      isParallel: 0
+      isSequential: 0
+      isRandomised: 0
+      weaponData:
+        projectileType: 0
+        fireRate: 0
     baseShipStats:
       health: 150
       maxHealth: 100
@@ -91,6 +118,33 @@ MonoBehaviour:
     extraRoll: 20
     speed: 15
     throttleSpeed: 7
+    primaryWeaponInfo:
+      weaponType: 0
+      isEnabled: 0
+      isParallel: 0
+      isSequential: 0
+      isRandomised: 0
+      weaponData:
+        projectileType: 0
+        fireRate: 0
+    alternativeWeaponInfo:
+      weaponType: 0
+      isEnabled: 0
+      isParallel: 0
+      isSequential: 0
+      isRandomised: 0
+      weaponData:
+        projectileType: 0
+        fireRate: 0
+    secondaryWeaponInfo:
+      weaponType: 0
+      isEnabled: 0
+      isParallel: 0
+      isSequential: 0
+      isRandomised: 0
+      weaponData:
+        projectileType: 0
+        fireRate: 0
     baseShipStats:
       health: 130
       maxHealth: 100
@@ -117,6 +171,33 @@ MonoBehaviour:
     extraRoll: 25
     speed: 20
     throttleSpeed: 7
+    primaryWeaponInfo:
+      weaponType: 0
+      isEnabled: 0
+      isParallel: 0
+      isSequential: 0
+      isRandomised: 0
+      weaponData:
+        projectileType: 0
+        fireRate: 0
+    alternativeWeaponInfo:
+      weaponType: 0
+      isEnabled: 0
+      isParallel: 0
+      isSequential: 0
+      isRandomised: 0
+      weaponData:
+        projectileType: 0
+        fireRate: 0
+    secondaryWeaponInfo:
+      weaponType: 0
+      isEnabled: 0
+      isParallel: 0
+      isSequential: 0
+      isRandomised: 0
+      weaponData:
+        projectileType: 0
+        fireRate: 0
     baseShipStats:
       health: 0
       maxHealth: 0

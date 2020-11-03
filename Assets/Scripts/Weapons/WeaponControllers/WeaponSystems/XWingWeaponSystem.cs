@@ -4,11 +4,12 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class XWingWeaponSystem : BaseWeaponSystem
+public class XWingWeaponSystem : BaseWeaponSystem //TODO: Need to seperate into a discrete player and enemy system
 {
-    LaserCannon laserCannon;
+    /*LaserCannon laserCannon;
 
-    public override void Init(string objectID, BaseEntityController controller, bool weaponsActive, VesselShipStats shipStats) {
+    public override void Init(string objectID, BaseEntityController controller, bool weaponsActive, VesselShipStats shipStats)
+    {
         base.Init(objectID, controller, weaponsActive, shipStats);
 
         //Create the aim assist object
@@ -18,7 +19,8 @@ public class XWingWeaponSystem : BaseWeaponSystem
         SetupWeapons();
     }
 
-    void SetupWeapons() {
+    void SetupWeapons()
+    {
         laserCannon = this.gameObject.AddComponent<LaserCannon>();
         laserCannon.Init(objectID, false, controller.statHandler.FireRate, shipTransforms.forwardGuns, controller.audioSystem, aimAssist);
     }
@@ -26,8 +28,10 @@ public class XWingWeaponSystem : BaseWeaponSystem
     /// <summary>
     /// Runs the primary systems of the weapons
     /// </summary>
-    public override void RunSystem() {
-        if (canShootPrimary) {
+    public override void RunSystem()
+    {
+        if (canShootPrimary)
+        {
             aimAssist.SetTargetInAimRange();
             laserCannon.Shoot(controller.statHandler.DamageBuff, controller.statHandler.CriticalDamage, SoundType.LaserCannon_1);
         }
@@ -39,7 +43,8 @@ public class XWingWeaponSystem : BaseWeaponSystem
         gameManager.gameplayHUD.aimSightUI.SetAimPosition(transform.position, transform.forward, timeAhead, controller.cameraController.isFocused);
     }
 
-    public override void SetFireRate(float fireRate, bool isParallel) {
+    public override void SetFireRate(float fireRate, bool isParallel)
+    {
         laserCannon.ModifyStats(controller.statHandler.FireRate);
     }
 
@@ -52,7 +57,7 @@ public class XWingWeaponSystem : BaseWeaponSystem
         canShootSecondary = value.isPressed;
     }*/
 
-    public override void SetPrimaryFire(InputValue value)
+    /*public override void SetPrimaryFire(InputValue value)
     {
         canShootPrimary = value.isPressed;
     }
@@ -60,14 +65,5 @@ public class XWingWeaponSystem : BaseWeaponSystem
     public override void SetSecondaryFire(InputValue value)
     {
         canShootSecondary = value.isPressed;
-    }
-
-
-    //Needs to be moved to the camera controller
-    /*private void OnLocking(InputValue value) {
-        controller.cameraController.isFocused = value.isPressed;
-        controller.cameraController.SetCameraTracking();
-
-        StartCoroutine(controller.cameraController.LockingCamera());
     }*/
 }

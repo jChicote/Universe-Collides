@@ -2,10 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BaseWeapon : MonoBehaviour
+public interface IWeaponItem
 {
-    [HideInInspector] public Transform[] firePoint;
-    [HideInInspector] public WeaponInfo info;
+    void Init(string id, float fireRate, VesselAudioSystem audioSystem, AimAssist aimAssist, ProjectileType projectileType);
+    void ModifyStats(float fireRate);
+    void Shoot(float damageBuff, float criticalDamage);
+    WeaponType GetWeaponType();
+}
+
+public abstract class BaseWeapon : MonoBehaviour, IWeaponItem
+{
+    public WeaponType weaponType;
+    [HideInInspector] public ProjectileData projectileData;
     [HideInInspector] public VesselAudioSystem audioSystem;
     
     public float fireRate;
@@ -14,21 +22,14 @@ public abstract class BaseWeapon : MonoBehaviour
 
     public string shooterID;
 
-    public virtual void Shoot(float damageBuff, float criticalDamage, SoundType type) {}
+    public virtual void Init(string id, float fireRate, VesselAudioSystem audioSystem, AimAssist aimAssist, ProjectileType projectileType) { }
 
-    public void ModifyStats(float fireRate) {
-        this.fireRate = fireRate;
+    public virtual void ModifyStats(float fireRate) { }
+
+    public virtual WeaponType GetWeaponType()
+    {
+        return weaponType;
     }
 
-    public virtual IEnumerator Reload() {
-        isShooting = false;
-        float timeSinceFired = 0;
-
-        while (timeSinceFired < fireRate){
-            timeSinceFired += Time.deltaTime;
-            yield return null;
-        }
-
-        isShooting = true;
-    }
+    public virtual void Shoot(float damageBuff, float criticalDamage) {}
 }

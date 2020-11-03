@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using PlayerSystems;
 
 public interface IIdentity {
     string GetObjectID();
@@ -18,6 +19,7 @@ public interface IEntity {
 
 public abstract class BaseEntityController : MonoBehaviour, IIdentity, IEntity
 {
+    [Header("Entity Description")]
     public string objectID = "defaultID";
     public TeamColor teamColor;
     public VesselType vesselSelection;
@@ -25,9 +27,9 @@ public abstract class BaseEntityController : MonoBehaviour, IIdentity, IEntity
     public StatHandler statHandler;
     public SpawnManager spawner;
 
+    [HideInInspector] public CameraController cameraController; //TODO: Move camera controller in player scope
     [HideInInspector] public DamageManager damageSystem;
     [HideInInspector] public VesselAudioSystem audioSystem;
-    [HideInInspector] public CameraController cameraController;
 
     public virtual void Init(SpawnManager spawner, TeamColor team) {
         this.spawner = spawner;

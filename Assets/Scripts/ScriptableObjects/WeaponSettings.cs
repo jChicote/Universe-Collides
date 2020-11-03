@@ -6,20 +6,28 @@ using UnityEngine;
 public class WeaponSettings : ScriptableObject
 {
     [Header("Weapon Stats")]
-    public WeaponInfo[] weaponStats; 
+    public ProjectileData[] projectiles; 
 
     [Header("Particle Effects")]
     public List<ImpactEffect> impactEffects;
 }
 
 [System.Serializable]
-public class WeaponInfo {
-    public WeaponType type;
+public class ProjectileData
+{
+    public ProjectileType type;
     public GameObject prefab;
+
+    [Header("Projectile Characteristics")]
     public float lifeTime;
-    public float fireRate;
     public float speed;
     public float damage;
+}
+
+[System.Serializable]
+public class WeaponData {
+    public ProjectileType projectileType;
+    public float fireRate;
 }
 
 [System.Serializable]
@@ -43,7 +51,7 @@ public enum ImpactType {
     SparkImpact
 }
 
-public enum WeaponType {
+public enum ProjectileType {
     LaserBolt,
     Photon,
     Blaster,
@@ -51,4 +59,11 @@ public enum WeaponType {
     Torpedo,
     Missiles,
     Mines
+}
+
+public enum WeaponType
+{
+    Cannon,
+    Beam,
+    Launcher
 }

@@ -22,13 +22,13 @@ public class TieWeaponSystem : BaseWeaponSystem
 
     void SetupWeapons() {
         laserCannon = this.gameObject.AddComponent<LaserCannon>();
-        laserCannon.Init(objectID, true, controller.statHandler.FireRate, shipTransforms.forwardGuns, controller.audioSystem, aimAssist);
+        //laserCannon.Init(objectID, controller.statHandler.FireRate, controller.audioSystem, aimAssist);
     }
 
     public override void RunSystem() {
 
-        if(canShootPrimary) {
-            laserCannon.Shoot(controller.statHandler.DamageBuff, controller.statHandler.CriticalDamage, SoundType.LaserCannon_2);
-        }
+        /*if(canShootPrimary) {
+            laserCannon.Shoot(controller.statHandler.DamageBuff, controller.statHandler.CriticalDamage);
+        }*/
     }
 }

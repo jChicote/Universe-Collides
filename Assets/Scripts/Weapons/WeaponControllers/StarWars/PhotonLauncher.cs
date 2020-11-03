@@ -7,13 +7,13 @@ public class PhotonLauncher : BaseWeapon
 {
     void Start()
     {
-        WeaponSettings settings = GameManager.Instance.gameSettings.weaponSettings;
-        info = settings.weaponStats.Where(x => x.type == WeaponType.Photon).First();
+        //WeaponSettings settings = GameManager.Instance.gameSettings.weaponSettings;
+        //info = settings.weaponStats.Where(x => x.type == ProjectileType.Photon).First();
     }
 
-    public override void Shoot(float damageBuff, float critDamage, SoundType type)
+    public override void Shoot(float damageBuff, float critDamage)
     {
-        if(!isShooting) return;
+        /*if(!isShooting) return;
 
         Quaternion rotation = Quaternion.Euler(firePoint[transformIndex].eulerAngles);
         Photon photon = Instantiate(info.prefab, firePoint[transformIndex].position, rotation).GetComponent<Photon>();
@@ -21,6 +21,6 @@ public class PhotonLauncher : BaseWeapon
         StartCoroutine(Reload());
 
         transformIndex++;
-        if(transformIndex == firePoint.Length) transformIndex = 0;
+        if(transformIndex == firePoint.Count) transformIndex = 0;*/
     }
 }

@@ -86,7 +86,27 @@ public class VesselShipStats {
     public float speed;
     public float throttleSpeed;
 
+    [Header("Vessel Weapon Characteristics")]
+    public WeaponInfo primaryWeaponInfo;
+    public WeaponInfo alternativeWeaponInfo;
+    public WeaponInfo secondaryWeaponInfo;
+
     [Header("Vessel Handler Stats")]
     public BaseStats baseShipStats;
 
+}
+
+[System.Serializable]
+public struct WeaponInfo
+{
+    public WeaponType weaponType;
+    public bool isEnabled;
+
+    [Header("Pattern")]
+    public bool isParallel;
+    public bool isSequential;
+    public bool isRandomised;
+
+    [Header("Weapon Data")]
+    public WeaponData weaponData;
 }

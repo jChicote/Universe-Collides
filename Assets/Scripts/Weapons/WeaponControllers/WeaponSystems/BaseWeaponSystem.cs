@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -17,33 +18,34 @@ public interface IWeaponSystem {
 
 public class BaseWeaponSystem : MonoBehaviour, IWeaponSystem
 {
-    public string objectID;
-    public BaseEntityController controller;
-    public GameObject target;
-    public GameManager gameManager;
-    public VesselShipStats shipStats;
-    public TargetDirectionCheck targetChecker;
-    public AimAssist aimAssist;
+    [HideInInspector] public string objectID;
+    [HideInInspector] public BaseEntityController controller;
+    [HideInInspector] public GameObject target;
+    [HideInInspector] public GameManager gameManager;
+    [HideInInspector] public VesselShipStats shipStats;
+    [HideInInspector] public TargetDirectionCheck targetChecker;
+    [HideInInspector] public AimAssist aimAssist;
 
     public VesselTransforms shipTransforms;
 
-    public bool canShootPrimary = false;
-    public bool canShootSecondary = false;
+    
 
-    public float detectionDist;
+    public float detectionDist; //TODO: Move this to the AI weapon system
 
     public virtual void Init(string objectID, BaseEntityController controller, bool weaponsActive, VesselShipStats shipStats) {
         this.objectID = objectID;
         this.controller = controller;
         this.shipStats = shipStats;
         gameManager = GameManager.Instance;
-        canShootPrimary = weaponsActive;
-        canShootSecondary = weaponsActive;
+        //canShootPrimary = weaponsActive;
+        //canShootSecondary = weaponsActive;
+
+   
+
         shipTransforms = this.GetComponent<VesselTransforms>();
     }
 
-    public virtual void RunSystem() {}
-    
+    public virtual void RunSystem() { }
     public virtual void SetAimPosition(float speed) {}
     public virtual void SetFireRate(float fireRate, bool isParallel) {}
 
@@ -60,10 +62,10 @@ public class BaseWeaponSystem : MonoBehaviour, IWeaponSystem
         }
 
         if(!targetChecker.TargetInView(targetPos, transform.position, transform.forward, 0.7f)){
-            canShootPrimary = false;
+            //canShootPrimary = false;
             return false;
         } else {
-            canShootPrimary = true;
+            //canShootPrimary = true;
             return true;
         }
     }

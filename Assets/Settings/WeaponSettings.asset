@@ -12,12 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 410d1c53741894ea28b6578845bfc1f3, type: 3}
   m_Name: WeaponSettings
   m_EditorClassIdentifier: 
-  weaponStats:
+  projectiles:
   - type: 0
     prefab: {fileID: 8084753373671042767, guid: 68d1218847a86444cb6274c625435e9a,
       type: 3}
     lifeTime: 4
-    fireRate: 0.15
     speed: 60
     damage: 10
   impactEffects:
