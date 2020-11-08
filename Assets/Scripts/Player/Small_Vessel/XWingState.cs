@@ -32,12 +32,17 @@ namespace PlayerSystems
             movementController = this.GetComponent<MovementRegister>();
         }
 
+        public override void ActivateDeathState()
+        {
+            controller.SetState<DeathState>();
+        }
+
         void FixedUpdate()
         {
             if (isPaused) return;
 
             //Check if player is dead
-            if (controller.statHandler.CurrentHealth <= 0) PlayerDeath();
+            //if (controller.statHandler.CurrentHealth <= 0) PlayerDeath();
 
             movementController.DoMovement();
             movementController.SetRotation();

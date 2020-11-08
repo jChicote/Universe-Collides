@@ -17,7 +17,7 @@ public class WeaponFireHandler : MonoBehaviour
 
     private float fireRate;
     private int currentIndex = 0;
-    private bool isShooting = false;
+    private bool canShoot = true;
 
     public void Init(StatHandler statHandler, List<IWeaponItem> weaponItems, VesselShipStats stats, WeaponInfo weaponInfo)
     {
@@ -31,9 +31,7 @@ public class WeaponFireHandler : MonoBehaviour
     public void RunWeaponsFire()
     {
         if (!weaponInfo.isEnabled) return;
-        if (!isShooting) return;
 
-        Debug.Log("Is Firing");
         if (weaponInfo.isParallel) ParallelFire();
         if (weaponInfo.isSequential) SequentialFire();
     }
@@ -67,6 +65,8 @@ public class WeaponFireHandler : MonoBehaviour
     /// </summary>
     private void SequentialFire()
     {
+        if (!canShoot) return;
+
         float randomVal = Random.Range(0.0f, 1.0f);
         if (randomVal < 0.4f) return;
 
@@ -79,7 +79,7 @@ public class WeaponFireHandler : MonoBehaviour
 
     public virtual IEnumerator Reload()
     {
-        isShooting = false;
+        canShoot = false;
         float timeSinceFired = 0;
 
         while (timeSinceFired < fireRate)
@@ -88,6 +88,6 @@ public class WeaponFireHandler : MonoBehaviour
             yield return null;
         }
 
-        isShooting = true;
+        canShoot = true;
     }
 }

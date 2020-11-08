@@ -32,6 +32,8 @@ public abstract class BaseState : MonoBehaviour, IPausable, IDamageReciever, IMo
 
     public virtual void EndState() { }
 
+    public virtual void ActivateDeathState() { }
+
     public void Pause()
     {
         isPaused = true;

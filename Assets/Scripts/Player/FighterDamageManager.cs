@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class FighterDamageManager : DamageManager
 {
+    private HealthComponent healthComponent;
+
     public override void Init(IWeaponSystem weaponSystem, StatHandler statHandler) {
         this.weaponSystem = weaponSystem;
         this.statHandler = statHandler;
@@ -19,7 +21,8 @@ public class FighterDamageManager : DamageManager
     public override void CalculateHealth(float damage, string id)
     {
         float health = statHandler.CurrentHealth - damage;
-        statHandler.CurrentHealth = health;
+        //statHandler.CurrentHealth = health;
+        healthComponent.SetHealthUpdate(health);
         //Debug.Log("Damage: " + damage);
         Debug.Log("Health: " + health);
     }

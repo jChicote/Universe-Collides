@@ -24,36 +24,40 @@ public class StatHandler
         currentHealth = currentStats.maxHealth;
         damageBuff = currentStats.statModifier.damageModif;
 
-        if(entityType == EntityType.Player) AssignUI();
+        //if(entityType == EntityType.Player) AssignUI();
     }
 
-    public void AssignUI() {
+    /*public void AssignUI() {
         UIHudManager hudManager = GameManager.Instance.gameplayHUD;
         hudManager.healthBar.Init(currentStats.maxHealth);
         OnHealthChanged.AddListener(hudManager.healthBar.SetHealth);
-    }
+    }*/
 
     //TODO: Note, damage controller should handle the all of health regeneration,
     //      improper refactoring coupling systems together.
-
+    public float MaxHealth
+    {
+        get { return currentStats.maxHealth; }
+    }
 
     [SerializeField] private float currentHealth;
-    public float CurrentHealth {
+    public float CurrentHealth 
+    {
         get {
             return currentHealth;
         }
         set {
             currentHealth = value;
-            if(isHealthRegenerating){
+            /*if(isHealthRegenerating){
                 controller.StopCoroutine(RegenerateHealth());
                 isHealthRegenerating = false;
-            }
+            }*/
 
             if(currentHealth > currentStats.maxHealth)
                 currentHealth = currentStats.maxHealth;
 
-            OnHealthChanged.Invoke(currentHealth);
-            controller.StartCoroutine(RegenerateHealth());
+            //OnHealthChanged.Invoke(currentHealth);
+            //controller.StartCoroutine(RegenerateHealth());
         }
     }
 
@@ -93,7 +97,7 @@ public class StatHandler
         }
     }
 
-    private IEnumerator RegenerateHealth() {
+    /*private IEnumerator RegenerateHealth() {
         isHealthRegenerating = true;
         float incrementRate = 0.5f;
 
@@ -110,7 +114,7 @@ public class StatHandler
 
         //Debug.Log("Ended Regeneration");
         isHealthRegenerating = false;
-    }
+    }*/
 
     public void Reset() {
         currentStats = defaultStats;

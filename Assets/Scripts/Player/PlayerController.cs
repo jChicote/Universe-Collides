@@ -31,6 +31,10 @@ namespace PlayerSystems
             BaseStats playerStats = vesselStats.baseShipStats;
             statHandler = new StatHandler(playerStats, EntityType.Player, this);
 
+            //Initialize Health Component
+            HealthComponent healthComponent = this.GetComponent<HealthComponent>();
+            healthComponent.Init(statHandler);
+
             //Initialise Weapon System
             IWeaponSystem weaponSystem = this.GetComponent<IWeaponSystem>();
             weaponSystem.Init(GetObjectID(), this, false, vesselStats);

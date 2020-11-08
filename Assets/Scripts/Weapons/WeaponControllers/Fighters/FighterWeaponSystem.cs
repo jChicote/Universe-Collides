@@ -107,6 +107,7 @@ namespace PlayerSystems
 
             if (canShootPrimary && primaryWeaponHandler != null)
             {
+                Debug.Log("Passed 1");
                 primaryWeaponHandler.RunWeaponsFire();
             }
 
