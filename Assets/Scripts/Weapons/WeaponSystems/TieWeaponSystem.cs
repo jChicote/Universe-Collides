@@ -8,10 +8,10 @@ public class TieWeaponSystem : BaseWeaponSystem
     private LaserCannon laserCannon;
     //AimAssist aimAssist;
 
-    public override void Init(string objectID, BaseEntityController controller, bool weaponsActive, VesselShipStats shipStats) {
-        base.Init(objectID, controller, weaponsActive, shipStats);
+    public override void Init(string objectID, BaseEntityController controller, bool weaponsActive, VesselShipStats shipStats, SceneController sceneController) {
+        base.Init(objectID, controller, weaponsActive, shipStats, sceneController);
         aimAssist = new AimAssist();
-        aimAssist.Init(this, GameManager.Instance.gameplayHUD.aimSightUI);
+        aimAssist.Init(this, sceneController.gameplayHUD.aimSightUI);
 
         targetChecker = new TargetDirectionCheck();
         //shipTransforms = this.GetComponent<VesselTransforms>();

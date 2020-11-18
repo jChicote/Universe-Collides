@@ -14,7 +14,7 @@ public class AIEvasion : AIState
         objectID = controller.objectID;
         shipStats = GameManager.Instance.gameSettings.vesselStats.Where(x => x.type.Equals(controller.vesselSelection)).First();
 
-        damageSystem = controller.damageSystem;
+        //damageSystem = controller.damageSystem;
     }
 
     void FixedUpdate()
@@ -36,7 +36,7 @@ public class AIEvasion : AIState
     }
 
     private void ChangeState() {
-        targetDistance = Vector3.Distance(transform.position, GameManager.Instance.playerController.transform.position);
+        targetDistance = Vector3.Distance(transform.position, GameManager.Instance.sceneController.playerController.transform.position);
         if(targetDistance > shipStats.maxProximityDist) controller.SetState<AIWander>();
         if(targetDistance > shipStats.pursuitDistance) controller.SetState<AIPursuit>();
     }
@@ -47,7 +47,7 @@ public class AIEvasion : AIState
     }
 
     private void Evasion() {
-        target = GameManager.Instance.playerController.gameObject; //CHANGE TO DYNAMIC TARGETING
+        target = GameManager.Instance.sceneController.playerController.gameObject; //CHANGE TO DYNAMIC TARGETING
         evasionDir= target.transform.position - transform.position;
         targetRot = Quaternion.LookRotation(-evasionDir);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime);

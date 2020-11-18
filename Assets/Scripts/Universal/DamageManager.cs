@@ -7,13 +7,11 @@ public interface IDamageReciever {
     string GetObjectID();
 }
 
-public abstract class DamageManager
+public abstract class DamageManager: MonoBehaviour
 {
-    public BaseState shipState;
-    public IWeaponSystem weaponSystem;
-    public StatHandler statHandler;
+    protected StatHandler statHandler;
 
-    public abstract void Init(IWeaponSystem weaponSystem, StatHandler statHandler);
+    //public abstract void Init(IWeaponSystem weaponSystem, StatHandler statHandler);
 
     public abstract void CalculateHealth(float damage, string id);
     

@@ -6,7 +6,7 @@ using UnityEngine;
 /// <summary>
 /// This class handles firing patterns for each weapon system on a vessel
 /// </summary>
-public class WeaponFireHandler : MonoBehaviour
+public class ShootingHandler : MonoBehaviour
 {
     private WeaponInfo info;
 

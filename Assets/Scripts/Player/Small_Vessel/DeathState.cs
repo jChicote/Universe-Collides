@@ -37,8 +37,8 @@ public class DeathState : BaseState
         Destroy(gameObject);
     }
 
-    public override void OnRecievedDamage(float damage, string id, SoundType soundType) {
+    /*blic override void OnRecievedDamage(float damage, string id, SoundType soundType) {
         controller.audioSystem.PlaySoundEffect(soundType);
-    }
+    }*/
 
 }

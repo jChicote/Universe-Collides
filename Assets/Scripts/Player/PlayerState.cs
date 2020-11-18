@@ -20,11 +20,5 @@ namespace PlayerSystems
         {
             controller.SetState<DeathState>();
         }
-
-        public override void OnRecievedDamage(float damage, string id, SoundType soundType)
-        {
-            base.OnRecievedDamage(damage, id, soundType);
-            controller.audioSystem.PlaySoundEffect(soundType);
-        }
     }
 }

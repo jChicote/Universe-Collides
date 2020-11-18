@@ -8,12 +8,14 @@ public interface IMovementControl
     Vector3 GetVelocity();
 }
 
-public abstract class BaseState : MonoBehaviour, IPausable, IDamageReciever, IMovementControl
+public abstract class BaseState : MonoBehaviour, IPausable, IMovementControl
 {
     public string objectID;
 
-    [HideInInspector] public IWeaponSystem weaponSystem;
-    [HideInInspector] public DamageManager damageSystem;
+    protected IWeaponSystem weaponSystem;
+    protected IWeaponFire weaponFire;
+    protected IWeaponAim weaponAim;
+
     [HideInInspector] public Vector3 currentRotation = Vector3.zero;
     [HideInInspector] public Vector3 currentVelocity = Vector3.zero;
     [HideInInspector] public VesselShipStats shipStats;
@@ -44,18 +46,8 @@ public abstract class BaseState : MonoBehaviour, IPausable, IDamageReciever, IMo
         isPaused = false;
     }
 
-    public virtual void OnRecievedDamage(float damage, string id, SoundType soundType)
-    {
-        damageSystem.CalculateHealth(damage, id);
-    }
-
     public Vector3 GetVelocity()
     {
         return currentVelocity;
-    }
-
-    public string GetObjectID()
-    {
-        return objectID;
     }
 }

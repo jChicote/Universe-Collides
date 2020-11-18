@@ -48,16 +48,9 @@ public class StatHandler
         }
         set {
             currentHealth = value;
-            /*if(isHealthRegenerating){
-                controller.StopCoroutine(RegenerateHealth());
-                isHealthRegenerating = false;
-            }*/
 
             if(currentHealth > currentStats.maxHealth)
                 currentHealth = currentStats.maxHealth;
-
-            //OnHealthChanged.Invoke(currentHealth);
-            //controller.StartCoroutine(RegenerateHealth());
         }
     }
 
@@ -96,25 +89,6 @@ public class StatHandler
             return critDamage;
         }
     }
-
-    /*private IEnumerator RegenerateHealth() {
-        isHealthRegenerating = true;
-        float incrementRate = 0.5f;
-
-        yield return new WaitForSeconds(3);
-
-        //Debug.Log("Begin Regeneration");
-
-        while(currentHealth < currentStats.maxHealth) {
-            currentHealth += incrementRate;
-            if(currentHealth > currentStats.maxHealth) currentHealth = currentStats.maxHealth;
-            OnHealthChanged.Invoke(currentHealth);
-            yield return null;
-        }
-
-        //Debug.Log("Ended Regeneration");
-        isHealthRegenerating = false;
-    }*/
 
     public void Reset() {
         currentStats = defaultStats;

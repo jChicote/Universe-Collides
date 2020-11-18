@@ -18,7 +18,7 @@ public class AIPursuit : AIState
 
         weaponSystem = this.GetComponent<IWeaponSystem>();
 
-        damageSystem = controller.damageSystem;
+        //damageSystem = controller.damageSystem;
     }
 
     void FixedUpdate()
@@ -30,7 +30,7 @@ public class AIPursuit : AIState
         if(isPaused) return;
 
         //Change to be dynamic AND TO THE TARGET VARIABLE
-        if(GameManager.Instance.playerController == null) {
+        if(GameManager.Instance.sceneController.playerController == null) {
             controller.SetState<AIWander>();
             return;
         }
@@ -40,13 +40,13 @@ public class AIPursuit : AIState
 
         /// Testing purposes only ///
 
-        if(GameManager.Instance.playerController.gameObject != null) {
-            weaponSystem.SetNewTarget(GameManager.Instance.playerController.gameObject);//MUST REMOVE
+        if(GameManager.Instance.sceneController.playerController.gameObject != null) {
+            //weaponSystem.SetNewTarget(GameManager.Instance.playerController.gameObject);//MUST REMOVE
         }
 
         /// --------------------- ///
         
-        if(weaponSystem.CheckAimDirection()) weaponSystem.RunSystem();
+        //if(weaponSystem.CheckAimDirection()) weaponSystem.RunSystem();
 
         ChangeState();
         DoMovement();
@@ -57,7 +57,7 @@ public class AIPursuit : AIState
     }
 
     private void ChangeState() {
-        targetDistance = Vector3.Distance(transform.position, GameManager.Instance.playerController.transform.position);
+        targetDistance = Vector3.Distance(transform.position, GameManager.Instance.sceneController.playerController.transform.position);
         if(targetDistance > shipStats.maxProximityDist) controller.SetState<AIWander>();
         if(targetDistance < 10) controller.SetState<AIEvasion>();
     }
@@ -68,7 +68,7 @@ public class AIPursuit : AIState
     }
 
     private void Pursuit() {
-        target = GameManager.Instance.playerController.gameObject; //CHANGE TO DYNAMIC TARGETING
+        target = GameManager.Instance.sceneController.playerController.gameObject; //CHANGE TO DYNAMIC TARGETING
         pursuitDir = target.transform.position - transform.position;
         targetRot = Quaternion.LookRotation(pursuitDir);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime);

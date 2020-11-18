@@ -9,23 +9,25 @@ namespace PlayerSystems
     {
         private IMovementController _movementControl;
         private IWeaponSystem _weaponSystem;
+        private IWeaponFire _weaponFire;
         private ICameraControl _cameraControl;
 
         void Awake()
         {
             _movementControl = this.GetComponent<IMovementController>();
             _weaponSystem = this.GetComponent<IWeaponSystem>();
+            _weaponFire = this.GetComponent<IWeaponFire>();
             _cameraControl = this.GetComponent<ICameraControl>();
         }
         
         private void OnPrimaryFire(InputValue value)
         {
-            _weaponSystem.SetPrimaryFire(value);
+            _weaponFire.SetPrimaryFire(value);
         }
 
         private void OnSecondaryFire(InputValue value)
         {
-            _weaponSystem.SetSecondaryFire(value);
+            _weaponFire.SetSecondaryFire(value);
         }
 
         private void OnLocking(InputValue value)

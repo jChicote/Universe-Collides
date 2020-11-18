@@ -19,6 +19,8 @@ namespace PlayerSystems
         {
             base.Init(spawner, teamColor);
 
+            SceneController sceneController = GameManager.Instance.sceneController;
+
             if (playerState == null) playerState = this.gameObject.AddComponent<PlayerStateManager>();
             audioSystem = this.GetComponent<VesselAudioSystem>();
             audioSystem.Init(EntityType.Player);
@@ -33,19 +35,19 @@ namespace PlayerSystems
 
             //Initialize Health Component
             HealthComponent healthComponent = this.GetComponent<HealthComponent>();
-            healthComponent.Init(statHandler);
+            healthComponent.Init(statHandler, sceneController);
 
             //Initialise Weapon System
             IWeaponSystem weaponSystem = this.GetComponent<IWeaponSystem>();
-            weaponSystem.Init(GetObjectID(), this, false, vesselStats);
+            weaponSystem.Init(GetObjectID(), this, false, vesselStats, sceneController);
 
+            //Initializes the player's camera system
             cameraController = this.GetComponent<CameraController>();
             cameraController.Init(virtualCamera, vesselSelection);
 
             //Load weapon/damage components.
-            //weaponSystem = this.GetComponent<IWeaponSystem>();
-            damageSystem = new FighterDamageManager();
-            damageSystem.Init(weaponSystem, statHandler);
+            FighterDamageManager damageManager = this.GetComponent<FighterDamageManager>();
+            damageManager.Init(statHandler, audioSystem);
 
             //Load Movement Manager
             MovementRegister movementRegister = this.GetComponent<MovementRegister>();

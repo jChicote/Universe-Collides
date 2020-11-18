@@ -37,17 +37,17 @@ public class AIState : BaseState
     }
 
     private bool CheckTargetIsForward() {
-        target = GameManager.Instance.playerController.gameObject; //CHANGE TO DYNAMIC TARGETING
+        target = GameManager.Instance.sceneController.playerController.gameObject; //CHANGE TO DYNAMIC TARGETING
         targetAngle = Vector3.Angle(target.transform.forward, transform.position - target.transform.position);
 
         if(targetAngle < shipStats.stableAngleLimit) return true;
         return false;
     }
 
-    public override void OnRecievedDamage(float damage, string id, SoundType soundType){
+    /*blic override void OnRecievedDamage(float damage, string id, SoundType soundType){
         base.OnRecievedDamage(damage, id, soundType);
         controller.audioSystem.PlaySoundEffect(soundType);
-    }
+    }*/
 
     public void AIDeath() {
         controller.SetState<DeathState>();

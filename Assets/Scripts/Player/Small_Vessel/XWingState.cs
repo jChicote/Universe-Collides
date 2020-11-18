@@ -25,8 +25,7 @@ namespace PlayerSystems
 
             //Load weapon/damage components.
             weaponSystem = this.GetComponent<IWeaponSystem>();
-            damageSystem = new FighterDamageManager();
-            damageSystem.Init(weaponSystem, controller.statHandler);
+            weaponAim = this.GetComponent<IWeaponAim>();
 
             //Load movement controller
             movementController = this.GetComponent<MovementRegister>();
@@ -48,8 +47,7 @@ namespace PlayerSystems
             movementController.SetRotation();
 
             weaponSystem.RunSystem();
-            weaponSystem.SetAimPosition(speed);
+            weaponAim.SetAimPosition(speed);
         }
     }
-
 }

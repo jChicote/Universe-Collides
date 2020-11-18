@@ -15,7 +15,7 @@ public class MainMenuUI : MonoBehaviour
     BattleMode battleModeSelection;
 
     void Start() {
-        GameManager.Instance.OnGameplayStart.AddListener(OnClose);
+        //GameManager.Instance.OnGameplayStart.AddListener(OnClose);
         DisplayHome();
     }
 
@@ -61,7 +61,8 @@ public class MainMenuUI : MonoBehaviour
 
     public void ContinueToBattle() {
         GameManager.Instance.sessionData.SetGamePlay(vesselSelection , battleModeSelection);
-        GameManager.Instance.LoadLevel(1);
+        ISceneLoad sceneLoad = GameManager.Instance.GetComponent<ISceneLoad>();
+        sceneLoad.LoadLevel(1);
     }
 
     public void OnClose() {

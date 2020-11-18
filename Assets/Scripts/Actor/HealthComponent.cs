@@ -11,11 +11,12 @@ public class HealthComponent : MonoBehaviour
     private bool isHealthRegenerating = false;
 
     // Start is called before the first frame update
-    public void Init(StatHandler statHandler)
+    public void Init(StatHandler statHandler, SceneController sceneController)
     {
         this.actorStats = statHandler;
 
-        UIHudManager hudManager = GameManager.Instance.gameplayHUD;
+        Debug.Log(sceneController.gameplayHUD.healthBar);
+        hudManager = sceneController.gameplayHUD;
         hudManager.healthBar.Init(actorStats.MaxHealth);
     }
 
@@ -32,10 +33,13 @@ public class HealthComponent : MonoBehaviour
 
         actorStats.CurrentHealth = healthValue;
         hudManager.healthBar.SetHealth(actorStats.CurrentHealth);
-        hudManager.healthBar.SetHealth(actorStats.CurrentHealth);
+        StopCoroutine(RegenerateHealth());
         StartCoroutine(RegenerateHealth());
     }
 
+    /// <summary>
+    /// This sets the death state of the entity
+    /// </summary>
     private void ActivateActorDeathState()
     {
         if (actorStats.CurrentHealth <= 0)
@@ -45,6 +49,9 @@ public class HealthComponent : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Called to Regenerate health some time after damage.
+    /// </summary>
     private IEnumerator RegenerateHealth()
     {
         isHealthRegenerating = true;
@@ -52,18 +59,14 @@ public class HealthComponent : MonoBehaviour
 
         yield return new WaitForSeconds(3);
 
-        //Debug.Log("Begin Regeneration");
-
         while (actorStats.CurrentHealth < actorStats.MaxHealth)
         {
             actorStats.CurrentHealth += incrementRate;
             if (actorStats.CurrentHealth > actorStats.MaxHealth) actorStats.CurrentHealth = actorStats.MaxHealth;
-            //OnHealthChanged.Invoke(currentHealth);
             hudManager.healthBar.SetHealth(actorStats.CurrentHealth);
             yield return null;
         }
 
-        //Debug.Log("Ended Regeneration");
         isHealthRegenerating = false;
     }
 }

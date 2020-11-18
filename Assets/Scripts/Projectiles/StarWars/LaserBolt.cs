@@ -51,8 +51,8 @@ public class LaserBolt : BasicProjectile
         IDamageReciever victim = collisionInfo.gameObject.GetComponent<IDamageReciever>();
         victim.OnRecievedDamage(damage, shooterID, SoundType.BoltImpact);
 
-        string playerID = GameManager.Instance.playerController.GetObjectID();
-        if(shooterID == playerID) GameManager.Instance.scoreManager.OnPlayerHitChain.Invoke();
+        string playerID = GameManager.Instance.sceneController.playerController.GetObjectID();
+        if(shooterID == playerID) GameManager.Instance.sceneController.scoreManager.OnPlayerHitChain.Invoke();
 
         DestroyObject(0);
     }

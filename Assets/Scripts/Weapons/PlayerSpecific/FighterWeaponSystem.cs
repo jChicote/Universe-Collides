@@ -22,17 +22,18 @@ namespace PlayerSystems
         public GameObject[] alternativeWeapons;
         public GameObject[] secondaryWeapons;
 
-        private WeaponFireHandler primaryWeaponHandler;
-        private WeaponFireHandler alternativeWeaponHandler;
-        private WeaponFireHandler secondaryWeaponHandler;
+        //Weapon Firing handlers
+        private ShootingHandler primaryWeaponHandler;
+        private ShootingHandler alternativeWeaponHandler;
+        private ShootingHandler secondaryWeaponHandler;
 
-        public override void Init(string objectID, BaseEntityController controller, bool weaponsActive, VesselShipStats shipStats)
+        public override void Init(string objectID, BaseEntityController controller, bool weaponsActive, VesselShipStats shipStats, SceneController sceneController)
         {
-            base.Init(objectID, controller, weaponsActive, shipStats);
+            base.Init(objectID, controller, weaponsActive, shipStats, sceneController);
 
             //Create the aim assist object
             aimAssist = new AimAssist();
-            aimAssist.Init(this, GameManager.Instance.gameplayHUD.aimSightUI);
+            aimAssist.Init(this, sceneController.gameplayHUD.aimSightUI);
 
             SetupWeapons();
         }
@@ -40,7 +41,7 @@ namespace PlayerSystems
         /// <summary>
         /// Sets up the weapon collections for Primary, Alternative and Secondary Weapons
         /// </summary>
-        void SetupWeapons()
+        private void SetupWeapons()
         {
             List<IWeaponItem> primary = new List<IWeaponItem>();
             List<IWeaponItem> alternative = new List<IWeaponItem>();
@@ -77,23 +78,23 @@ namespace PlayerSystems
             SetupWeaponHandler(primary, alternative, secondary);
         }
 
-        void SetupWeaponHandler(List<IWeaponItem> primaryWeapons, List<IWeaponItem> alternativeWeapons, List<IWeaponItem> secondaryWeapons)
+        private void SetupWeaponHandler(List<IWeaponItem> primaryWeapons, List<IWeaponItem> alternativeWeapons, List<IWeaponItem> secondaryWeapons)
         {
             if(shipStats.primaryWeaponInfo.isEnabled)
             {
-                primaryWeaponHandler = this.gameObject.AddComponent<WeaponFireHandler>();
+                primaryWeaponHandler = this.gameObject.AddComponent<ShootingHandler>();
                 primaryWeaponHandler.Init(controller.statHandler, primaryWeapons, shipStats, shipStats.primaryWeaponInfo);
             }
             
             if (shipStats.alternativeWeaponInfo.isEnabled)
             {
-                alternativeWeaponHandler = this.gameObject.AddComponent<WeaponFireHandler>();
+                alternativeWeaponHandler = this.gameObject.AddComponent<ShootingHandler>();
                 alternativeWeaponHandler.Init(controller.statHandler, alternativeWeapons, shipStats, shipStats.alternativeWeaponInfo);
             }
 
             if (shipStats.secondaryWeaponInfo.isEnabled)
             {
-                secondaryWeaponHandler = this.gameObject.AddComponent<WeaponFireHandler>();
+                secondaryWeaponHandler = this.gameObject.AddComponent<ShootingHandler>();
                 secondaryWeaponHandler.Init(controller.statHandler, secondaryWeapons, shipStats, shipStats.secondaryWeaponInfo);
             }
         }
@@ -107,7 +108,6 @@ namespace PlayerSystems
 
             if (canShootPrimary && primaryWeaponHandler != null)
             {
-                Debug.Log("Passed 1");
                 primaryWeaponHandler.RunWeaponsFire();
             }
 
@@ -125,7 +125,7 @@ namespace PlayerSystems
         public override void SetAimPosition(float speed)
         {
             float timeAhead = Mathf.Clamp(speed, 3, 50);
-            gameManager.gameplayHUD.aimSightUI.SetAimPosition(transform.position, transform.forward, timeAhead, controller.cameraController.isFocused);
+            gameManager.sceneController.gameplayHUD.aimSightUI.SetAimPosition(transform.position, transform.forward, timeAhead, controller.cameraController.isFocused);
         }
 
         public override void SetFireRate(float fireRate, bool isParallel) //TODO: Change for dynamic modifications of either system

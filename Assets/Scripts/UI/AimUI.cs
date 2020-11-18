@@ -31,7 +31,7 @@ public class AimUI : MonoBehaviour
     }
 
     public void SetAimPosition(Vector3 playerPosition, Vector3 forward, float maxTimeAhead, bool isFocused) {
-        if(gameManager.sceneCamera == null) return;
+        if(gameManager.sceneController.sceneCamera == null) return;
 
         Vector3 futurePosition = playerPosition + forward * maxTimeAhead * 3f;
         PositionAimUI(futurePosition, firstAimsight);
@@ -47,7 +47,7 @@ public class AimUI : MonoBehaviour
     }
 
     void PositionAimUI(Vector3 futurePosition, RectTransform aimTransform) {
-        screenPosition = RectTransformUtility.WorldToScreenPoint(gameManager.sceneCamera, futurePosition);
+        screenPosition = RectTransformUtility.WorldToScreenPoint(gameManager.sceneController.sceneCamera, futurePosition);
 
         scaledWidth = parentTransform.rect.width * (screenPosition.x / Screen.width) * 1;
         scaledHeight = parentTransform.rect.height * (screenPosition.y / Screen.height) * 1;

@@ -4,49 +4,50 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public interface IWeaponSystem {
-    void Init(string objectID, BaseEntityController controller, bool weaponsActive, VesselShipStats shipStats);
+public interface IWeaponSystem 
+{
+    void Init(string objectID, BaseEntityController controller, bool weaponsActive, VesselShipStats shipStats, SceneController sceneController);
     void RunSystem();
-    bool CheckAimDirection();
-    void SetAimPosition(float speed);
-    void SetNewTarget(GameObject target);
-    void SetFireRate(float fireRate, bool isParallel);
+}
 
+public interface IWeaponFire
+{
     void SetPrimaryFire(InputValue value);
     void SetSecondaryFire(InputValue value);
 }
 
-public class BaseWeaponSystem : MonoBehaviour, IWeaponSystem
+public interface IWeaponAim
 {
+    bool CheckAimDirection();
+    void SetAimPosition(float speed);
+}
+
+public abstract class BaseWeaponSystem : MonoBehaviour, IWeaponSystem, IWeaponAim, IWeaponFire
+{
+    //Constants
     [HideInInspector] public string objectID;
+
     [HideInInspector] public BaseEntityController controller;
-    [HideInInspector] public GameObject target;
     [HideInInspector] public GameManager gameManager;
     [HideInInspector] public VesselShipStats shipStats;
     [HideInInspector] public TargetDirectionCheck targetChecker;
     [HideInInspector] public AimAssist aimAssist;
 
-    public VesselTransforms shipTransforms;
-
-    
+    [HideInInspector] public GameObject target;
 
     public float detectionDist; //TODO: Move this to the AI weapon system
 
-    public virtual void Init(string objectID, BaseEntityController controller, bool weaponsActive, VesselShipStats shipStats) {
+    public virtual void Init(string objectID, BaseEntityController controller, bool weaponsActive, VesselShipStats shipStats, SceneController sceneController) {
         this.objectID = objectID;
         this.controller = controller;
         this.shipStats = shipStats;
         gameManager = GameManager.Instance;
-        //canShootPrimary = weaponsActive;
-        //canShootSecondary = weaponsActive;
-
-   
-
-        shipTransforms = this.GetComponent<VesselTransforms>();
     }
 
-    public virtual void RunSystem() { }
+    public abstract void RunSystem();
+
     public virtual void SetAimPosition(float speed) {}
+
     public virtual void SetFireRate(float fireRate, bool isParallel) {}
 
     public void SetNewTarget(GameObject target) {
@@ -62,10 +63,8 @@ public class BaseWeaponSystem : MonoBehaviour, IWeaponSystem
         }
 
         if(!targetChecker.TargetInView(targetPos, transform.position, transform.forward, 0.7f)){
-            //canShootPrimary = false;
             return false;
         } else {
-            //canShootPrimary = true;
             return true;
         }
     }

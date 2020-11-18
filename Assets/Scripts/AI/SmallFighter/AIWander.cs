@@ -20,7 +20,7 @@ public class AIWander : AIState
         objectID = controller.objectID;
         shipStats = GameManager.Instance.gameSettings.vesselStats.Where(x => x.type.Equals(controller.vesselSelection)).First();
 
-        damageSystem = controller.damageSystem;
+        //mageSystem = controller.damageSystem;
 
         InvokeRepeating("SetNewAngle", 5f, 5f);
     }

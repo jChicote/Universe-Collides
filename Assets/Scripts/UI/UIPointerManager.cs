@@ -18,7 +18,7 @@ public class UIPointerManager : MonoBehaviour
     void FixedUpdate()
     {
         if(cam == null) {
-            cam = GameManager.Instance.sceneCamera;
+            cam = GameManager.Instance.sceneController.sceneCamera;
             return;
         }
 

@@ -6,12 +6,12 @@ using UnityEngine;
 
 public abstract class BattleModeSpawner
 {
-    public GameManager gameManager;
+    public SceneController sceneController;
     public SpawnManager spawnerA;
     public SpawnManager spawnerB;
 
-    public void Init(GameManager gameManager, SpawnManager spawnerA, SpawnManager spawnerB) {
-        this.gameManager = gameManager;
+    public void Init(SceneController sceneController, SpawnManager spawnerA, SpawnManager spawnerB) {
+        this.sceneController = sceneController;
         this.spawnerA = spawnerA;
         this.spawnerB = spawnerB;
     }

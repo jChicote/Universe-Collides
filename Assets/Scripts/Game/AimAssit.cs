@@ -7,7 +7,7 @@ public class AimAssist
     private BaseWeaponSystem weaponSystem;
     private Transform entityTransform;
     private AimUI aimUI;
-    private Camera cam = GameManager.Instance.sceneCamera;
+    private Camera cam = GameManager.Instance.sceneController.sceneCamera;
 
     private Transform intendedTarget;
 
@@ -15,7 +15,7 @@ public class AimAssist
         this.weaponSystem = weaponSystem;
         this.entityTransform = weaponSystem.gameObject.transform;
         this.aimUI = aimUI;
-        this.cam = GameManager.Instance.sceneCamera;
+        this.cam = GameManager.Instance.sceneController.sceneCamera;
     }
 
     /// <summary>

@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class FighterDamageManager : DamageManager
+public class FighterDamageManager : DamageManager, IDamageReciever
 {
     private HealthComponent healthComponent;
+    private VesselAudioSystem audioSystem;
 
-    public override void Init(IWeaponSystem weaponSystem, StatHandler statHandler) {
-        this.weaponSystem = weaponSystem;
+    public void Init(StatHandler statHandler, VesselAudioSystem audioSystem)
+    {
         this.statHandler = statHandler;
+        this.audioSystem = audioSystem;
+
+        healthComponent = this.GetComponent<HealthComponent>();
     }
 
     //SET Death state through here
@@ -21,9 +25,20 @@ public class FighterDamageManager : DamageManager
     public override void CalculateHealth(float damage, string id)
     {
         float health = statHandler.CurrentHealth - damage;
-        //statHandler.CurrentHealth = health;
         healthComponent.SetHealthUpdate(health);
-        //Debug.Log("Damage: " + damage);
         Debug.Log("Health: " + health);
+    }
+
+    public void OnRecievedDamage(float damage, string id, SoundType soundType)
+    {
+        float health = statHandler.CurrentHealth - damage;
+        healthComponent.SetHealthUpdate(health);
+        audioSystem.PlaySoundEffect(soundType);
+        Debug.Log("Health: " + health);
+    }
+
+    public string GetObjectID()
+    {
+        throw new System.NotImplementedException();
     }
 }

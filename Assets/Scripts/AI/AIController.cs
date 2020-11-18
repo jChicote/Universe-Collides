@@ -31,7 +31,7 @@ public class AIController : BaseEntityController
         SetState<AIPursuit>();
 
         //Returns pointer
-        attachedPointer = GameManager.Instance.gameplayHUD.pointerManagerUI.CreateNewPointer(gameObject.transform, vesselStats.speed);
+        attachedPointer = GameManager.Instance.sceneController.gameplayHUD.pointerManagerUI.CreateNewPointer(gameObject.transform, vesselStats.speed);
     }
 
     void SetWeaponSystems(VesselShipStats vesselStats) {
@@ -39,18 +39,18 @@ public class AIController : BaseEntityController
 
         switch(vesselSelection){
             case VesselType.xWing:
-                weaponSystem = this.gameObject.AddComponent<XWingWeaponSystem>();
-                weaponSystem.Init(GetObjectID(), this, true, vesselStats);
+               // weaponSystem = this.gameObject.AddComponent<XWingWeaponSystem>();
+                //weaponSystem.Init(GetObjectID(), this, true, vesselStats);
                 break;
             case VesselType.TieFighter:
-                weaponSystem = this.gameObject.AddComponent<TieWeaponSystem>();
-                weaponSystem.Init(GetObjectID(), this, true, vesselStats);
+                //weaponSystem = this.gameObject.AddComponent<TieWeaponSystem>();
+                //weaponSystem.Init(GetObjectID(), this, true, vesselStats);
                 break;
         }
 
         //Load weapon/damage components.
-        damageSystem = new FighterDamageManager();
-        damageSystem.Init(this.GetComponent<IWeaponSystem>(), statHandler);
+        //damageSystem = new FighterDamageManager();
+        //damageSystem.Init(this.GetComponent<IWeaponSystem>(), statHandler);
     }
 
     public void SetState<T>() where T : BaseState {
@@ -60,6 +60,6 @@ public class AIController : BaseEntityController
     public override void OnEntityDeath() {
         spawner.OnEntityRespawn.Invoke(objectID, vesselSelection, EntityType.AiComputer, teamColor);
         attachedPointer.RemovePointer();
-        GameManager.Instance.scoreManager.OnScoreEvent.Invoke(teamColor, 100);
+        //GameManager.Instance.scoreManager.OnScoreEvent.Invoke(teamColor, 100);
     }
 }
