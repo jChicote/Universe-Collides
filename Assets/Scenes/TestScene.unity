@@ -160,6 +160,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5712709106008767208, guid: c780b125553cf49bb9b8fa9b845faf24,
+        type: 3}
+      propertyPath: antialiasingMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7194062120517304673, guid: c780b125553cf49bb9b8fa9b845faf24,
         type: 3}
       propertyPath: m_Name
@@ -224,6 +229,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 14.343
+      objectReference: {fileID: 0}
+    - target: {fileID: 7194062120517304701, guid: c780b125553cf49bb9b8fa9b845faf24,
+        type: 3}
+      propertyPath: m_RenderPostProcessing
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c780b125553cf49bb9b8fa9b845faf24, type: 3}
