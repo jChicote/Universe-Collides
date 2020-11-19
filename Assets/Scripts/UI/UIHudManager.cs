@@ -25,5 +25,16 @@ public class UIHudManager : MonoBehaviour
 
     public void RevealPauseScreen(bool isRevealed) {
         pauseUI.gameObject.SetActive(isRevealed);
+
+        HideInGameHUD(!isRevealed);
+    }
+
+    public void HideInGameHUD(bool isActive) //TODO: Must refactor this into a more modular form
+    {
+        powerUpUI.gameObject.SetActive(isActive);
+        aimSightUI.gameObject.SetActive(isActive);
+        healthBar.gameObject.SetActive(isActive);
+        thrustUI.gameObject.SetActive(isActive);
+        scoreUI.gameObject.SetActive(isActive);
     }
 }

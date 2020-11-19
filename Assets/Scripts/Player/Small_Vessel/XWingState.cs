@@ -9,6 +9,8 @@ namespace PlayerSystems
     {
         private MovementRegister movementController;
 
+        private IPausableAudio shipAudioPause;
+
         private float modelAngle;
         private float angleResult;
 
@@ -29,6 +31,9 @@ namespace PlayerSystems
 
             //Load movement controller
             movementController = this.GetComponent<MovementRegister>();
+
+            //Load Audio Variables
+            shipAudioPause = this.GetComponent<IPausableAudio>();
         }
 
         public override void ActivateDeathState()
@@ -48,6 +53,18 @@ namespace PlayerSystems
 
             weaponSystem.RunSystem();
             weaponAim.SetAimPosition(speed);
+        }
+
+        public override void Pause()
+        {
+            base.Pause();
+            shipAudioPause.PauseAllAudio();
+        }
+
+        public override void UnPause()
+        {
+            base.UnPause();
+            shipAudioPause.UnpauseAllAudio();
         }
     }
 }

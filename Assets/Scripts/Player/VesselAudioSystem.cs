@@ -3,21 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class VesselAudioSystem : MonoBehaviour
+public interface IPausableAudio
+{
+    void PauseAllAudio();
+    void UnpauseAllAudio();
+}
+
+public class VesselAudioSystem : MonoBehaviour, IPausableAudio
 {
     [HideInInspector] public AudioSettings audioSettings;
-    AudioSource vesselAudioSource;
-    AudioSource flightAudioSource;
-    AudioSource thrustAudioSource;
+
+    [Header("Attached Audio Sources")]
+    public AudioSource vesselAudioSource;
+    public AudioSource flightAudioSource;
+    public AudioSource thrustAudioSource;
 
     float defaultFlightPitch = 0;
 
     public void Init(EntityType entityType)
     {
         audioSettings = GameManager.Instance.gameSettings.audioSettings;
-        vesselAudioSource = this.gameObject.AddComponent<AudioSource>();
-        flightAudioSource = this.gameObject.AddComponent<AudioSource>();
-        thrustAudioSource = this.gameObject.AddComponent<AudioSource>();
 
         if(entityType == EntityType.Player) {
             vesselAudioSource.spatialBlend = 0;
@@ -86,6 +91,20 @@ public class VesselAudioSystem : MonoBehaviour
         Sound soundSelection = audioSettings.soundEffects.Where(x => x.type == soundType).First();
         AudioClip sound = soundSelection.clip;
         vesselAudioSource.PlayOneShot(sound, soundSelection.volume);
+    }
+
+    public void PauseAllAudio()
+    {
+        vesselAudioSource.Pause();
+        flightAudioSource.Pause();
+        thrustAudioSource.Pause();
+    }
+
+    public void UnpauseAllAudio()
+    {
+        vesselAudioSource.Play();
+        flightAudioSource.Play();
+        thrustAudioSource.Play();
     }
 }
 

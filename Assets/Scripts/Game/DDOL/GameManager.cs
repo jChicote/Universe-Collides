@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        sessionData = this.gameObject.AddComponent<SessionData>();
+        sessionData = this.GetComponent<SessionData>();
         Instantiate(gameSettings.audioManagerPrefab, transform.position, Quaternion.identity);
         OnMainMenu.AddListener(ShowMainMenu);
 

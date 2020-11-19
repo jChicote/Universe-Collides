@@ -36,12 +36,12 @@ public abstract class BaseState : MonoBehaviour, IPausable, IMovementControl
 
     public virtual void ActivateDeathState() { }
 
-    public void Pause()
+    public virtual void Pause()
     {
         isPaused = true;
     }
 
-    public void UnPause()
+    public virtual void UnPause()
     {
         isPaused = false;
     }

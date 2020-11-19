@@ -19,16 +19,17 @@ namespace PlayerSystems
         {
             base.Init(spawner, teamColor);
 
-            SceneController sceneController = GameManager.Instance.sceneController;
+            GameManager gameManager = GameManager.Instance;
+            SceneController sceneController = gameManager.sceneController;
 
             if (playerState == null) playerState = this.gameObject.AddComponent<PlayerStateManager>();
             audioSystem = this.GetComponent<VesselAudioSystem>();
             audioSystem.Init(EntityType.Player);
             audioSystem.PlayFlightAudio(vesselSelection);
-            PlayerSettings playerSettings = GameManager.Instance.gameSettings.playerSettings;
+            PlayerSettings playerSettings = gameManager.gameSettings.playerSettings;
 
             //Initialise Stat Handler
-            GameSettings gameSettings = GameManager.Instance.gameSettings;
+            GameSettings gameSettings = gameManager.gameSettings;
             VesselShipStats vesselStats = gameSettings.vesselStats.Where(x => x.type == vesselSelection).First();
             BaseStats playerStats = vesselStats.baseShipStats;
             statHandler = new StatHandler(playerStats, EntityType.Player, this);

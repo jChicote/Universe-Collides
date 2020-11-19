@@ -4,10 +4,12 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
-//THIS IS FOR SOUND THAT CAN BE PLAYED GLOBALLY
-public class AudioManager : MonoBehaviour
+/// <summary>
+/// This Audio Manager is designed for general use and should be not destroyed during gameplay.
+/// </summary>
+public class GeneralAudioManager : MonoBehaviour
 {
-    public static AudioManager Instance = null;
+    public static GeneralAudioManager Instance = null;
 
     [HideInInspector] public AudioSettings audioSettings;
     public SoundEvent onSoundEvent;

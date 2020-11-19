@@ -27,6 +27,8 @@ namespace PlayerSystems
         private ShootingHandler alternativeWeaponHandler;
         private ShootingHandler secondaryWeaponHandler;
 
+        private bool isPaused = false;
+
         public override void Init(string objectID, BaseEntityController controller, bool weaponsActive, VesselShipStats shipStats, SceneController sceneController)
         {
             base.Init(objectID, controller, weaponsActive, shipStats, sceneController);
@@ -104,6 +106,11 @@ namespace PlayerSystems
         /// </summary>
         public override void RunSystem()
         {
+            if (isPaused)
+            {
+                Debug.Log("Is Paused");
+                return;
+            }
             aimAssist.SetTargetInAimRange();
 
             if (canShootPrimary && primaryWeaponHandler != null)

@@ -26,9 +26,11 @@ public class SceneController : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
-        GameManager.Instance.sceneController = this;
-        gameSettings = GameManager.Instance.gameSettings;
-        sessionData = GameManager.Instance.sessionData;
+        GameManager gameManager = GameManager.Instance;
+
+        gameManager.sceneController = this;
+        gameSettings = gameManager.gameSettings;
+        sessionData = gameManager.sessionData;
         OnGameplayStart.AddListener(PrepareScene);
     }
 
@@ -41,7 +43,7 @@ public class SceneController : MonoBehaviour
         LoadHUD();
 
         //Play Track
-        AudioManager.Instance.onTrackEvent.Invoke(BackgroundOstType.StarWars);
+        GeneralAudioManager.Instance.onTrackEvent.Invoke(BackgroundOstType.StarWars);
 
         //Load Entities
         SpawnEntities();

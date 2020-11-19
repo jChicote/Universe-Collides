@@ -14,7 +14,7 @@ namespace PlayerSystems
         void SetMouseRotation(InputValue value);
     }
 
-    public class MovementRegister : MonoBehaviour, IMovementController, IPausable
+    public class MovementRegister : MonoBehaviour, IMovementController
     {
         public Transform childModel;
 
@@ -53,14 +53,16 @@ namespace PlayerSystems
             this.playerController = controller;
             this.cameraController = cameraControl;
 
+            GameManager gameManager = GameManager.Instance;
+
             //Load shipstates.
-            GameSettings gameSettings = GameManager.Instance.gameSettings;
+            GameSettings gameSettings = gameManager.gameSettings;
             settings = gameSettings.playerSettings;
             VesselShipStats shipStats = gameSettings.vesselStats.Where(x => x.type.Equals(controller.vesselSelection)).First();
             _speed = shipStats.speed;
 
             //Load Input Controllers
-            ThrustUI thrustUI = GameManager.Instance.sceneController.gameplayHUD.thrustUI;
+            ThrustUI thrustUI = gameManager.sceneController.gameplayHUD.thrustUI;
             movementController = new InputMovementSystem(this, shipStats, thrustUI);
             rotationController = new InputRotationController();
 
@@ -168,16 +170,6 @@ namespace PlayerSystems
             {
                 childModel.localEulerAngles = new Vector3(0, 0, _modelAngle);
             }
-        }
-
-        public void Pause()
-        {
-            _isPaused = true;
-        }
-
-        public void UnPause()
-        {
-            _isPaused = false;
         }
     }
 }

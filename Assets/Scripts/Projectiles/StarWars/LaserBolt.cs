@@ -5,7 +5,10 @@ using UnityEngine;
 
 public class LaserBolt : BasicProjectile
 {
+    private GameManager gameManager;
+
     void Awake() {
+        gameManager = GameManager.Instance;
         projectileRB = this.GetComponent<Rigidbody>();
     }
 
@@ -25,7 +28,7 @@ public class LaserBolt : BasicProjectile
     void SpawnImpact(ContactPoint contactData) {
         Vector3 impactAngle = contactData.normal;
         Quaternion impactRot = Quaternion.FromToRotation(Vector3.up, impactAngle);
-        WeaponSettings weaponSettings = GameManager.Instance.gameSettings.weaponSettings;
+        WeaponSettings weaponSettings = gameManager.gameSettings.weaponSettings;
         GameObject effect = weaponSettings.impactEffects.Where(x => x.type == ImpactType.SparkImpact).First().effect;
         Destroy(Instantiate(effect, contactData.point, impactRot), 5);
     }
@@ -51,8 +54,8 @@ public class LaserBolt : BasicProjectile
         IDamageReciever victim = collisionInfo.gameObject.GetComponent<IDamageReciever>();
         victim.OnRecievedDamage(damage, shooterID, SoundType.BoltImpact);
 
-        string playerID = GameManager.Instance.sceneController.playerController.GetObjectID();
-        if(shooterID == playerID) GameManager.Instance.sceneController.scoreManager.OnPlayerHitChain.Invoke();
+        string playerID = gameManager.sceneController.playerController.GetObjectID();
+        if(shooterID == playerID) gameManager.sceneController.scoreManager.OnPlayerHitChain.Invoke();
 
         DestroyObject(0);
     }
