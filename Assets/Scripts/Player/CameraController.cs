@@ -20,6 +20,7 @@ namespace PlayerSystems
         [HideInInspector] public CinemachineComposer cameraComposer;
 
         public bool isFocused = false;
+        private bool isThrusting = false;
 
         void Start()
         {
@@ -36,18 +37,33 @@ namespace PlayerSystems
             attributes = playerSettings.cameraAttributes.Where(x => x.type == vesselType).First();
         }
 
+        /// <summary>
+        /// Sets the virtual camera transposer to the focused state
+        /// </summary>
         public void SetCameraLocking(InputValue value)
         {
             isFocused = value.isPressed;
             SetCameraTracking();
-            StartCoroutine(LockingCamera());
+            StopCoroutine("TransposeCamera");
+            StartCoroutine(TransposeCamera(attributes.modifiedYOffset, attributes.modifiedZOffset));
+            //StartCoroutine(LockingCamera());
         }
 
+        /// <summary>
+        /// Sets the field of view when the ship changes on throttle up and throttle down.
+        /// </summary>
         public void SetFieldOfView(float throttleValue)
         {
             //Returns to normal when no throttling is applied
             if (throttleValue == 0)
             {
+                if (isThrusting && !isFocused)
+                {
+                    isThrusting = false;
+                    StopCoroutine("TransposeCamera");
+                    StartCoroutine(TransposeCamera(attributes.thrustYOffset, attributes.thrustZOffset));
+                }
+
                 virtualCamera.m_Lens.FieldOfView = Mathf.Lerp(virtualCamera.m_Lens.FieldOfView, attributes.defaultFOV, 0.1f);
                 return;
             }
@@ -55,6 +71,13 @@ namespace PlayerSystems
             //Increases or decreases camera FOV on throttle value
             if (throttleValue > 0)
             {
+                if (!isThrusting && !isFocused)
+                {
+                    isThrusting = true;
+                    StopCoroutine("TransposeCamera");
+                    StartCoroutine(TransposeCamera(attributes.thrustYOffset, attributes.thrustZOffset));
+                }
+
                 virtualCamera.m_Lens.FieldOfView = Mathf.Lerp(virtualCamera.m_Lens.FieldOfView, attributes.maxFOV, 0.1f);
             }
             else
@@ -89,29 +112,40 @@ namespace PlayerSystems
             cameraTransposer.m_RollDamping = rollDamp;
         }
 
-        public IEnumerator LockingCamera()
+        /// <summary>
+        /// Transposes camera body into a set offset during travel.
+        /// </summary>
+        public IEnumerator TransposeCamera(float modifiedY, float modifiedZ)
         {
             float zOffset = 0;
             float yOffset = 0;
 
             //Applies offset when camera is focused
-            while (isFocused && Mathf.Round(zOffset) != attributes.modifiedZOffset)
+            while (isFocused || isThrusting && Mathf.Round(zOffset) != modifiedZ)
             {
-                zOffset = Mathf.SmoothStep(cameraTransposer.m_FollowOffset.z, attributes.modifiedZOffset, 0.2f);
-                yOffset = Mathf.SmoothStep(cameraTransposer.m_FollowOffset.y, attributes.modifiedYOffset, 0.01f);
+                zOffset = Mathf.SmoothStep(cameraTransposer.m_FollowOffset.z, modifiedZ, 0.08f);
+                yOffset = Mathf.SmoothStep(cameraTransposer.m_FollowOffset.y, modifiedY, 0.01f);
                 cameraTransposer.m_FollowOffset = new Vector3(cameraTransposer.m_FollowOffset.x, yOffset, zOffset);
                 yield return null;
             }
 
-            if (isFocused) yield return null;
+            if (isFocused || isThrusting) yield return null;
+
+            zOffset = 0;
+            yOffset = 0;
 
             //Applied default when camera is NOT focused
-            while (!isFocused && Mathf.Round(zOffset) != attributes.defaultZOffset)
+            while (!isFocused || !isThrusting && Mathf.Round(zOffset) != attributes.defaultZOffset)
             {
-                zOffset = Mathf.SmoothStep(cameraTransposer.m_FollowOffset.z, attributes.defaultZOffset, 0.2f);
+                zOffset = Mathf.SmoothStep(cameraTransposer.m_FollowOffset.z, attributes.defaultZOffset, 0.08f);
                 yOffset = Mathf.SmoothStep(cameraTransposer.m_FollowOffset.y, attributes.defaultYOffset, 0.01f);
                 cameraTransposer.m_FollowOffset = new Vector3(cameraTransposer.m_FollowOffset.x, yOffset, zOffset);
                 yield return null;
+            }
+
+            if (!isFocused && !isThrusting)
+            {
+                cameraTransposer.m_FollowOffset = new Vector3(cameraTransposer.m_FollowOffset.x, attributes.defaultYOffset, attributes.defaultZOffset);
             }
         }
     }

@@ -32,12 +32,15 @@ public class CameraAttributes {
     [Header("Composer Offsets")]
     public float composerDefaultY = 0;
     public float composerModifiedY = 0;
+    public float composerThrustY = 0;
 
     [Header("Transposer Offsets")]
     public float defaultZOffset = 0;
     public float defaultYOffset = 0;
     public float modifiedZOffset = 0;
     public float modifiedYOffset = 0;
+    public float thrustZOffset = 0;
+    public float thrustYOffset = 0;
 
     [Header("Camera FOV")]
     public float minFOV = 0;

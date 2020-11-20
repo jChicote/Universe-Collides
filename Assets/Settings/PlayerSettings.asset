@@ -15,38 +15,27 @@ MonoBehaviour:
   sensitivity: 2
   cameraAttributes:
   - type: 0
-    defaultXDamp: 3
-    defaultYDamp: 2
-    defaultZDamp: 1
+    defaultXDamp: 1
+    defaultYDamp: 0.2
+    defaultZDamp: 0.2
     focusedXDamp: 0
     focusedYDamp: 0.1
-    focusedZDamp: 0.2
-    defaultPitchDamp: 3
-    defaultYawDamp: 0.6
+    focusedZDamp: 0.1
+    defaultPitchDamp: 0.3
+    defaultYawDamp: 1
     defaultRollDamp: 0.3
-    focusedPitchDamp: 0.5
+    focusedPitchDamp: 0.1
     focusedYawDamp: 0
     focusedRollDamp: 0
-    composerDefaultY: 0.7
+    composerDefaultY: 1.44
     composerModifiedY: 1
+    composerThrustY: 2
     defaultZOffset: -6
-    defaultYOffset: 5
+    defaultYOffset: 1.3
     modifiedZOffset: -3
     modifiedYOffset: 1
+    thrustZOffset: -6
+    thrustYOffset: 3
     minFOV: 55
-    maxFOV: 80
+    maxFOV: 70
     defaultFOV: 60
-  basePlayerStats:
-  - type: 0
-    health: 100
-    maxHealth: 100
-    healthRegen: 5
-    healthRegenRate: 0.5
-    fireRate: 0.15
-    statModifier:
-      fireRateModif: 0
-      healthRegenModif: 0
-      damageModif: 0
-    damageInfo:
-      critDMG: 10
-      critChance: 0.1
