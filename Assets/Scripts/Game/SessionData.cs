@@ -19,7 +19,7 @@ public class SessionData : MonoBehaviour
 
     public void TogglePause() {
         isPaused = !isPaused;
-        GameManager.Instance.sceneController.gameplayHUD.RevealPauseScreen(isPaused);
+        GameManager.Instance.sceneController.staticHud.RevealPauseScreen(isPaused);
 
         List<GameObject> pausables = FindObjectsOfType<GameObject>().Where(x => x.GetComponent<IPausable>() != null).ToList();
         foreach (GameObject p in pausables)

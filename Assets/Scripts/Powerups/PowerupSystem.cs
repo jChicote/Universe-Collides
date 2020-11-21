@@ -27,7 +27,7 @@ public class PowerupSystem : MonoBehaviour, IPowerUpSystem
             if(powerUps[i] == null){
                 powerUps[i] = powerUp;
                 //Debug.Log(GameManager.Instance.sceneController.gameplayHUD.powerUpUI);
-                GameManager.Instance.sceneController.gameplayHUD.powerUpUI.ChangeImage(powerUpInfo.icon, i);
+                GameManager.Instance.sceneController.staticHud.powerUpUI.ChangeImage(powerUpInfo.icon, i);
                 return;
             }
         }

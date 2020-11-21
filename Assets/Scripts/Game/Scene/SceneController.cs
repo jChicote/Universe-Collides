@@ -14,9 +14,13 @@ public class SceneController : MonoBehaviour
 
     [HideInInspector] public PlayerController playerController;
     [HideInInspector] public Camera sceneCamera = null;
-    [HideInInspector] public UIHudManager gameplayHUD = null;
+    //[HideInInspector] public UIHudManager gameplayHUD = null;
     [HideInInspector] public ScoreManager scoreManager;
     public List<SpawnManager> spawnerManagers;
+
+    [Header("UI HUD Managers")]
+    public UIStaticHudManager staticHud;
+    public UDynamicHUDManager dynamicHud;
 
     public List<Dictionary<TeamColor, GameObject>> sceneEntities;
 
@@ -65,34 +69,11 @@ public class SceneController : MonoBehaviour
     /// </summary>
     private void LoadHUD()
     {
-        GameObject animatingCanvas = Instantiate(gameSettings.animatingCanvas, transform.position, Quaternion.identity) as GameObject;
-        GameObject staticGameHUD = GameObject.Instantiate(gameSettings.UIHudPrefab, transform.position, Quaternion.identity) as GameObject;
-        gameplayHUD = staticGameHUD.GetComponent<UIHudManager>();
-
-        LoadUI(animatingCanvas, staticGameHUD);
-    }
-
-    /// <summary>
-    /// Loads relevant scene UI Elements for gameplay.
-    /// </summary>
-    public void LoadUI(GameObject animatingCanvas, GameObject staticGameHUD)
-    {
-        AimUI aimSightUI = GameObject.Instantiate(gameSettings.UIaimSightPrefab, transform.position, Quaternion.identity).GetComponent<AimUI>();
-        aimSightUI.Init();
-
-        UIPointerManager pointerManagerUI = GameObject.Instantiate(gameSettings.UIPointerManagerPrefab, transform.position, Quaternion.identity).GetComponent<UIPointerManager>();
-        pointerManagerUI.Init(sceneCamera);
-
-        ScoreUI scoreUI = Instantiate(gameSettings.scoreUIPrefab, staticGameHUD.transform).GetComponent<ScoreUI>();
-        scoreUI.Init();
+        staticHud.Init(dynamicHud);
+        dynamicHud.Init(sceneCamera);
 
         scoreManager = Instantiate(gameSettings.scoreManagerPrefab, transform.position, Quaternion.identity).GetComponent<ScoreManager>();
-        scoreManager.Init(scoreUI);
-
-        HealthBarUI healthBar = Instantiate(gameSettings.healthBarUIPrefab, staticGameHUD.transform).GetComponent<HealthBarUI>();
-        ThrustUI thrustUI = Instantiate(gameSettings.thrustUIPrefab, staticGameHUD.transform).GetComponent<ThrustUI>();
-
-        gameplayHUD.Init(aimSightUI, pointerManagerUI, scoreUI, healthBar, thrustUI);
+        scoreManager.Init(dynamicHud.scoreUI);
     }
 
     /// <summary>
@@ -107,4 +88,5 @@ public class SceneController : MonoBehaviour
         modeSpawner.RunInstance();
         playerController = GameObject.FindObjectOfType<PlayerController>();
     }
+
 }

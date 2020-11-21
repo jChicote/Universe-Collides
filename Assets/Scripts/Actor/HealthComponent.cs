@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class HealthComponent : MonoBehaviour
 {
-    private UIHudManager hudManager;
+    private UDynamicHUDManager hudManager;
     private StatHandler actorStats;
 
     private bool isHealthRegenerating = false;
@@ -15,8 +15,7 @@ public class HealthComponent : MonoBehaviour
     {
         this.actorStats = statHandler;
 
-        Debug.Log(sceneController.gameplayHUD.healthBar);
-        hudManager = sceneController.gameplayHUD;
+        hudManager = sceneController.dynamicHud;
         hudManager.healthBar.Init(actorStats.MaxHealth);
     }
 

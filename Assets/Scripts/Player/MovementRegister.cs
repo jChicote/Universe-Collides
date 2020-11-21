@@ -62,7 +62,7 @@ namespace PlayerSystems
             _speed = shipStats.speed;
 
             //Load Input Controllers
-            ThrustUI thrustUI = gameManager.sceneController.gameplayHUD.thrustUI;
+            ThrustUI thrustUI = gameManager.sceneController.dynamicHud.thrustUI;
             movementController = new InputMovementSystem(this, shipStats, thrustUI);
             rotationController = new InputRotationController();
 

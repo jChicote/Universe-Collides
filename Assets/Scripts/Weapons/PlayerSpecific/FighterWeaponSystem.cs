@@ -35,7 +35,7 @@ namespace PlayerSystems
 
             //Create the aim assist object
             aimAssist = new AimAssist();
-            aimAssist.Init(this, sceneController.gameplayHUD.aimSightUI);
+            aimAssist.Init(this, sceneController.dynamicHud.aimSightUI);
 
             SetupWeapons();
         }
@@ -131,8 +131,8 @@ namespace PlayerSystems
 
         public override void SetAimPosition(float speed)
         {
-            float timeAhead = Mathf.Clamp(speed, 3, 50);
-            gameManager.sceneController.gameplayHUD.aimSightUI.SetAimPosition(transform.position, transform.forward, timeAhead, controller.cameraController.isFocused);
+            float timeAhead = Mathf.Clamp(speed * 7, 3, 200);
+            gameManager.sceneController.dynamicHud.aimSightUI.SetAimPosition(transform.position, transform.forward, timeAhead, controller.cameraController.isFocused);
         }
 
         public override void SetFireRate(float fireRate, bool isParallel) //TODO: Change for dynamic modifications of either system

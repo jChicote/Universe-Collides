@@ -33,13 +33,13 @@ public class AimUI : MonoBehaviour
     public void SetAimPosition(Vector3 playerPosition, Vector3 forward, float maxTimeAhead, bool isFocused) {
         if(gameManager.sceneController.sceneCamera == null) return;
 
-        Vector3 futurePosition = playerPosition + forward * maxTimeAhead * 3f;
+        Vector3 futurePosition = playerPosition + forward * maxTimeAhead * 7f;
         PositionAimUI(futurePosition, firstAimsight);
         
-        futurePosition = playerPosition + forward * (maxTimeAhead * 0.6f) * 3f;
+        futurePosition = playerPosition + forward * (maxTimeAhead * 0.6f) * 7f;
         PositionAimUI(futurePosition, secondAimsight);
 
-        futurePosition = playerPosition + forward * (maxTimeAhead * 0.3f) * 3f;
+        futurePosition = playerPosition + forward * (maxTimeAhead * 0.3f) * 7f;
         PositionAimUI(futurePosition, thirdAimsight);
 
         if(isFocused) ScaleAimUI(2);

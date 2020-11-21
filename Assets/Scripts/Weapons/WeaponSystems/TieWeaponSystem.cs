@@ -11,7 +11,7 @@ public class TieWeaponSystem : BaseWeaponSystem
     public override void Init(string objectID, BaseEntityController controller, bool weaponsActive, VesselShipStats shipStats, SceneController sceneController) {
         base.Init(objectID, controller, weaponsActive, shipStats, sceneController);
         aimAssist = new AimAssist();
-        aimAssist.Init(this, sceneController.gameplayHUD.aimSightUI);
+        aimAssist.Init(this, sceneController.dynamicHud.aimSightUI);
 
         targetChecker = new TargetDirectionCheck();
         //shipTransforms = this.GetComponent<VesselTransforms>();
