@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public SessionData sessionData;
     [HideInInspector] public MainMenuUI mainMenuUI = null;
     [HideInInspector] public SceneController sceneController;
+    [HideInInspector] public SceneLoader sceneLoader;
 
     private void Awake()
     {
@@ -41,7 +42,7 @@ public class GameManager : MonoBehaviour
         OnMainMenu.AddListener(ShowMainMenu);
 
         //Create scene loader and initialise.
-        SceneLoader sceneLoader = this.GetComponent<SceneLoader>();
+        sceneLoader = this.GetComponent<SceneLoader>();
         sceneLoader.Init();
     }
 

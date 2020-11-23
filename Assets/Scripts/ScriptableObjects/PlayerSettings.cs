@@ -46,4 +46,7 @@ public class CameraAttributes {
     public float minFOV = 0;
     public float maxFOV = 0;
     public float defaultFOV = 0;
+
+    [Header("Camera Shake")]
+    public float maxCamShake = 1;
 }

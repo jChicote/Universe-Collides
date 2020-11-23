@@ -23,6 +23,14 @@ public class SceneLoader : MonoBehaviour, ISceneLoad
     }
 
     /// <summary>
+    /// Loads main menu.
+    /// </summary>
+    public void LoadMainMenu()
+    {
+        StartCoroutine(ILoadMainMenu());
+    }
+
+    /// <summary>
     /// Called to begin loading of following scene.
     /// </summary>
     public void LoadLevel(int sceneIndex)
@@ -30,6 +38,14 @@ public class SceneLoader : MonoBehaviour, ISceneLoad
         //Close main menu
         gameManager.CloseMainMenu();
 
+        StartCoroutine(ILoadScene(sceneIndex));
+    }
+
+    /// <summary>
+    /// Restart level at specified index
+    /// </summary>
+    public void RestartLevel(int sceneIndex)
+    {
         StartCoroutine(ILoadScene(sceneIndex));
     }
 
@@ -47,6 +63,20 @@ public class SceneLoader : MonoBehaviour, ISceneLoad
         gameManager.sceneController = GameObject.FindObjectOfType<SceneController>();
         gameManager.sceneController.OnGameplayStart.Invoke();
         loadingScreenUI.HideLoadingScreen();
+    }
 
+    IEnumerator ILoadMainMenu()
+    {
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(0, LoadSceneMode.Single);
+        loadingScreenUI.DisplayLoadingScreen();
+
+        while (!asyncOperation.isDone)
+        {
+            loadingScreenUI.UpdateLoadingScreen(Mathf.Clamp01(asyncOperation.progress / 0.9f));
+            yield return null;
+        }
+
+        loadingScreenUI.HideLoadingScreen();
+        GameManager.Instance.ShowMainMenu();
     }
 }

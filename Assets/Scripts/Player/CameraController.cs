@@ -10,22 +10,30 @@ public interface ICameraControl
     void SetCameraLocking(InputValue value);
 }
 
+public interface ICameraShake
+{
+    void TriggerCameraShake(float targetValue);
+}
+
 namespace PlayerSystems
 {
-    public class CameraController : MonoBehaviour, ICameraControl
+    public class CameraController : MonoBehaviour, ICameraControl, ICameraShake
     {
-        CinemachineVirtualCamera virtualCamera;
-        CameraAttributes attributes;
+        private CinemachineVirtualCamera virtualCamera;
+        private CameraAttributes attributes;
         [HideInInspector] public CinemachineTransposer cameraTransposer;
         [HideInInspector] public CinemachineComposer cameraComposer;
+        private CinemachineBasicMultiChannelPerlin cameraShakeChannel;
 
         public bool isFocused = false;
         private bool isThrusting = false;
+        private bool isShaking = true;
 
         void Start()
         {
             cameraTransposer = virtualCamera.GetCinemachineComponent<CinemachineTransposer>();
             cameraComposer = virtualCamera.GetCinemachineComponent<CinemachineComposer>();
+            cameraShakeChannel = virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
             SetCameraTrack(attributes.composerDefaultY, attributes.defaultXDamp, attributes.defaultYDamp, attributes.defaultZDamp,
                             attributes.defaultPitchDamp, attributes.defaultYawDamp, attributes.defaultRollDamp);
         }
@@ -112,6 +120,12 @@ namespace PlayerSystems
             cameraTransposer.m_RollDamping = rollDamp;
         }
 
+        public void TriggerCameraShake(float targetValue)
+        {
+            StopCoroutine(nameof(ShakeCamera));
+            StartCoroutine(ShakeCamera(targetValue));
+        }
+
         /// <summary>
         /// Transposes camera body into a set offset during travel.
         /// </summary>
@@ -120,9 +134,12 @@ namespace PlayerSystems
             float zOffset = 0;
             float yOffset = 0;
 
+            TriggerCameraShake(0.05f);
+
             //Applies offset when camera is focused
             while (isFocused || isThrusting && Mathf.Round(zOffset) != modifiedZ)
             {
+                Debug.Log("is increasing");
                 zOffset = Mathf.SmoothStep(cameraTransposer.m_FollowOffset.z, modifiedZ, 0.08f);
                 yOffset = Mathf.SmoothStep(cameraTransposer.m_FollowOffset.y, modifiedY, 0.01f);
                 cameraTransposer.m_FollowOffset = new Vector3(cameraTransposer.m_FollowOffset.x, yOffset, zOffset);
@@ -134,9 +151,12 @@ namespace PlayerSystems
             zOffset = 0;
             yOffset = 0;
 
+            
+
             //Applied default when camera is NOT focused
             while (!isFocused || !isThrusting && Mathf.Round(zOffset) != attributes.defaultZOffset)
             {
+                Debug.Log("Is returning");
                 zOffset = Mathf.SmoothStep(cameraTransposer.m_FollowOffset.z, attributes.defaultZOffset, 0.08f);
                 yOffset = Mathf.SmoothStep(cameraTransposer.m_FollowOffset.y, attributes.defaultYOffset, 0.01f);
                 cameraTransposer.m_FollowOffset = new Vector3(cameraTransposer.m_FollowOffset.x, yOffset, zOffset);
@@ -145,7 +165,24 @@ namespace PlayerSystems
 
             if (!isFocused && !isThrusting)
             {
+                Debug.Log("Is slowiong");
+                TriggerCameraShake(-0.05f);
                 cameraTransposer.m_FollowOffset = new Vector3(cameraTransposer.m_FollowOffset.x, attributes.defaultYOffset, attributes.defaultZOffset);
+                cameraShakeChannel.m_FrequencyGain = 0;
+            }
+        }
+
+        public IEnumerator ShakeCamera(float targetLerpValue)
+        {
+            float currentShakeVal = cameraShakeChannel.m_FrequencyGain;
+
+            while (currentShakeVal <= attributes.maxCamShake && currentShakeVal >= 0)
+            {
+                Debug.Log(targetLerpValue);
+                currentShakeVal += targetLerpValue;
+               // currentShakeVal = Mathf.Clamp(currentShakeVal, 0, targetLerpValue);
+                cameraShakeChannel.m_FrequencyGain = currentShakeVal;
+                yield return null;
             }
         }
     }
