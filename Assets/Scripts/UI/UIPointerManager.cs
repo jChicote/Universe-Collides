@@ -10,11 +10,6 @@ public class UIPointerManager : MonoBehaviour
     public List<UIEntityPointer> entityPointers;
     
 
-    void Start()
-    {
-        canvasTransform = this.GetComponent<RectTransform>();
-    }
-
     void FixedUpdate()
     {
         if(cam == null) {
@@ -27,14 +22,17 @@ public class UIPointerManager : MonoBehaviour
         }
     }
 
-    public void Init(Camera camera) {
-        this.cam = camera;
+    public void Init(Camera camera, RectTransform parentRectTransform) {
+        this.cam = GameManager.Instance.sceneController.sceneCamera;
+        canvasTransform = parentRectTransform;
     }
 
     public UIEntityPointer CreateNewPointer(Transform target, float shipSpeed) {
         GameObject prefab = GameManager.Instance.gameSettings.UiPointerControllerPrefab;
         UIEntityPointer pointer = Instantiate(prefab, this.transform).GetComponent<UIEntityPointer>();
-        pointer.Init(shipSpeed, cam, canvasTransform, target, this);
+
+        Debug.Log(cam + " + " + canvasTransform);
+        pointer.Init(shipSpeed, GameManager.Instance.sceneController.sceneCamera, canvasTransform, target, this);
         entityPointers.Add(pointer);
         return pointer;
     }

@@ -9,7 +9,6 @@ public class UIEntityPointer : MonoBehaviour, IPausable
     public RectTransform canvasTransform;
 
     UIPointerManager manager;
-    RectTransform controllerRect;
 
     //Arrow Pointer
     RectTransform arrowTransform;
@@ -41,22 +40,18 @@ public class UIEntityPointer : MonoBehaviour, IPausable
 
     bool isPaused = false;
 
-    void Start()
-    {
-        GameSettings gameSettings = GameManager.Instance.gameSettings;
-        controllerRect = this.GetComponent<RectTransform>();
-        arrowTransform = Instantiate(gameSettings.arrowUIPrefab, this.transform.root).GetComponent<RectTransform>();
-        pointerTransform = Instantiate(gameSettings.pointerUIPrefab, this.transform.root).GetComponent<RectTransform>();
-        predictiveAimPoint = Instantiate(gameSettings.predictiveUIPrefab, this.transform.root).GetComponent<RectTransform>();
-        pointerImage = pointerTransform.GetComponent<Image>();
-    }
-
     public void Init(float speed, Camera camera, RectTransform canvasTransform, Transform target, UIPointerManager manager) {
         this.manager = manager;
         this.cam = camera;
         this.canvasTransform = canvasTransform;
         this.target = target;
         this.shipSpeed = speed;
+
+        GameSettings gameSettings = GameManager.Instance.gameSettings;
+        arrowTransform = Instantiate(gameSettings.arrowUIPrefab, this.transform.root).GetComponent<RectTransform>();
+        pointerTransform = Instantiate(gameSettings.pointerUIPrefab, this.transform.root).GetComponent<RectTransform>();
+        predictiveAimPoint = Instantiate(gameSettings.predictiveUIPrefab, this.transform.root).GetComponent<RectTransform>();
+        pointerImage = pointerTransform.GetComponent<Image>();
     }
 
     public void RunPointer()

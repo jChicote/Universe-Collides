@@ -18,7 +18,7 @@ public class UDynamicHUDManager : MonoBehaviour
         gameSettings = GameManager.Instance.gameSettings;
 
         aimSightUI.Init();
-        pointerManagerUI.Init(sceneCamera);
+        pointerManagerUI.Init(sceneCamera, this.GetComponent<RectTransform>());
         scoreUI.Init();
     }
 
