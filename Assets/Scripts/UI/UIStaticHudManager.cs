@@ -16,6 +16,9 @@ public class UIStaticHudManager : MonoBehaviour
         this.dynamicHudManager = dynamicHud;
     }
 
+    /// <summary>
+    /// Reveals the pause screen when triggered
+    /// </summary>
     public void RevealPauseScreen(bool isRevealed)
     {
         pauseUI.gameObject.SetActive(isRevealed);

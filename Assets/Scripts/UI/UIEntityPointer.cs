@@ -40,6 +40,9 @@ public class UIEntityPointer : MonoBehaviour, IPausable
 
     bool isPaused = false;
 
+    /// <summary>
+    /// Initialises class
+    /// </summary>
     public void Init(float speed, Camera camera, RectTransform canvasTransform, Transform target, UIPointerManager manager) {
         this.manager = manager;
         this.cam = camera;
@@ -54,6 +57,9 @@ public class UIEntityPointer : MonoBehaviour, IPausable
         pointerImage = pointerTransform.GetComponent<Image>();
     }
 
+    /// <summary>
+    /// Central method for updating attributes on the entity pointer
+    /// </summary>
     public void RunPointer()
     {
         if(predictiveAimPoint == null || pointerTransform == null) return;
@@ -76,6 +82,9 @@ public class UIEntityPointer : MonoBehaviour, IPausable
         }
     }
 
+    /// <summary>
+    /// Checks whether the target is within view of the player's forward transform.
+    /// </summary>
     bool CheckIfTargetInSight() {
         forward = cam.transform.forward.normalized;
         targetDir = (target.position - cam.transform.position).normalized;
@@ -89,8 +98,9 @@ public class UIEntityPointer : MonoBehaviour, IPausable
         }
     }
 
-    //Summary: 
-    //      Changes image once is within the inner range of firing.
+    /// <summary>
+    /// Changes the pointer image once is within the inner range of firing.
+    /// </summary>
     void ChangePointerImageInView(Vector3 forward, Vector3 targetDir) {
         if(Vector3.Dot(forward, targetDir) > 0.9f) { //Should run once
             RenderPredictiveAim();
