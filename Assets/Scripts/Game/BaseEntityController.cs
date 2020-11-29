@@ -25,10 +25,8 @@ public abstract class BaseEntityController : MonoBehaviour, IIdentity, IEntity
     public VesselType vesselSelection;
     public Transform modelTransform;
     public StatHandler statHandler;
-    public SpawnManager spawner;
-
+    [HideInInspector] public SpawnManager spawner;
     [HideInInspector] public CameraController cameraController; //TODO: Move camera controller in player scope
-    //[HideInInspector] public DamageManager damageSystem;
     [HideInInspector] public VesselAudioSystem audioSystem;
 
     public virtual void Init(SpawnManager spawner, TeamColor team) {

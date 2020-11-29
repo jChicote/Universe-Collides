@@ -1,27 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using UnityEngine;
 
-public interface IHealthUpdate
+public class AIHealthSystem : MonoBehaviour, IHealthUpdate
 {
-    void SetHealthUpdate(float healthValue);
-}
-
-public class HealthComponent : MonoBehaviour, IHealthUpdate
-{
-    private UDynamicHUDManager hudManager;
     private StatHandler actorStats;
 
     private bool isHealthRegenerating = false;
 
     // Start is called before the first frame update
-    public void Init(StatHandler statHandler, SceneController sceneController)
+    public void Init(StatHandler statHandler)
     {
         this.actorStats = statHandler;
-
-        hudManager = sceneController.dynamicHud;
-        hudManager.healthBar.Init(actorStats.MaxHealth);
     }
 
     /// <summary>
@@ -36,7 +26,6 @@ public class HealthComponent : MonoBehaviour, IHealthUpdate
         }
 
         actorStats.CurrentHealth = healthValue;
-        hudManager.healthBar.SetHealth(actorStats.CurrentHealth);
         StopCoroutine(RegenerateHealth());
         StartCoroutine(RegenerateHealth());
     }
@@ -67,7 +56,6 @@ public class HealthComponent : MonoBehaviour, IHealthUpdate
         {
             actorStats.CurrentHealth += incrementRate;
             if (actorStats.CurrentHealth > actorStats.MaxHealth) actorStats.CurrentHealth = actorStats.MaxHealth;
-            hudManager.healthBar.SetHealth(actorStats.CurrentHealth);
             yield return null;
         }
 

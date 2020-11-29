@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class FighterDamageManager : DamageManager, IDamageReciever
 {
-    private HealthComponent healthComponent;
+    private IHealthUpdate healthUpdater;
     private VesselAudioSystem audioSystem;
 
     public void Init(StatHandler statHandler, VesselAudioSystem audioSystem)
@@ -13,7 +13,7 @@ public class FighterDamageManager : DamageManager, IDamageReciever
         this.statHandler = statHandler;
         this.audioSystem = audioSystem;
 
-        healthComponent = this.GetComponent<HealthComponent>();
+        healthUpdater = this.GetComponent<IHealthUpdate>();
     }
 
     //SET Death state through here
@@ -25,14 +25,14 @@ public class FighterDamageManager : DamageManager, IDamageReciever
     public override void CalculateHealth(float damage, string id)
     {
         float health = statHandler.CurrentHealth - damage;
-        healthComponent.SetHealthUpdate(health);
+        healthUpdater.SetHealthUpdate(health);
         Debug.Log("Health: " + health);
     }
 
     public void OnRecievedDamage(float damage, string id, SoundType soundType)
     {
         float health = statHandler.CurrentHealth - damage;
-        healthComponent.SetHealthUpdate(health);
+        healthUpdater.SetHealthUpdate(health);
         audioSystem.PlaySoundEffect(soundType);
         Debug.Log("Health: " + health);
     }

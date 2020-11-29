@@ -5,9 +5,11 @@ using UnityEngine;
 
 public class AIPursuit : AIState
 {
-    TargetDirectionCheck dirChecker;
-    Vector3 pursuitDir;
-    Quaternion targetRot;
+    private TargetDirectionCheck dirChecker;
+    private AIMovementController movementController;
+
+    private Vector3 pursuitDir;
+    private Quaternion targetRot;
 
     public override void BeginState()
     {
@@ -17,11 +19,10 @@ public class AIPursuit : AIState
         dirChecker = new TargetDirectionCheck();
 
         weaponSystem = this.GetComponent<IWeaponSystem>();
-
-        //damageSystem = controller.damageSystem;
+        movementController = this.GetComponent<AIMovementController>();
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         RunState();
     }
@@ -29,14 +30,10 @@ public class AIPursuit : AIState
     public override void RunState() {
         if(isPaused) return;
 
-        //Change to be dynamic AND TO THE TARGET VARIABLE
-        if(GameManager.Instance.sceneController.playerController == null) {
-            controller.SetState<AIWander>();
-            return;
-        }
+        if (CheckTargetExistene()) return;
 
         //Check if ai is dead
-        if(controller.statHandler.CurrentHealth <= 0) AIDeath();
+        if (controller.statHandler.CurrentHealth <= 0) AIDeath();
 
         /// Testing purposes only ///
 
@@ -49,25 +46,42 @@ public class AIPursuit : AIState
         //if(weaponSystem.CheckAimDirection()) weaponSystem.RunSystem();
 
         ChangeState();
-        DoMovement();
-        if(controller.avoidanceSystem.DetectCollision()) return;
+        
+        if (controller.avoidanceSystem.DetectCollision()) return;
 
-        Pursuit();
+        //Perform Ship actions
+        movementController.PerformMovement();
+        PursuitRotation();
         SetShipRoll();
     }
 
+    /// <summary>
+    /// Checks whether the target exists in the scene or the initial state will set to wander.
+    /// </summary>
+    private bool CheckTargetExistene()
+    {
+        if (GameManager.Instance.sceneController.playerController == null)
+        {
+            controller.SetState<AIWander>();
+            return true;
+        }
+
+        return false;
+    }
+
+    /// <summary>
+    /// Respoonsible for switching state depending on the circumstances encountered.
+    /// </summary>
     private void ChangeState() {
         targetDistance = Vector3.Distance(transform.position, GameManager.Instance.sceneController.playerController.transform.position);
-        if(targetDistance > shipStats.maxProximityDist) controller.SetState<AIWander>();
-        if(targetDistance < 10) controller.SetState<AIEvasion>();
+        //if(targetDistance > shipStats.maxProximityDist) controller.SetState<AIWander>();
+        //if(targetDistance < 10) controller.SetState<AIEvasion>();
     }
 
-    private void DoMovement() {
-        currentVelocity = shipStats.speed * transform.forward * Time.fixedDeltaTime;
-        transform.position += currentVelocity;
-    }
-
-    private void Pursuit() {
+    /// <summary>
+    /// 
+    /// </summary>
+    private void PursuitRotation() {
         target = GameManager.Instance.sceneController.playerController.gameObject; //CHANGE TO DYNAMIC TARGETING
         pursuitDir = target.transform.position - transform.position;
         targetRot = Quaternion.LookRotation(pursuitDir);

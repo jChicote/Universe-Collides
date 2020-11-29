@@ -120,8 +120,8 @@ MonoBehaviour:
     throttleSpeed: 7
     primaryWeaponInfo:
       weaponType: 0
-      isEnabled: 0
-      isParallel: 0
+      isEnabled: 1
+      isParallel: 1
       isSequential: 0
       isRandomised: 0
       weaponData:
