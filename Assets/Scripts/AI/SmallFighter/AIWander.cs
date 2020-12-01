@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class AIWander : AIState
 {
-    float wanderAngle;
+    private AIMovementController movementController;
 
-    Vector3 forwardVel;
-    Vector3 displacement;
-    
-    Quaternion targetRot;
+    private float wanderAngle;
+    private Vector3 forwardVel;
+    private Vector3 displacement;
+    private Quaternion targetRot;
 
     bool isReturning = false;
 
@@ -20,8 +20,7 @@ public class AIWander : AIState
         objectID = controller.objectID;
         shipStats = GameManager.Instance.gameSettings.vesselStats.Where(x => x.type.Equals(controller.vesselSelection)).First();
 
-        //mageSystem = controller.damageSystem;
-
+        movementController = this.GetComponent<AIMovementController>();
         InvokeRepeating("SetNewAngle", 5f, 5f);
     }
 
@@ -34,7 +33,7 @@ public class AIWander : AIState
         if(isPaused) return;
         if(controller.statHandler.CurrentHealth <= 0) AIDeath(); //Check if player is dead
 
-        DoMovement();
+        movementController.PerformMovement();
         if(controller.avoidanceSystem.DetectCollision()) return;
         
         CheckOutOfBounds();
@@ -44,11 +43,9 @@ public class AIWander : AIState
         }
     }
 
-    private void DoMovement() {
-        currentVelocity = shipStats.speed * transform.forward * Time.fixedDeltaTime;
-        transform.position += currentVelocity;
-    }
-
+    /// <summary>
+    /// Applies wandering behaviur during travel.
+    /// </summary>
     private void Wander() {
         forwardVel = transform.forward * shipStats.speed * Time.deltaTime;
         displacement = new Vector3(0, -1);
@@ -63,6 +60,9 @@ public class AIWander : AIState
         wanderAngle += Random.Range(0, 360) - 360 * .5f;
     }
 
+    /// <summary>
+    /// Checks whether the vessel is heading out of bounds.
+    /// </summary>
     private void CheckOutOfBounds()
     {
         float targetDistance = Vector3.Distance(transform.position, GameManager.Instance.transform.position);
@@ -72,6 +72,9 @@ public class AIWander : AIState
         return;
     }
 
+    /// <summary>
+    /// Rotates the vessel to the center of the game scene.
+    /// </summary>
     private IEnumerator RotateToCenter() {
         isReturning = true;
         Vector3 dir;

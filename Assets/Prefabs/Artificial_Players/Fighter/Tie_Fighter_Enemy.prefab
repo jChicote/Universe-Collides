@@ -87,7 +87,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -264,7 +264,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -523,7 +523,7 @@ GameObject:
   - component: {fileID: 5531743178785975355}
   - component: {fileID: 3211606234823894654}
   - component: {fileID: -2097278522673661734}
-  - component: {fileID: 8935798485118336951}
+  - component: {fileID: 926632943348397592}
   m_Layer: 0
   m_Name: Tie_Fighter_Enemy
   m_TagString: Untagged
@@ -700,7 +700,7 @@ MonoBehaviour:
   vesselAudioSource: {fileID: 3553374287802548844}
   flightAudioSource: {fileID: 7115375795461358192}
   thrustAudioSource: {fileID: 5414990507118546503}
---- !u!114 &8935798485118336951
+--- !u!114 &926632943348397592
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -770,10 +770,11 @@ MonoBehaviour:
         critDMG: 0
         critChance: 0
   target: {fileID: 0}
-  detectionDist: 50
+  detectionDist: 1000
   canShootPrimary: 1
   canShootAlternative: 0
   canShootSecondary: 0
+  canAutoAim: 0
   primaryWeapons:
   - {fileID: 3336318972930306387}
   - {fileID: 3578561146871464919}

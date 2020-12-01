@@ -7,15 +7,17 @@ using UnityEngine;
 public class LaserCannon : BaseWeapon
 {
     public Transform point;
+    private SoundType weaponSound;
 
     private AimAssist aimAssist;
 
-    public override void Init(string id, float fireRate, VesselAudioSystem audioSystem, AimAssist aimAssist, ProjectileType projectileType) {
+    public override void Init(string id, float fireRate, VesselAudioSystem audioSystem, AimAssist aimAssist, ProjectileType projectileType, WeaponData weaponData) {
         this.shooterID = id;
         this.audioSystem = audioSystem;
         this.fireRate = fireRate;
         this.aimAssist = aimAssist;
 
+        weaponSound = weaponData.fireSound;
         WeaponSettings settings = GameManager.Instance.gameSettings.weaponSettings;
         this.projectileData = settings.projectiles.Where(x => x.type == projectileType).First();
     }
@@ -27,7 +29,7 @@ public class LaserCannon : BaseWeapon
         Quaternion rotation = aimAssist.CalculateAimDirection(point);
         LaserBolt bolt = Instantiate(projectileData.prefab, point.position, rotation).GetComponent<LaserBolt>();
         SetProjectileInfo(bolt, damageBuff, critDamage);
-        audioSystem.PlaySoundEffect(SoundType.LaserCannon_1);
+        audioSystem.PlaySoundEffect(weaponSound);
     }
 
     private void SetProjectileInfo(LaserBolt bolt, float damageBuff, float critDamage) {

@@ -8,6 +8,9 @@ public class AIPursuit : AIState
     private TargetDirectionCheck dirChecker;
     private AIMovementController movementController;
 
+    private IWeaponAim weaponAim;
+    private IAssignTarget targetAssigner;
+
     private Vector3 pursuitDir;
     private Quaternion targetRot;
 
@@ -18,7 +21,9 @@ public class AIPursuit : AIState
         shipStats = GameManager.Instance.gameSettings.vesselStats.Where(x => x.type.Equals(controller.vesselSelection)).First();
         dirChecker = new TargetDirectionCheck();
 
+        weaponAim = this.GetComponent<IWeaponAim>();
         weaponSystem = this.GetComponent<IWeaponSystem>();
+        targetAssigner = this.GetComponent<IAssignTarget>();
         movementController = this.GetComponent<AIMovementController>();
     }
 
@@ -41,9 +46,10 @@ public class AIPursuit : AIState
             //weaponSystem.SetNewTarget(GameManager.Instance.playerController.gameObject);//MUST REMOVE
         }
 
-        /// --------------------- ///
-        
-        //if(weaponSystem.CheckAimDirection()) weaponSystem.RunSystem();
+        if (weaponAim.CheckAimDirection())
+        {
+            weaponSystem.RunSystem();
+        }
 
         ChangeState();
         
@@ -60,6 +66,7 @@ public class AIPursuit : AIState
     /// </summary>
     private bool CheckTargetExistene()
     {
+        targetAssigner.AssignTarget(GameManager.Instance.sceneController.playerController.gameObject); //TODO: convert this to a more dynamic target assigner
         if (GameManager.Instance.sceneController.playerController == null)
         {
             controller.SetState<AIWander>();
@@ -75,7 +82,7 @@ public class AIPursuit : AIState
     private void ChangeState() {
         targetDistance = Vector3.Distance(transform.position, GameManager.Instance.sceneController.playerController.transform.position);
         //if(targetDistance > shipStats.maxProximityDist) controller.SetState<AIWander>();
-        //if(targetDistance < 10) controller.SetState<AIEvasion>();
+        if(targetDistance < 10) controller.SetState<AIEvasion>();
     }
 
     /// <summary>

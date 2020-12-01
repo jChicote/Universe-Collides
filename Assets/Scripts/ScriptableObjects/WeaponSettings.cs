@@ -28,6 +28,7 @@ public class ProjectileData
 public class WeaponData {
     public ProjectileType projectileType;
     public float fireRate;
+    public SoundType fireSound;
 }
 
 [System.Serializable]

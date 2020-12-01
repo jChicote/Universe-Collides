@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IWeaponItem
 {
-    void Init(string id, float fireRate, VesselAudioSystem audioSystem, AimAssist aimAssist, ProjectileType projectileType);
+    void Init(string id, float fireRate, VesselAudioSystem audioSystem, AimAssist aimAssist, ProjectileType projectileType, WeaponData weaponData);
     void ModifyStats(float fireRate);
     void Shoot(float damageBuff, float criticalDamage);
     WeaponType GetWeaponType();
@@ -22,7 +22,7 @@ public abstract class BaseWeapon : MonoBehaviour, IWeaponItem
 
     public string shooterID;
 
-    public virtual void Init(string id, float fireRate, VesselAudioSystem audioSystem, AimAssist aimAssist, ProjectileType projectileType) { }
+    public virtual void Init(string id, float fireRate, VesselAudioSystem audioSystem, AimAssist aimAssist, ProjectileType projectileType, WeaponData weaponData) { }
 
     public virtual void ModifyStats(float fireRate) { }
 

@@ -74,6 +74,7 @@ MonoBehaviour:
       weaponData:
         projectileType: 0
         fireRate: 0.15
+        fireSound: 0
     alternativeWeaponInfo:
       weaponType: 0
       isEnabled: 0
@@ -83,6 +84,7 @@ MonoBehaviour:
       weaponData:
         projectileType: 0
         fireRate: 0
+        fireSound: 0
     secondaryWeaponInfo:
       weaponType: 0
       isEnabled: 0
@@ -92,6 +94,7 @@ MonoBehaviour:
       weaponData:
         projectileType: 0
         fireRate: 0
+        fireSound: 0
     baseShipStats:
       health: 150
       maxHealth: 100
@@ -123,10 +126,11 @@ MonoBehaviour:
       isEnabled: 1
       isParallel: 1
       isSequential: 0
-      isRandomised: 0
+      isRandomised: 1
       weaponData:
         projectileType: 0
-        fireRate: 0
+        fireRate: 0.3
+        fireSound: 1
     alternativeWeaponInfo:
       weaponType: 0
       isEnabled: 0
@@ -136,6 +140,7 @@ MonoBehaviour:
       weaponData:
         projectileType: 0
         fireRate: 0
+        fireSound: 0
     secondaryWeaponInfo:
       weaponType: 0
       isEnabled: 0
@@ -145,13 +150,14 @@ MonoBehaviour:
       weaponData:
         projectileType: 0
         fireRate: 0
+        fireSound: 0
     baseShipStats:
       health: 130
       maxHealth: 100
       healthRegen: 0
       healthRegenRate: 0.5
       hullResistence: 0
-      fireRate: 0.3
+      fireRate: 1
       statModifier:
         fireRateModif: 0
         healthRegenModif: 0
@@ -180,6 +186,7 @@ MonoBehaviour:
       weaponData:
         projectileType: 0
         fireRate: 0
+        fireSound: 0
     alternativeWeaponInfo:
       weaponType: 0
       isEnabled: 0
@@ -189,6 +196,7 @@ MonoBehaviour:
       weaponData:
         projectileType: 0
         fireRate: 0
+        fireSound: 0
     secondaryWeaponInfo:
       weaponType: 0
       isEnabled: 0
@@ -198,6 +206,7 @@ MonoBehaviour:
       weaponData:
         projectileType: 0
         fireRate: 0
+        fireSound: 0
     baseShipStats:
       health: 0
       maxHealth: 0

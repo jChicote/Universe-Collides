@@ -5,8 +5,10 @@ using UnityEngine;
 
 public class AIEvasion : AIState
 {
-    Vector3 evasionDir;
-    Quaternion targetRot;
+    private AIMovementController movementController;
+
+    private Vector3 evasionDir;
+    private Quaternion targetRot;
 
     public override void BeginState()
     {
@@ -14,7 +16,7 @@ public class AIEvasion : AIState
         objectID = controller.objectID;
         shipStats = GameManager.Instance.gameSettings.vesselStats.Where(x => x.type.Equals(controller.vesselSelection)).First();
 
-        //damageSystem = controller.damageSystem;
+        movementController = this.GetComponent<AIMovementController>();
     }
 
     void FixedUpdate()
@@ -27,26 +29,26 @@ public class AIEvasion : AIState
         if(controller.statHandler.CurrentHealth <= 0) AIDeath(); //Check if player is dead
 
         ChangeState();
-        DoMovement();
         if(controller.avoidanceSystem.DetectCollision()) return;
-        
-        DoMovement();
-        Evasion();
+
+        movementController.PerformMovement();
+        EvasionRotation();
         SetShipRoll();
     }
 
+    /// <summary>
+    /// Changes state when conditions are met
+    /// </summary>
     private void ChangeState() {
         targetDistance = Vector3.Distance(transform.position, GameManager.Instance.sceneController.playerController.transform.position);
         if(targetDistance > shipStats.maxProximityDist) controller.SetState<AIWander>();
         if(targetDistance > shipStats.pursuitDistance) controller.SetState<AIPursuit>();
     }
 
-    private void DoMovement() {
-        currentVelocity = (shipStats.speed * 2) * transform.forward * Time.fixedDeltaTime;
-        transform.position += currentVelocity;
-    }
-
-    private void Evasion() {
+    /// <summary>
+    /// Apples evasion rotation during flight.
+    /// </summary>
+    private void EvasionRotation() {
         target = GameManager.Instance.sceneController.playerController.gameObject; //CHANGE TO DYNAMIC TARGETING
         evasionDir= target.transform.position - transform.position;
         targetRot = Quaternion.LookRotation(-evasionDir);

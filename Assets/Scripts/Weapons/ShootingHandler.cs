@@ -41,13 +41,14 @@ public class ShootingHandler : MonoBehaviour
     /// </summary>
     private void ParallelFire()
     {
+        if (!canShoot) return;
+
         float randomVal = 0;
         foreach (IWeaponItem weapon in weaponItems)
         {
-            randomVal = Random.Range(0.0f, 1.0f);
-
             if (weaponInfo.isRandomised)
             {
+                randomVal = Random.Range(0.0f, 1.0f);
                 if (randomVal < 0.4f) return;
                 weapon.Shoot(statHandler.DamageBuff, statHandler.CriticalDamage);
             }

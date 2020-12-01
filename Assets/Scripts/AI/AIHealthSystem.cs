@@ -21,13 +21,15 @@ public class AIHealthSystem : MonoBehaviour, IHealthUpdate
     {
         if (isHealthRegenerating)
         {
-            StopCoroutine(RegenerateHealth());
+            StopCoroutine("RegenerateHealth");
             isHealthRegenerating = false;
         }
 
+        //Debug.Log("AI Enemy Health: " + actorStats.CurrentHealth);
+
         actorStats.CurrentHealth = healthValue;
-        StopCoroutine(RegenerateHealth());
-        StartCoroutine(RegenerateHealth());
+        StopCoroutine("RegenerateHealth");
+        StartCoroutine("RegenerateHealth");
     }
 
     /// <summary>

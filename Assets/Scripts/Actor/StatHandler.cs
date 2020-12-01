@@ -23,15 +23,7 @@ public class StatHandler
         currentFireRate = currentStats.fireRate;
         currentHealth = currentStats.maxHealth;
         damageBuff = currentStats.statModifier.damageModif;
-
-        //if(entityType == EntityType.Player) AssignUI();
     }
-
-    /*public void AssignUI() {
-        UIHudManager hudManager = GameManager.Instance.gameplayHUD;
-        hudManager.healthBar.Init(currentStats.maxHealth);
-        OnHealthChanged.AddListener(hudManager.healthBar.SetHealth);
-    }*/
 
     //TODO: Note, damage controller should handle the all of health regeneration,
     //      improper refactoring coupling systems together.

@@ -8,6 +8,7 @@ public interface ICannonTransform
     Transform GetTransform();
 }
 
+
 namespace PlayerSystems
 {
     public class FighterWeaponSystem : BaseWeaponSystem
@@ -16,6 +17,7 @@ namespace PlayerSystems
         public bool canShootPrimary = false;
         public bool canShootAlternative = false;
         public bool canShootSecondary = false;
+        public bool canAutoAim = true;
 
         [Header("Weapon Loadouts")]
         public GameObject[] primaryWeapons;
@@ -23,9 +25,9 @@ namespace PlayerSystems
         public GameObject[] secondaryWeapons;
 
         //Weapon Firing handlers
-        private ShootingHandler primaryWeaponHandler;
-        private ShootingHandler alternativeWeaponHandler;
-        private ShootingHandler secondaryWeaponHandler;
+        protected ShootingHandler primaryWeaponHandler;
+        protected ShootingHandler alternativeWeaponHandler;
+        protected ShootingHandler secondaryWeaponHandler;
 
         private bool isPaused = false;
 
@@ -57,7 +59,8 @@ namespace PlayerSystems
             {
                 primaryInstance = primaryWeapons[i].GetComponent<IWeaponItem>();
                 ProjectileType type = shipStats.primaryWeaponInfo.weaponData.projectileType;
-                primaryInstance.Init(objectID, controller.statHandler.FireRate, controller.audioSystem, aimAssist, type);
+                Debug.Log(shipStats.primaryWeaponInfo.weaponData.fireRate);
+                primaryInstance.Init(objectID, shipStats.primaryWeaponInfo.weaponData.fireRate, controller.audioSystem, aimAssist, type, shipStats.primaryWeaponInfo.weaponData);
                 primary.Add(primaryInstance);
             }
 
@@ -65,7 +68,7 @@ namespace PlayerSystems
             {
                 alternativeInstance = alternativeWeapons[i].GetComponent<IWeaponItem>();
                 ProjectileType type = shipStats.primaryWeaponInfo.weaponData.projectileType;
-                alternativeInstance.Init(objectID, controller.statHandler.FireRate, controller.audioSystem, aimAssist, type);
+                alternativeInstance.Init(objectID, controller.statHandler.FireRate, controller.audioSystem, aimAssist, type, shipStats.alternativeWeaponInfo.weaponData);
                 alternative.Add(alternativeInstance);
             }
 
@@ -73,7 +76,7 @@ namespace PlayerSystems
             {
                 secondaryInstance = secondaryWeapons[i].GetComponent<IWeaponItem>();
                 ProjectileType type = shipStats.primaryWeaponInfo.weaponData.projectileType;
-                secondaryInstance.Init(objectID, controller.statHandler.FireRate, controller.audioSystem, aimAssist, type);
+                secondaryInstance.Init(objectID, controller.statHandler.FireRate, controller.audioSystem, aimAssist, type, shipStats.secondaryWeaponInfo.weaponData);
                 secondary.Add(secondaryInstance);
             }
 
@@ -106,13 +109,13 @@ namespace PlayerSystems
         /// </summary>
         public override void RunSystem()
         {
+            //Debug.Log(GameManager.Instance.sceneController.playerController);
             if (isPaused)
             {
-                Debug.Log("Is Paused");
                 return;
             }
-            aimAssist.SetTargetInAimRange();
-
+            if(canAutoAim) aimAssist.SetTargetInAimRange();
+            
             if (canShootPrimary && primaryWeaponHandler != null)
             {
                 primaryWeaponHandler.RunWeaponsFire();

@@ -26,7 +26,7 @@ public class FighterDamageManager : DamageManager, IDamageReciever
     {
         float health = statHandler.CurrentHealth - damage;
         healthUpdater.SetHealthUpdate(health);
-        Debug.Log("Health: " + health);
+        //Debug.Log("Health: " + health);
     }
 
     public void OnRecievedDamage(float damage, string id, SoundType soundType)
@@ -34,7 +34,7 @@ public class FighterDamageManager : DamageManager, IDamageReciever
         float health = statHandler.CurrentHealth - damage;
         healthUpdater.SetHealthUpdate(health);
         audioSystem.PlaySoundEffect(soundType);
-        Debug.Log("Health: " + health);
+        //Debug.Log("Health: " + health);
     }
 
     public string GetObjectID()

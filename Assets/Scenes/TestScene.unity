@@ -2991,6 +2991,10 @@ MonoBehaviour:
   spawnAreas:
   - isOccupied: 0
     location: {fileID: 1303828519}
+  - isOccupied: 0
+    location: {fileID: 771520063}
+  - isOccupied: 0
+    location: {fileID: 820068037}
   OnEntityRespawn:
     m_PersistentCalls:
       m_Calls: []
