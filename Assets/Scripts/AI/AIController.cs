@@ -80,6 +80,7 @@ public class AIController : BaseEntityController, ISetBehaviour
     /// Method invoked if the player were to die and are final actions performed before death.
     /// </summary>
     public override void OnEntityDeath() {
+        base.OnEntityDeath();
         spawner.OnEntityRespawn.Invoke(objectID, vesselSelection, EntityType.AiComputer, teamColor);
         attachedPointer.RemovePointer();
         //GameManager.Instance.scoreManager.OnScoreEvent.Invoke(teamColor, 100);

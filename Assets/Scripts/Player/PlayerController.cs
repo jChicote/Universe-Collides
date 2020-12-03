@@ -76,6 +76,7 @@ namespace PlayerSystems
 
         public override void OnEntityDeath()
         {
+            base.OnEntityDeath();
             spawner.OnEntityRespawn.Invoke(objectID, vesselSelection, EntityType.Player, teamColor);
         }
     }

@@ -7,6 +7,8 @@ public class AIWander : AIState
 {
     private AIMovementController movementController;
 
+    private ITargetFinder targetFinder;
+
     private float wanderAngle;
     private Vector3 forwardVel;
     private Vector3 displacement;
@@ -20,8 +22,11 @@ public class AIWander : AIState
         objectID = controller.objectID;
         shipStats = GameManager.Instance.gameSettings.vesselStats.Where(x => x.type.Equals(controller.vesselSelection)).First();
 
+        targetFinder = this.GetComponent<ITargetFinder>();
         movementController = this.GetComponent<AIMovementController>();
+
         InvokeRepeating("SetNewAngle", 5f, 5f);
+        InvokeRepeating("CheckForNewTarget", 3f, 3f);
     }
 
     void FixedUpdate()
@@ -40,6 +45,15 @@ public class AIWander : AIState
 
         if(isReturning) {
             Wander();
+        }
+    }
+
+    private void CheckForNewTarget()
+    {
+        targetFinder.FindTarget();
+        if (targetFinder.GetTarget() != null)
+        {
+            controller.SetState<AIPursuit>();
         }
     }
 

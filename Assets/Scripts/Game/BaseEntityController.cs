@@ -8,16 +8,21 @@ public interface IIdentity {
     void SetObjectID(string objectID);
 }
 
-public interface IEntity {
+public interface ITeam
+{
+    TeamColor GetTeamColor();
+}
+
+public interface IEntity
+{
     void Init(SpawnManager spawner, TeamColor team);
     StatHandler GetStatHandler();
     void OnEntityDeath();
     string GetObjectID();
     void SetObjectID(string objectID);
-    TeamColor GetTeamColor();
 }
 
-public abstract class BaseEntityController : MonoBehaviour, IIdentity, IEntity
+public abstract class BaseEntityController : MonoBehaviour, IIdentity, IEntity, ITeam
 {
     [Header("Entity Description")]
     public string objectID = "defaultID";
@@ -50,5 +55,9 @@ public abstract class BaseEntityController : MonoBehaviour, IIdentity, IEntity
         return teamColor;
     }
 
-    public virtual void OnEntityDeath() {}
+    public virtual void OnEntityDeath() 
+    {
+        SceneController sceneController = GameManager.Instance.sceneController;
+        sceneController.CleanSpheres();
+    }
 }

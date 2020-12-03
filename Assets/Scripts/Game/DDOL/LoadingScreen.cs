@@ -42,7 +42,7 @@ public class LoadingScreen : MonoBehaviour, ILoadingScreen
     }
 
     /// <summary>
-    /// Animates between different background images.
+    /// Animates between different background images. NOT YET ADDED
     /// </summary>
     private void RevealImageSlides()
     {
@@ -64,7 +64,6 @@ public class LoadingScreen : MonoBehaviour, ILoadingScreen
     /// </summary>
     public void HideLoadingScreen()
     {
-        Debug.Log("Reached Here");
         loadingBar.value = 0;
         screenImage.color = Color.black;
 

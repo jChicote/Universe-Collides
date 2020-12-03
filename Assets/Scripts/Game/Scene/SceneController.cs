@@ -24,6 +24,9 @@ public class SceneController : MonoBehaviour
 
     public List<Dictionary<TeamColor, GameObject>> sceneEntities;
 
+    [Header("Travel Detection Spheres")]
+    public List<IDetectorSphere> sphereAreas;
+
     private GameSettings gameSettings;
     private SessionData sessionData;
 
@@ -35,6 +38,22 @@ public class SceneController : MonoBehaviour
         gameManager.sceneController = this;
         gameSettings = gameManager.gameSettings;
         sessionData = gameManager.sessionData;
+
+        GameObject[] allObjects = FindObjectsOfType<GameObject>();
+
+        sphereAreas = new List<IDetectorSphere>();
+        IDetectorSphere travelSphereInterface;
+
+        foreach (GameObject item in allObjects)
+        {
+            if (item.GetComponent<IDetectorSphere>() != null)
+            {
+                travelSphereInterface = item.GetComponent<IDetectorSphere>();
+                travelSphereInterface.Init();
+                sphereAreas.Add(travelSphereInterface);
+            }
+        }
+
         OnGameplayStart.AddListener(PrepareScene);
     }
 
@@ -87,6 +106,14 @@ public class SceneController : MonoBehaviour
         modeSpawner.Init(this, spawnerManagers[0], spawnerManagers[1]);
         modeSpawner.RunInstance();
         playerController = GameObject.FindObjectOfType<PlayerController>();
+    }
+
+    public void CleanSpheres()
+    {
+        foreach (IDetectorSphere detector in sphereAreas)
+        {
+            detector.CleanSphere();
+        }
     }
 
 }

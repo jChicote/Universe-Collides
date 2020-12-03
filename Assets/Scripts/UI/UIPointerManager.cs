@@ -31,7 +31,7 @@ public class UIPointerManager : MonoBehaviour
         GameObject prefab = GameManager.Instance.gameSettings.UiPointerControllerPrefab;
         UIEntityPointer pointer = Instantiate(prefab, this.transform).GetComponent<UIEntityPointer>();
 
-        Debug.Log(cam + " + " + canvasTransform);
+        //Debug.Log(cam + " + " + canvasTransform);
         pointer.Init(shipSpeed, GameManager.Instance.sceneController.sceneCamera, canvasTransform, target, this);
         entityPointers.Add(pointer);
         return pointer;

@@ -8,8 +8,10 @@ public class AIPursuit : AIState
     private TargetDirectionCheck dirChecker;
     private AIMovementController movementController;
 
+    // pursuit interfaces for weapons and targeting
     private IWeaponAim weaponAim;
-    private IAssignTarget targetAssigner;
+    private ITargetFinder targetFinder;
+    private ISetWeaponTarget weaponTargetSetter;
 
     private Vector3 pursuitDir;
     private Quaternion targetRot;
@@ -21,10 +23,15 @@ public class AIPursuit : AIState
         shipStats = GameManager.Instance.gameSettings.vesselStats.Where(x => x.type.Equals(controller.vesselSelection)).First();
         dirChecker = new TargetDirectionCheck();
 
+        //  Collect components for class
         weaponAim = this.GetComponent<IWeaponAim>();
         weaponSystem = this.GetComponent<IWeaponSystem>();
-        targetAssigner = this.GetComponent<IAssignTarget>();
+        targetFinder = this.GetComponent<ITargetFinder>();
+        weaponTargetSetter = this.GetComponent<ISetWeaponTarget>();
         movementController = this.GetComponent<AIMovementController>();
+
+        targetFinder.FindTarget();
+        weaponTargetSetter.SetTarget();
     }
 
     private void FixedUpdate()
@@ -34,29 +41,34 @@ public class AIPursuit : AIState
 
     public override void RunState() {
         if(isPaused) return;
-
-        if (CheckTargetExistene()) return;
-
-        //Check if ai is dead
+        //  Check if ai is dead
         if (controller.statHandler.CurrentHealth <= 0) AIDeath();
 
-        /// Testing purposes only ///
+        //  Perform ship movement
+        movementController.PerformMovement();
 
-        if(GameManager.Instance.sceneController.playerController.gameObject != null) {
-            //weaponSystem.SetNewTarget(GameManager.Instance.playerController.gameObject);//MUST REMOVE
-        }
-
-        if (weaponAim.CheckAimDirection())
-        {
-            weaponSystem.RunSystem();
-        }
-
-        ChangeState();
-        
+        //  Check for forward obstacles
         if (controller.avoidanceSystem.DetectCollision()) return;
 
-        //Perform Ship actions
-        movementController.PerformMovement();
+        //  Check whether target still exists
+        if (!CheckTargetExistene()) return;
+
+        //  Change ai state
+        ChangeState();
+
+        //  Pursue target when valid
+        PursuitTarget();
+    }
+
+    /// <summary>
+    /// Pursues valid identified target
+    /// </summary>
+    private void PursuitTarget()
+    {
+        //  Run weapon system
+        if (weaponAim.CheckAimDirection()) weaponSystem.RunSystem();
+
+        //  Perform Ship Rotation
         PursuitRotation();
         SetShipRoll();
     }
@@ -66,27 +78,27 @@ public class AIPursuit : AIState
     /// </summary>
     private bool CheckTargetExistene()
     {
-        targetAssigner.AssignTarget(GameManager.Instance.sceneController.playerController.gameObject); //TODO: convert this to a more dynamic target assigner
-        if (GameManager.Instance.sceneController.playerController == null)
+       // targetAssigner.AssignTarget(GameManager.Instance.sceneController.playerController.gameObject); //TODO: convert this to a more dynamic target assigner
+        if (targetFinder.GetTarget() == null)
         {
             controller.SetState<AIWander>();
-            return true;
+            return false;
         }
 
-        return false;
+        return true;
     }
 
     /// <summary>
     /// Respoonsible for switching state depending on the circumstances encountered.
     /// </summary>
     private void ChangeState() {
-        targetDistance = Vector3.Distance(transform.position, GameManager.Instance.sceneController.playerController.transform.position);
-        //if(targetDistance > shipStats.maxProximityDist) controller.SetState<AIWander>();
+        targetDistance = Vector3.Distance(transform.position, targetFinder.GetTarget().transform.position);
+        if(targetDistance > shipStats.maxProximityDist) controller.SetState<AIWander>();
         if(targetDistance < 10) controller.SetState<AIEvasion>();
     }
 
     /// <summary>
-    /// 
+    /// Calculates the rotation during pursuit
     /// </summary>
     private void PursuitRotation() {
         target = GameManager.Instance.sceneController.playerController.gameObject; //CHANGE TO DYNAMIC TARGETING

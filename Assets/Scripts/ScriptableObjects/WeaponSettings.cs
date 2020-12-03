@@ -54,6 +54,7 @@ public enum ImpactType {
 
 public enum ProjectileType {
     LaserBolt,
+    Ls_1_Bolt,
     Photon,
     Blaster,
     Phaser,

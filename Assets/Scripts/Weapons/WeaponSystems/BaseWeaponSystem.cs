@@ -55,7 +55,6 @@ public abstract class BaseWeaponSystem : MonoBehaviour, IWeaponSystem, IWeaponAi
     }
 
     public bool CheckAimDirection() {
-        Debug.Log(target);
         if(target == null || targetChecker == null) return false;
         Vector3 targetPos = target.transform.position;
 

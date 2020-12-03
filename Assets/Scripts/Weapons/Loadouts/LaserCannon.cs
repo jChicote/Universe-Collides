@@ -11,10 +11,10 @@ public class LaserCannon : BaseWeapon
 
     private AimAssist aimAssist;
 
-    public override void Init(string id, float fireRate, VesselAudioSystem audioSystem, AimAssist aimAssist, ProjectileType projectileType, WeaponData weaponData) {
+    public override void Init(string id, WeaponData weaponData, VesselAudioSystem audioSystem, AimAssist aimAssist, ProjectileType projectileType) {
         this.shooterID = id;
         this.audioSystem = audioSystem;
-        this.fireRate = fireRate;
+        this.fireRate = weaponData.fireRate;
         this.aimAssist = aimAssist;
 
         weaponSound = weaponData.fireSound;

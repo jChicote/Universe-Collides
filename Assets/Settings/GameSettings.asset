@@ -128,7 +128,7 @@ MonoBehaviour:
       isSequential: 0
       isRandomised: 1
       weaponData:
-        projectileType: 0
+        projectileType: 1
         fireRate: 0.3
         fireSound: 1
     alternativeWeaponInfo:
