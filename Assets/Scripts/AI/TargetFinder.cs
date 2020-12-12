@@ -87,7 +87,7 @@ public class TargetFinder : MonoBehaviour, ITargetFinder
         IDetectorSphere closestSphere = null;
         float closestDistance = 100000;
 
-        foreach(IDetectorSphere sphere in sceneController.sphereAreas) 
+        foreach(IDetectorSphere sphere in sceneController.sphereDetectors) 
         {
             float distance = Vector3.Distance(transform.position, sphere.GetSpherePosition());
 

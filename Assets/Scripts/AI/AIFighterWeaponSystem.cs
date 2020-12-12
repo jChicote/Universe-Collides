@@ -34,5 +34,6 @@ public class AIFighterWeaponSystem : FighterWeaponSystem, ISetWeaponTarget
     public void SetTarget()
     {
         this.target = targetFinder.GetTarget();
+        Debug.Log(target);
     }
 }

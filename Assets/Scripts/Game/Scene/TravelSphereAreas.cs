@@ -7,6 +7,7 @@ public interface IDetectorSphere
     void Init();
     Vector3 GetSpherePosition();
     List<GameObject> GetDetectedEntities();
+    void RegisterEntity(GameObject entity);
     void CleanSphere();
 }
 
@@ -53,6 +54,26 @@ public class TravelSphereAreas : MonoBehaviour, IDetectorSphere
 
         //   Replaces old array with cleaned array
         detectedEntities = cleanedArray;
+    }
+
+    public void RegisterEntity(GameObject entity)
+    {
+        if (CheckInArray(entity)) return;
+
+        detectedEntities.Add(entity);
+    }
+
+    private bool CheckInArray(GameObject entity)
+    {
+        foreach (GameObject localEntity in detectedEntities)
+        {
+            if (localEntity == entity)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private void OnTriggerEnter(Collider other)

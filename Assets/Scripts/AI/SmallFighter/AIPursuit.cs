@@ -18,6 +18,7 @@ public class AIPursuit : AIState
 
     public override void BeginState()
     {
+        Debug.Log("Begun Pursuit State");
         controller = this.GetComponent<AIController>();
         objectID = controller.objectID;
         shipStats = GameManager.Instance.gameSettings.vesselStats.Where(x => x.type.Equals(controller.vesselSelection)).First();

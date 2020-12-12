@@ -37,6 +37,8 @@ public abstract class BaseEntityController : MonoBehaviour, IIdentity, IEntity, 
     public virtual void Init(SpawnManager spawner, TeamColor team) {
         this.spawner = spawner;
         this.teamColor = team;
+
+        AutoRegisterToDetector();
     }
 
     public string GetObjectID() {
@@ -53,6 +55,31 @@ public abstract class BaseEntityController : MonoBehaviour, IIdentity, IEntity, 
 
     public TeamColor GetTeamColor() {
         return teamColor;
+    }
+
+    /// <summary>
+    /// This autoregisters the entity on spaqwn to its nearest detector.
+    /// </summary>
+    private void AutoRegisterToDetector()
+    {
+        SceneController sceneController = GameManager.Instance.sceneController;
+
+        float calculatedDistance = 0;
+        float shortestDistance = 10000000f;
+        IDetectorSphere closestDetector = null;
+
+        foreach (IDetectorSphere detector in sceneController.sphereDetectors)
+        {
+            calculatedDistance = Vector3.Magnitude(detector.GetSpherePosition());
+
+            if (calculatedDistance < shortestDistance)
+            {
+                closestDetector = detector;
+                shortestDistance = calculatedDistance;
+            }
+        }
+
+        closestDetector.RegisterEntity(this.gameObject);
     }
 
     public virtual void OnEntityDeath() 

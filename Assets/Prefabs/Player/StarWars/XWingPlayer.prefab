@@ -424,7 +424,9 @@ MonoBehaviour:
     speed: 0
     damage: 0
   audioSystem: {fileID: 0}
+  weaponSound: 0
   fireRate: 0
+  canRecoilSway: 0
   isShooting: 1
   transformIndex: 0
   shooterID: 
@@ -902,6 +904,7 @@ MonoBehaviour:
       weaponData:
         projectileType: 0
         fireRate: 0
+        fireSound: 0
     alternativeWeaponInfo:
       weaponType: 0
       isEnabled: 0
@@ -911,6 +914,7 @@ MonoBehaviour:
       weaponData:
         projectileType: 0
         fireRate: 0
+        fireSound: 0
     secondaryWeaponInfo:
       weaponType: 0
       isEnabled: 0
@@ -920,6 +924,7 @@ MonoBehaviour:
       weaponData:
         projectileType: 0
         fireRate: 0
+        fireSound: 0
     baseShipStats:
       health: 0
       maxHealth: 0
@@ -939,6 +944,7 @@ MonoBehaviour:
   canShootPrimary: 0
   canShootAlternative: 0
   canShootSecondary: 0
+  canAutoAim: 1
   primaryWeapons:
   - {fileID: 7600312531744996623}
   - {fileID: 4667585115338450643}
@@ -5720,7 +5726,9 @@ MonoBehaviour:
     speed: 0
     damage: 0
   audioSystem: {fileID: 0}
+  weaponSound: 0
   fireRate: 0
+  canRecoilSway: 0
   isShooting: 1
   transformIndex: 0
   shooterID: 
@@ -5837,7 +5845,9 @@ MonoBehaviour:
     speed: 0
     damage: 0
   audioSystem: {fileID: 0}
+  weaponSound: 0
   fireRate: 0
+  canRecoilSway: 0
   isShooting: 1
   transformIndex: 0
   shooterID: 
@@ -5862,7 +5872,9 @@ MonoBehaviour:
     speed: 0
     damage: 0
   audioSystem: {fileID: 0}
+  weaponSound: 0
   fireRate: 0
+  canRecoilSway: 0
   isShooting: 1
   transformIndex: 0
   shooterID: 

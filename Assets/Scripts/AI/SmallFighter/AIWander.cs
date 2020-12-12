@@ -18,6 +18,7 @@ public class AIWander : AIState
 
     public override void BeginState()
     {
+        Debug.Log("Begun Wander State");
         controller = this.GetComponent<AIController>();
         objectID = controller.objectID;
         shipStats = GameManager.Instance.gameSettings.vesselStats.Where(x => x.type.Equals(controller.vesselSelection)).First();
@@ -50,6 +51,7 @@ public class AIWander : AIState
 
     private void CheckForNewTarget()
     {
+        Debug.Log("Checking for new target");
         targetFinder.FindTarget();
         if (targetFinder.GetTarget() != null)
         {

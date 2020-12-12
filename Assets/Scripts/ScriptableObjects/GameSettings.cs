@@ -10,6 +10,7 @@ public class GameSettings : ScriptableObject
     public WeaponSettings weaponSettings;
     public AudioSettings audioSettings;
     public PowerupSettings powerupSettings;
+    public EffectsSettings effectsSettings;
 
     [Header ("Base Canvas")]
     public GameObject animatingCanvas;

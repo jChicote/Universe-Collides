@@ -16,6 +16,7 @@ MonoBehaviour:
   weaponSettings: {fileID: 11400000, guid: 989fdeef64c204a2f8536e291b54a416, type: 2}
   audioSettings: {fileID: 11400000, guid: a3ef3a6ca6c344e11b3930dd20ee651c, type: 2}
   powerupSettings: {fileID: 11400000, guid: d3a2f7b97e7d94089bdd50745e4adbf2, type: 2}
+  effectsSettings: {fileID: 11400000, guid: 219dd10b87a02c641b009298c59e0151, type: 2}
   animatingCanvas: {fileID: 6923199281808421080, guid: e725df948e9344d39b1e8dfeafda1cd4,
     type: 3}
   sceneCamera: {fileID: 7194062120517304673, guid: c780b125553cf49bb9b8fa9b845faf24,

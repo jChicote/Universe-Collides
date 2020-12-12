@@ -5,10 +5,19 @@ using UnityEngine;
 
 public class DeathState : BaseState
 {
-    BaseEntityController controller;
-    Rigidbody entityRB;
+    public enum DeathTypes
+    {
+        SpinDeath,
+        InstantDeath,
+        VesselSegregation,
+        RollDeath
+    }
 
-    float shipSpeed = 0;
+    private DeathTypes deathSelection;
+    private BaseEntityController controller;
+    private Rigidbody entityRB;
+
+    private float shipSpeed = 0;
 
     public override void BeginState()
     {
@@ -25,15 +34,57 @@ public class DeathState : BaseState
         RigidbodyConstraints deathConstraints = RigidbodyConstraints.None;
         entityRB.constraints = deathConstraints;
         Invoke("RemoveFromScene", 3f);
+
+        deathSelection = (DeathTypes)Random.Range(0, 3);
     }
 
     void FixedUpdate()
     {
-        transform.Rotate(0.5f, 2f, 2f);
         transform.position += transform.forward * (shipSpeed * 2f) * Time.fixedDeltaTime;
+        
+        switch (deathSelection)
+        {
+            case DeathTypes.SpinDeath:
+                SpinDeath();
+                break;
+            case DeathTypes.InstantDeath:
+                InstantDeath();
+                break;
+            case DeathTypes.VesselSegregation:
+                VesselSegregationDeath();
+                break;
+            case DeathTypes.RollDeath:
+                RollDeath();
+                break;
+        }
     }
 
-    public void RemoveFromScene() {
+    private void SpinDeath()
+    {
+        transform.Rotate(0.5f, 2f, 2f);
+    }
+
+    private void InstantDeath()
+    {
+        RemoveFromScene();
+    }
+
+    private void VesselSegregationDeath()
+    {
+        transform.Rotate(0f, 0f, 5f);
+        //Run segregation systems
+    }
+
+    private void RollDeath()
+    {
+        transform.Rotate(0f, 0f, 10f);
+    }
+
+    public void RemoveFromScene() 
+    {
+        //Run animation explosion
+        GameObject effectsPrefab = GameManager.Instance.gameSettings.effectsSettings.shipExplosions[0]; // Getting first for now
+        Instantiate(effectsPrefab, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 

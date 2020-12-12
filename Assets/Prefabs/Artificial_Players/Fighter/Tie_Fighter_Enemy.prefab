@@ -147,7 +147,9 @@ MonoBehaviour:
     speed: 0
     damage: 0
   audioSystem: {fileID: 0}
+  weaponSound: 0
   fireRate: 0
+  canRecoilSway: 1
   isShooting: 1
   transformIndex: 0
   shooterID: 
@@ -172,7 +174,9 @@ MonoBehaviour:
     speed: 0
     damage: 0
   audioSystem: {fileID: 0}
+  weaponSound: 0
   fireRate: 0
+  canRecoilSway: 1
   isShooting: 1
   transformIndex: 0
   shooterID: 

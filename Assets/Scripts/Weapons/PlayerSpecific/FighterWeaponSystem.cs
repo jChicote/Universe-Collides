@@ -59,7 +59,7 @@ namespace PlayerSystems
             {
                 primaryInstance = primaryWeapons[i].GetComponent<IWeaponItem>();
                 ProjectileType type = shipStats.primaryWeaponInfo.weaponData.projectileType;
-                primaryInstance.Init(objectID, shipStats.primaryWeaponInfo.weaponData, controller.audioSystem, aimAssist, type);
+                primaryInstance.Init(objectID, shipStats.primaryWeaponInfo, controller.audioSystem, aimAssist, type);
                 primary.Add(primaryInstance);
             }
 
@@ -67,7 +67,7 @@ namespace PlayerSystems
             {
                 alternativeInstance = alternativeWeapons[i].GetComponent<IWeaponItem>();
                 ProjectileType type = shipStats.primaryWeaponInfo.weaponData.projectileType;
-                alternativeInstance.Init(objectID, shipStats.primaryWeaponInfo.weaponData, controller.audioSystem, aimAssist, type);
+                alternativeInstance.Init(objectID, shipStats.secondaryWeaponInfo, controller.audioSystem, aimAssist, type);
                 alternative.Add(alternativeInstance);
             }
 
@@ -75,7 +75,7 @@ namespace PlayerSystems
             {
                 secondaryInstance = secondaryWeapons[i].GetComponent<IWeaponItem>();
                 ProjectileType type = shipStats.primaryWeaponInfo.weaponData.projectileType;
-                secondaryInstance.Init(objectID, shipStats.primaryWeaponInfo.weaponData, controller.audioSystem, aimAssist, type);
+                secondaryInstance.Init(objectID, shipStats.alternativeWeaponInfo, controller.audioSystem, aimAssist, type);
                 secondary.Add(secondaryInstance);
             }
 
