@@ -30,10 +30,10 @@ public class DeathState : BaseState
         shipSpeed = vesselStats.speed;
 
         entityRB = this.GetComponent<Rigidbody>();
-        entityRB.isKinematic = true;
+        //entityRB.isKinematic = true;
         RigidbodyConstraints deathConstraints = RigidbodyConstraints.None;
         entityRB.constraints = deathConstraints;
-        Invoke("RemoveFromScene", 3f);
+        Invoke("Explode", 2f);
 
         deathSelection = (DeathTypes)Random.Range(0, 3);
     }
@@ -66,7 +66,7 @@ public class DeathState : BaseState
 
     private void InstantDeath()
     {
-        RemoveFromScene();
+        Explode();
     }
 
     private void VesselSegregationDeath()
@@ -80,12 +80,35 @@ public class DeathState : BaseState
         transform.Rotate(0f, 0f, 10f);
     }
 
-    public void RemoveFromScene() 
+    public void Explode() 
     {
         //Run animation explosion
         GameObject effectsPrefab = GameManager.Instance.gameSettings.effectsSettings.shipExplosions[0]; // Getting first for now
-        Instantiate(effectsPrefab, transform.position, Quaternion.identity);
+        Instantiate(effectsPrefab, transform.position, transform.rotation);
+
+        IExplosionShake explosionShaker;
+
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 1000f);
+        foreach (Collider collision in hitColliders)
+        {
+            //Debug.Log(collision.gameObject.transform.parent.name);
+            if (collision.gameObject.transform.root.GetComponent<IExplosionShake>() != null)
+            {
+                Debug.Log("Has encountered camera");
+                explosionShaker = collision.gameObject.transform.root.GetComponent<IExplosionShake>();
+                explosionShaker.TriggerExplosionShake(transform.position);
+            }
+        }
+
         Destroy(gameObject);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+       if (collision.gameObject.CompareTag("Player"))
+       {
+            Explode();
+       }
     }
 
     /*blic override void OnRecievedDamage(float damage, string id, SoundType soundType) {

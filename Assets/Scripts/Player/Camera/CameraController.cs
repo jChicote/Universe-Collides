@@ -46,6 +46,9 @@ namespace PlayerSystems
             this.virtualCamera = camera;
             PlayerSettings playerSettings = GameManager.Instance.gameSettings.playerSettings;
             attributes = playerSettings.cameraAttributes.Where(x => x.type == vesselType).First();
+
+            CameraExternalShake externalShaker = this.GetComponent<CameraExternalShake>();
+            externalShaker.Init(camera);
         }
 
 
@@ -216,6 +219,11 @@ public class CameraShaker
     {
         minimumValue = minVal;
         maximumValue = maxVal;
+    }
+
+    public void SetShakeValue(float value)
+    {
+        shakeValue = value;
     }
 
     public bool IncreaseShake(float incrementVal)
