@@ -1,0 +1,238 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 498791e5830a54cc9b73b24277db195d, type: 3}
+  m_Name: GameSettings
+  m_EditorClassIdentifier: 
+  playerSettings: {fileID: 11400000, guid: 523fe6efda0d44505b9babe09169accf, type: 2}
+  weaponSettings: {fileID: 11400000, guid: 989fdeef64c204a2f8536e291b54a416, type: 2}
+  audioSettings: {fileID: 11400000, guid: a3ef3a6ca6c344e11b3930dd20ee651c, type: 2}
+  powerupSettings: {fileID: 11400000, guid: d3a2f7b97e7d94089bdd50745e4adbf2, type: 2}
+  effectsSettings: {fileID: 11400000, guid: 219dd10b87a02c641b009298c59e0151, type: 2}
+  animatingCanvas: {fileID: 6923199281808421080, guid: e725df948e9344d39b1e8dfeafda1cd4,
+    type: 3}
+  sceneCamera: {fileID: 7194062120517304673, guid: c780b125553cf49bb9b8fa9b845faf24,
+    type: 3}
+  audioManagerPrefab: {fileID: 582465508603545342, guid: ca4b1b090f1954b4aa62ed2491f7d33d,
+    type: 3}
+  scoreManagerPrefab: {fileID: 5523738369006880800, guid: cd9aa3ace47a74e438ea2b4a7f60fd79,
+    type: 3}
+  postProcessingPrefab: {fileID: 7977024648701742790, guid: 99a833f125dc0470fa16cdd46d39e3b1,
+    type: 3}
+  UIHudPrefab: {fileID: 2456526430375880183, guid: 260044937dac649caafeb44757e5f541,
+    type: 3}
+  UIPointerManagerPrefab: {fileID: 8906654455481472808, guid: 96770d2c05f3c40f584279d23e2df958,
+    type: 3}
+  UiPointerControllerPrefab: {fileID: 443264432489087075, guid: 59ca0d3a951b0409087409e1db421f56,
+    type: 3}
+  arrowUIPrefab: {fileID: 2637925461059868768, guid: 7ae48bb90675445e98d68251f7de5743,
+    type: 3}
+  pointerUIPrefab: {fileID: 6439772815771800707, guid: f77dbc88103364d6b8b7e3da768d772b,
+    type: 3}
+  predictiveUIPrefab: {fileID: 1916640238936349950, guid: b15a1fee86b9d41b396c309f47858584,
+    type: 3}
+  UIaimSightPrefab: {fileID: 6774373207111884642, guid: 9dfa2c11a7f62457ab1d501f7aec5e94,
+    type: 3}
+  mainMenuPrefab: {fileID: 1172539618945808642, guid: afa1ab848539d4661aab3e0ded5bfc8a,
+    type: 3}
+  scoreUIPrefab: {fileID: 5735469882637455552, guid: 5302209523499495ea69d20ef7bf93c2,
+    type: 3}
+  healthBarUIPrefab: {fileID: 1309509834499408784, guid: e74808f059c6e44be91c7ab9b0db54f8,
+    type: 3}
+  thrustUIPrefab: {fileID: 7266482254992480369, guid: 03b2c4cf22ed6464cb6046788cea4528,
+    type: 3}
+  playerPrefab: {fileID: 5601508052107788582, guid: 4bfd7f2325e3f498ca6087cdaddaf9e4,
+    type: 3}
+  targetedColor: {r: 1, g: 0, b: 0, a: 0}
+  idleColor: {r: 1, g: 0.06152262, b: 0, a: 0}
+  vesselStats:
+  - type: 0
+    maxProximityDist: 150
+    evasionDist: 20
+    stableAngleLimit: 0
+    yawRate: 15
+    extraYaw: 30
+    pitchRate: 15
+    extraPitch: 30
+    rollRate: 15
+    extraRoll: 30
+    speed: 13
+    throttleSpeed: 10
+    primaryWeaponInfo:
+      weaponType: 0
+      isEnabled: 1
+      isParallel: 0
+      isSequential: 1
+      isRandomised: 0
+      weaponData:
+        projectileType: 0
+        fireRate: 0.15
+        fireSound: 0
+    alternativeWeaponInfo:
+      weaponType: 0
+      isEnabled: 0
+      isParallel: 0
+      isSequential: 0
+      isRandomised: 0
+      weaponData:
+        projectileType: 0
+        fireRate: 0
+        fireSound: 0
+    secondaryWeaponInfo:
+      weaponType: 0
+      isEnabled: 0
+      isParallel: 0
+      isSequential: 0
+      isRandomised: 0
+      weaponData:
+        projectileType: 0
+        fireRate: 0
+        fireSound: 0
+    baseShipStats:
+      health: 150
+      maxHealth: 100
+      healthRegen: 5
+      healthRegenRate: 0.5
+      hullResistence: 0
+      fireRate: 0.15
+      statModifier:
+        fireRateModif: 0
+        healthRegenModif: 0
+        damageModif: 0.5
+      damageInfo:
+        critDMG: 10
+        critChance: 0.3
+  - type: 1
+    maxProximityDist: 130
+    evasionDist: 20
+    stableAngleLimit: 0
+    yawRate: 15
+    extraYaw: 20
+    pitchRate: 15
+    extraPitch: 20
+    rollRate: 15
+    extraRoll: 20
+    speed: 15
+    throttleSpeed: 7
+    primaryWeaponInfo:
+      weaponType: 0
+      isEnabled: 1
+      isParallel: 1
+      isSequential: 0
+      isRandomised: 1
+      weaponData:
+        projectileType: 1
+        fireRate: 0.3
+        fireSound: 1
+    alternativeWeaponInfo:
+      weaponType: 0
+      isEnabled: 0
+      isParallel: 0
+      isSequential: 0
+      isRandomised: 0
+      weaponData:
+        projectileType: 0
+        fireRate: 0
+        fireSound: 0
+    secondaryWeaponInfo:
+      weaponType: 0
+      isEnabled: 0
+      isParallel: 0
+      isSequential: 0
+      isRandomised: 0
+      weaponData:
+        projectileType: 0
+        fireRate: 0
+        fireSound: 0
+    baseShipStats:
+      health: 130
+      maxHealth: 100
+      healthRegen: 0
+      healthRegenRate: 0.5
+      hullResistence: 0
+      fireRate: 1
+      statModifier:
+        fireRateModif: 0
+        healthRegenModif: 0
+        damageModif: 0
+      damageInfo:
+        critDMG: 20
+        critChance: 0.1
+  - type: 2
+    maxProximityDist: 0
+    evasionDist: 0
+    stableAngleLimit: 0
+    yawRate: 15
+    extraYaw: 20
+    pitchRate: 15
+    extraPitch: 20
+    rollRate: 20
+    extraRoll: 25
+    speed: 20
+    throttleSpeed: 7
+    primaryWeaponInfo:
+      weaponType: 0
+      isEnabled: 0
+      isParallel: 0
+      isSequential: 0
+      isRandomised: 0
+      weaponData:
+        projectileType: 0
+        fireRate: 0
+        fireSound: 0
+    alternativeWeaponInfo:
+      weaponType: 0
+      isEnabled: 0
+      isParallel: 0
+      isSequential: 0
+      isRandomised: 0
+      weaponData:
+        projectileType: 0
+        fireRate: 0
+        fireSound: 0
+    secondaryWeaponInfo:
+      weaponType: 0
+      isEnabled: 0
+      isParallel: 0
+      isSequential: 0
+      isRandomised: 0
+      weaponData:
+        projectileType: 0
+        fireRate: 0
+        fireSound: 0
+    baseShipStats:
+      health: 0
+      maxHealth: 0
+      healthRegen: 0
+      healthRegenRate: 0
+      hullResistence: 0
+      fireRate: 0
+      statModifier:
+        fireRateModif: 0
+        healthRegenModif: 0
+        damageModif: 0
+      damageInfo:
+        critDMG: 0
+        critChance: 0
+  vesselObjects:
+  - entityType: 0
+    vesselType: 0
+    objectPrefab: {fileID: 5601508052107788582, guid: 4bfd7f2325e3f498ca6087cdaddaf9e4,
+      type: 3}
+  - entityType: 1
+    vesselType: 1
+    objectPrefab: {fileID: 5718407724837510089, guid: 33fc84f418c6541e289770612416dbfb,
+      type: 3}
+  battleSpawnModes:
+  - mode: 0
+    className: FreeForAllSpawner
+  - mode: 1
+    className: TeamBattleSpawner

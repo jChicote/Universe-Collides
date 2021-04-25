@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc92a50d12e174a089f21ce61e7b5b36, type: 3}
+  m_Name: PlayerSettings
+  m_EditorClassIdentifier: 
+  sensitivity: 2
+  cameraAttributes:
+  - type: 0
+    defaultXDamp: 1
+    defaultYDamp: 0.2
+    defaultZDamp: 0.2
+    focusedXDamp: 0
+    focusedYDamp: 0.1
+    focusedZDamp: 0.1
+    defaultPitchDamp: 0.3
+    defaultYawDamp: 1
+    defaultRollDamp: 0.3
+    focusedPitchDamp: 0.1
+    focusedYawDamp: 0
+    focusedRollDamp: 0
+    composerDefaultY: 1.44
+    composerModifiedY: 1
+    composerThrustY: 2
+    defaultZOffset: -6
+    defaultYOffset: 1.3
+    modifiedZOffset: -3
+    modifiedYOffset: 1
+    thrustZOffset: -6
+    thrustYOffset: 3
+    minFOV: 55
+    maxFOV: 70
+    defaultFOV: 60

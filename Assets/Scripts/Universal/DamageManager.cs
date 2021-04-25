@@ -1,0 +1,19 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public interface IDamageReciever { 
+    void OnRecievedDamage(float damage, string id, SoundType soundType);
+    string GetObjectID();
+}
+
+public abstract class DamageManager: MonoBehaviour
+{
+    protected StatHandler statHandler;
+
+    //public abstract void Init(IWeaponSystem weaponSystem, StatHandler statHandler);
+
+    public abstract void CalculateHealth(float damage, string id);
+    
+    public abstract void OnDeath(Vector3 position);
+}
