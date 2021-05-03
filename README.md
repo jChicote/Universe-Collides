@@ -13,7 +13,7 @@ other graphics based project throughout the current year.
 
 ![Example Photo 2](images/universe-collide-development.png "Dev Test Screenshot")
 
-![Example Photo 1](images/universe-collide-gameplay2.png "Dev Gameplay Screenshot")
+![Example Photo 1](images/universe-collide-gameplay-2.png "Dev Gameplay Screenshot")
 
 ![Example Photo 1](images/universe-shot-1.png "Thruster shader dev")
 
